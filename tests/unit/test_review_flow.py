@@ -74,9 +74,10 @@ def test_full_flow_with_fake_llm(engine):
 def test_same_input_same_report(engine):
     r1 = engine.reviewer(FakeLLM(scripted)).review(DRAFT)
     r2 = engine.reviewer(FakeLLM(scripted)).review(DRAFT)
-    strip = lambda r: [
-        (f.id, f.rule_id, f.evidence_status, f.action, f.explanation) for f in r.findings
-    ]  # noqa: E731
+
+    def strip(r):
+        return [(f.id, f.rule_id, f.evidence_status, f.action, f.explanation) for f in r.findings]
+
     assert strip(r1) == strip(r2)
 
 
