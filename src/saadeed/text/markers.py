@@ -1,0 +1,161 @@
+"""المرور الحتمي على العلامات (FR-13): يكمّل استخراج النموذج ولا يعتمد عليه.
+
+ما يكشفه بالقواعد وحدها:
+- ما بين القوسين القرآنيين ﴿ ﴾، أو بعد «قال تعالى» بين علامات تنصيص.
+- ما بين «» بعد ذكر النبي ﷺ.
+- نسبة التخريج بعد الحديث: «رواه البخاري»، «متفق عليه».
+- الإحالة القرآنية بعد الآية: [البقرة: 255].
+- صيغة «ما معناه» التي تجعل النقل بالمعنى.
+
+فلو تعطل النموذج كليًا، بقيت الآيات والأحاديث المعلَّمة تُفحص (الفشل الآمن، م١٦).
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+
+from saadeed.domain.quran_meta import SURA_ALIASES, SURA_NAMES
+from saadeed.text.normalize import normalize
+
+_DIG = "0-9٠-٩"
+
+
+@dataclass
+class Marked:
+    kind: str  # quran | hadith
+    text: str
+    start: int
+    end: int
+    cited_ref: str | None = None
+    ref_parsed: tuple[int, int, int] | None = None  # (sura, from, to)
+    cited_book: str | None = None
+    verbatim: bool = True
+    notes: list[str] = field(default_factory=list)
+
+
+_QURAN_BRACKETS = re.compile(r"﴿([^﴾]{2,1500})﴾")
+_QURAN_INTRO = re.compile(
+    r"(?:قال|يقول|وقال|ويقول|قوله|لقوله|كقوله)\s+(?:الله\s+)?(?:تعالى|سبحانه(?:\s+وتعالى)?|عز\s+وجل|جل\s+وعلا|تبارك\s+وتعالى)"
+    r"\s*[:：،]?\s*[«\"“{(]([^»\"”})]{2,1500})[»\"”})]"
+)
+_PROPHET = r"(?:ﷺ|صلى\s+الله\s+عليه\s+وسلم|عليه\s+الصلاة\s+والسلام|عليه\s+السلام|النبي|رسول\s+الله|المصطفى)"
+_HADITH_QUOTE = re.compile(_PROPHET + r"[^«\"“\n]{0,60}?[:：،]?\s*[«\"“]([^»\"”]{4,1500})[»\"”]")
+_MEANING = re.compile(r"(?:ما\s+معناه|بمعناه|معنى\s+الحديث|ما\s+مفاده|نحو\s+قوله|في\s+معناه)")
+_BOOKS = (
+    r"(?:الإمام\s+)?(?:البخاري|مسلم|أبو\s+داود|ابو\s+داود|أبي\s+داود|الترمذي|النسائي|ابن\s+ماجه|ابن\s+ماجة|أحمد|مالك|الدارمي|"
+    r"ابن\s+حبان|الحاكم|الطبراني|البيهقي|ابن\s+خزيمة|الدارقطني)"
+)
+_TAKHRIJ = re.compile(
+    r"^\s*[\(\[]?\s*(?:(?:رواه|أخرجه|اخرجه|رواها)\s+("
+    + _BOOKS
+    + r"(?:\s+و\s*"
+    + _BOOKS
+    + r")*)|(متفق\s+عليه))"
+)
+_REF = re.compile(
+    r"^\s*[\[(]\s*(?:سورة\s+)?([^\]):：،0-9٠-٩]{1,20}?)\s*[:：،,\-]?\s*(?:الآية|آية|الاية|اية)?\s*(["
+    + _DIG
+    + r"]+)"
+    r"(?:\s*[-–—]\s*([" + _DIG + r"]+))?\s*[\])]"
+)
+
+_SURA_INDEX: dict[str, int] = {normalize(n): i + 1 for i, n in enumerate(SURA_NAMES)}
+_SURA_INDEX.update({normalize(k): v for k, v in SURA_ALIASES.items()})
+_ARABIC_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩", "0123456789")
+
+
+def parse_ref(raw: str) -> tuple[int, int, int] | None:
+    """يحلل إحالة مثل «البقرة: 255» أو «[الأحزاب: ٧٠–٧١]» إلى (السورة، من، إلى)."""
+    text = raw.strip()
+    if not text.startswith(("[", "(")):
+        text = f"[{text}]"
+    m = _REF.match(text)
+    if not m:
+        return None
+    name = normalize(m.group(1)).replace("سوره ", "").strip()
+    sura = _SURA_INDEX.get(name)
+    if sura is None:
+        return None
+    a = int(m.group(2).translate(_ARABIC_DIGITS))
+    b = int(m.group(3).translate(_ARABIC_DIGITS)) if m.group(3) else a
+    return sura, a, b
+
+
+def _ref_after(text: str, pos: int) -> tuple[str | None, tuple[int, int, int] | None]:
+    window = text[pos : pos + 60]
+    m = _REF.match(window)
+    if not m:
+        return None, None
+    return m.group(0).strip(), parse_ref(m.group(0))
+
+
+def _takhrij_after(text: str, pos: int) -> str | None:
+    window = text[pos : pos + 80]
+    m = _TAKHRIJ.match(window)
+    if not m:
+        return None
+    return (m.group(1) or m.group(2) or "").strip() or None
+
+
+def scan(text: str) -> list[Marked]:
+    """يكشف الآيات والأحاديث المعلَّمة في المسودة، بمواضعها."""
+    found: list[Marked] = []
+    taken: list[tuple[int, int]] = []
+
+    def overlaps(s: int, e: int) -> bool:
+        return any(s < te and ts < e for ts, te in taken)
+
+    for rx in (_QURAN_BRACKETS, _QURAN_INTRO):
+        for m in rx.finditer(text):
+            s, e = m.start(1), m.end(1)
+            if overlaps(s, e):
+                continue
+            cited, parsed = _ref_after(text, m.end())
+            found.append(
+                Marked("quran", m.group(1).strip(), s, e, cited_ref=cited, ref_parsed=parsed)
+            )
+            taken.append((s, e))
+
+    for m in _HADITH_QUOTE.finditer(text):
+        s, e = m.start(1), m.end(1)
+        if overlaps(s, e):
+            continue
+        before = text[max(0, m.start() - 40) : s]
+        verbatim = not _MEANING.search(before)
+        book = _takhrij_after(text, m.end())
+        found.append(Marked("hadith", m.group(1).strip(), s, e, cited_book=book, verbatim=verbatim))
+        taken.append((s, e))
+
+    found.sort(key=lambda x: x.start)
+    return found
+
+
+_BOOK_CANON = {
+    "البخاري": "bukhari",
+    "مسلم": "muslim",
+    "ابو داود": "abudawud",
+    "ابي داود": "abudawud",
+    "الترمذي": "tirmidhi",
+    "النسائي": "nasai",
+    "ابن ماجه": "ibnmajah",
+}
+
+
+def canonical_books(cited: str | None) -> set[str]:
+    """«رواه البخاري ومسلم» ← {bukhari, muslim}. و«متفق عليه» ← كذلك.
+
+    كتب خارج الستة تعود باسم `other`.
+    """
+    if not cited:
+        return set()
+    n = normalize(cited)
+    if "متفق عليه" in n or "الصحيحين" in n or "الشيخين" in n:
+        return {"bukhari", "muslim"}
+    books: set[str] = set()
+    for key, canon in _BOOK_CANON.items():
+        if normalize(key) in n:
+            books.add(canon)
+    if not books and n:
+        books.add("other")
+    return books
