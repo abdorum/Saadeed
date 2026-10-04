@@ -43,6 +43,7 @@ class SystemRun(BaseModel):
     completion_tokens: int = 0
     llm_calls: int = 0
     error: str | None = None
+    warnings: list[str] = Field(default_factory=list)
 
 
 def run_saadeed(
@@ -84,7 +85,7 @@ def run_saadeed(
         prompt_tokens=rep.meta.prompt_tokens,
         completion_tokens=rep.meta.completion_tokens,
         llm_calls=rep.meta.llm_calls,
-        error="; ".join(rep.meta.warnings) or None,
+        warnings=rep.meta.warnings,
     )
 
 

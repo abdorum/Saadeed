@@ -67,13 +67,14 @@ def run_eval(
                 runs[system].append(r)
                 log(
                     f"[{system} · run {run}] {carrier.carrier_id}: {len(r.preds)} ملاحظة · {int((time.monotonic() - t0) * 1000)} ms"
-                    + (f" · ⚠ {r.error[:80]}" if r.error else "")
+                    + (f" · ✗ {r.error[:80]}" if r.error else "")
+                    + (f" · ⚠ {len(r.warnings)} تحذير" if r.warnings else "")
                 )
     metrics = compute(cases, runs, engine)
     metrics.update(
         split=split,
         k=k,
-        systems=systems,
+        systems_run=systems,
         overreach=overreach,
         replay=replay,
         model=(base_llm.model_id if base_llm else "replay"),
@@ -108,7 +109,7 @@ def _pct(v: float | None) -> str:
 
 
 def render_markdown(m: dict[str, Any]) -> str:
-    sys_names = list(m["systems"].keys()) if isinstance(m["systems"], dict) else m["systems"]
+    sys_names = list(m["systems"].keys())
     S = m["systems"]
     lines = [
         f"# تقرير التقييم — {m['split']} · k={m['k']}",

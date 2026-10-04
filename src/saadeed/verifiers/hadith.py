@@ -273,6 +273,11 @@ class HadithVerifier:
                     break
             return out
 
+        # الشاهد من الكتاب الذي نسبه الكاتب إليه يتقدّم.
+        def cited_first(idxs: list[int]) -> list[int]:
+            return sorted(idxs, key=lambda i: self.index.docs[i].source_id not in cited)
+
+        authentic, locate = cited_first(authentic), cited_first(locate)
         if authentic:
             ev = evidence_for(authentic + locate)
             facts = {"citation": ev[0].ref.citation, "citation_book": self._books_ar(found_books)}

@@ -46,9 +46,16 @@ def render_text(report: ReviewReport, draft: str) -> str:
             lines.append(f"   الخطوة التالية: {f.next_step}")
         for ev in f.evidence:
             if ev.text:
-                lines.append(
-                    f"   📖 {ev.ref.citation} [{ev.role.label_ar}]: {ev.text[:160]}{'…' if len(ev.text) > 160 else ''}"
-                )
+                if ev.highlight and ev.highlight[0].end - ev.highlight[0].start < len(ev.text):
+                    h = ev.highlight[0]
+                    lo, hi = max(0, h.start - 30), min(len(ev.text), h.end + 30)
+                    shown = (
+                        ("…" if lo else "") + ev.text[lo:hi] + ("…" if hi < len(ev.text) else "")
+                    )
+                else:
+                    shown = ev.text[:160] + ("…" if len(ev.text) > 160 else "")
+                lines.append(f"   📖 {ev.ref.citation} [{ev.role.label_ar}]: {shown}")
+
             elif ev.ref.url:
                 lines.append(f"   🔗 {ev.ref.citation}: {ev.ref.url}")
             changes = [d for d in ev.diff if d.op != "equal"]

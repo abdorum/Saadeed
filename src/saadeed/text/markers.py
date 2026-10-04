@@ -40,7 +40,8 @@ _QURAN_INTRO = re.compile(
     r"\s*[:：،]?\s*[«\"“{(]([^»\"”})]{2,1500})[»\"”})]"
 )
 _PROPHET = r"(?:ﷺ|صلى\s+الله\s+عليه\s+وسلم|عليه\s+الصلاة\s+والسلام|عليه\s+السلام|النبي|رسول\s+الله|المصطفى)"
-_HADITH_QUOTE = re.compile(_PROPHET + r"[^«\"“\n]{0,60}?[:：،]?\s*[«\"“]([^»\"”]{4,1500})[»\"”]")
+_HADITH_QUOTE = re.compile(_PROPHET + r"[^«\"“\n(]{0,60}?[:：،]?\s*[«\"“]([^»\"”]{4,1500})[»\"”]")
+_HADITH_DOUBLE_PAREN = re.compile(_PROPHET + r"[^(\n«]{0,80}?[:：،]?\s*\(\(([^)]{4,1500})\)\)")
 _MEANING = re.compile(r"(?:ما\s+معناه|بمعناه|معنى\s+الحديث|ما\s+مفاده|نحو\s+قوله|في\s+معناه)")
 _BOOKS = (
     r"(?:الإمام\s+)?(?:البخاري|مسلم|أبو\s+داود|ابو\s+داود|أبي\s+داود|الترمذي|النسائي|ابن\s+ماجه|ابن\s+ماجة|أحمد|مالك|الدارمي|"
@@ -57,7 +58,7 @@ _REF = re.compile(
     r"^\s*[\[(]\s*(?:سورة\s+)?([^\]):：،0-9٠-٩]{1,20}?)\s*[:：،,\-]?\s*(?:الآية|آية|الاية|اية)?\s*(["
     + _DIG
     + r"]+)"
-    r"(?:\s*[-–—]\s*([" + _DIG + r"]+))?\s*[\])]"
+    r"(?:\s*[-–—،,]\s*([" + _DIG + r"]+))?\s*[\])]"
 )
 
 _SURA_INDEX: dict[str, int] = {normalize(n): i + 1 for i, n in enumerate(SURA_NAMES)}
@@ -117,7 +118,11 @@ def scan(text: str) -> list[Marked]:
             )
             taken.append((s, e))
 
-    for m in _HADITH_QUOTE.finditer(text):
+    hadith_matches = sorted(
+        [*_HADITH_QUOTE.finditer(text), *_HADITH_DOUBLE_PAREN.finditer(text)],
+        key=lambda m: m.start(1),
+    )
+    for m in hadith_matches:
         s, e = m.start(1), m.end(1)
         if overlaps(s, e):
             continue

@@ -1,0 +1,809 @@
+{
+ "schema_version": "1.0",
+ "draft": {
+  "char_count": 3766,
+  "word_count": 630,
+  "language": "ar"
+ },
+ "summary": {
+  "total_claims": 11,
+  "by_bucket": {
+   "SUPPORTED_BY_SOURCES": 5,
+   "NEEDS_VERIFICATION": 6,
+   "REFER": 0,
+   "NOT_CHECKED": 0
+  },
+  "by_severity": {
+   "CRITICAL": 0,
+   "HIGH": 4,
+   "MEDIUM": 2,
+   "LOW": 0
+  },
+  "not_checked": []
+ },
+ "top_risks": [
+  "c4",
+  "c5",
+  "c10",
+  "c11",
+  "c8",
+  "c9"
+ ],
+ "findings": [
+  {
+   "id": "c1",
+   "claim": {
+    "id": "c1",
+    "text": "وَاتَّقُوا يَوْمًا تُرْجَعُونَ فِيهِ إِلَى اللَّهِ ثُمَّ تُوَفَّى كُلُّ نَفْسٍ مَا كَسَبَتْ وَهُمْ لَا يُظْلَمُونَ",
+    "span": {
+     "start": 147,
+     "end": 263
+    },
+    "type": "QURAN_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": "[البقرة: 281]",
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "SUPPORTED",
+   "severity": "NONE",
+   "action": "NONE",
+   "reason": null,
+   "rule_id": "BR-01",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "quran",
+      "item_id": "2:281",
+      "citation": "البقرة: 281",
+      "url": "https://tanzil.net/#2:281"
+     },
+     "role": "REFERENCE_TEXT",
+     "text": "وَٱتَّقُوا۟ يَوْمًا تُرْجَعُونَ فِيهِ إِلَى ٱللَّهِ ثُمَّ تُوَفَّىٰ كُلُّ نَفْسٍ مَّا كَسَبَتْ وَهُمْ لَا يُظْلَمُونَ (281)",
+     "match_type": "NORMALIZED",
+     "match_reason": "تطابق تام بعد حذف التشكيل",
+     "diff": [],
+     "highlight": [
+      {
+       "start": 0,
+       "end": 123
+      }
+     ]
+    }
+   ],
+   "relation": null,
+   "explanation": "النص مطابق لنص المصحف المعتمد في سديد (البقرة: 281).",
+   "next_step": "لا إجراء.",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "SUPPORTED_BY_SOURCES",
+   "labels_ar": {
+    "evidence_status": "مؤيَّد بالمصدر",
+    "severity": "—",
+    "action": "لا إجراء",
+    "bucket": "تؤيده المصادر",
+    "claim_type": "آية قرآنية"
+   }
+  },
+  {
+   "id": "c2",
+   "claim": {
+    "id": "c2",
+    "text": "وَقُلْ لِعِبَادِي يَقُولُوا الَّتِي هِيَ أَحْسَنُ إِنَّ الشَّيْطَانَ يَنْزَغُ بَيْنَهُمْ إِنَّ الشَّيْطَانَ كَانَ لِلْإِنْسَانِ عَدُوًّا مُبِينًا",
+    "span": {
+     "start": 1007,
+     "end": 1155
+    },
+    "type": "QURAN_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": "[الإسراء: 53]",
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "SUPPORTED",
+   "severity": "NONE",
+   "action": "NONE",
+   "reason": null,
+   "rule_id": "BR-01",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "quran",
+      "item_id": "17:53",
+      "citation": "الإسراء: 53",
+      "url": "https://tanzil.net/#17:53"
+     },
+     "role": "REFERENCE_TEXT",
+     "text": "وَقُل لِّعِبَادِى يَقُولُوا۟ ٱلَّتِى هِىَ أَحْسَنُ إِنَّ ٱلشَّيْطَٰنَ يَنزَغُ بَيْنَهُمْ إِنَّ ٱلشَّيْطَٰنَ كَانَ لِلْإِنسَٰنِ عَدُوًّا مُّبِينًا (53)",
+     "match_type": "NORMALIZED",
+     "match_reason": "تطابق تام بعد حذف التشكيل",
+     "diff": [],
+     "highlight": [
+      {
+       "start": 0,
+       "end": 150
+      }
+     ]
+    }
+   ],
+   "relation": null,
+   "explanation": "النص مطابق لنص المصحف المعتمد في سديد (الإسراء: 53).",
+   "next_step": "لا إجراء.",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "SUPPORTED_BY_SOURCES",
+   "labels_ar": {
+    "evidence_status": "مؤيَّد بالمصدر",
+    "severity": "—",
+    "action": "لا إجراء",
+    "bucket": "تؤيده المصادر",
+    "claim_type": "آية قرآنية"
+   }
+  },
+  {
+   "id": "c3",
+   "claim": {
+    "id": "c3",
+    "text": "قَدْ أَفْلَحَ الْمُؤْمِنُونَ * الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ * وَالَّذِينَ هُمْ عَنِ اللَّغْوِ مُعْرِضُونَ",
+    "span": {
+     "start": 1277,
+     "end": 1397
+    },
+    "type": "QURAN_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": "[المؤمنون: 1 - 3]",
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "SUPPORTED",
+   "severity": "NONE",
+   "action": "NONE",
+   "reason": null,
+   "rule_id": "BR-01",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "quran",
+      "item_id": "23:1-3",
+      "citation": "المؤمنون: 1–3",
+      "url": "https://tanzil.net/#23:1"
+     },
+     "role": "REFERENCE_TEXT",
+     "text": "قَدْ أَفْلَحَ ٱلْمُؤْمِنُونَ (1) ٱلَّذِينَ هُمْ فِى صَلَاتِهِمْ خَٰشِعُونَ (2) وَٱلَّذِينَ هُمْ عَنِ ٱللَّغْوِ مُعْرِضُونَ (3)",
+     "match_type": "NORMALIZED",
+     "match_reason": "تطابق تام بعد حذف التشكيل",
+     "diff": [],
+     "highlight": [
+      {
+       "start": 0,
+       "end": 126
+      }
+     ]
+    }
+   ],
+   "relation": null,
+   "explanation": "النص مطابق لنص المصحف المعتمد في سديد (المؤمنون: 1–3).",
+   "next_step": "لا إجراء.",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "SUPPORTED_BY_SOURCES",
+   "labels_ar": {
+    "evidence_status": "مؤيَّد بالمصدر",
+    "severity": "—",
+    "action": "لا إجراء",
+    "bucket": "تؤيده المصادر",
+    "claim_type": "آية قرآنية"
+   }
+  },
+  {
+   "id": "c4",
+   "claim": {
+    "id": "c4",
+    "text": "لا يستقيمُ إيمانُ عبدٍ حتى يستقيمَ قلبُه، ولا يستقيمُ قلبُه حتى يستقيمَ لسانُه",
+    "span": {
+     "start": 1567,
+     "end": 1645
+    },
+    "type": "HADITH_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": "الإمام أحمد وغيره",
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "NOT_FOUND",
+   "severity": "HIGH",
+   "action": "VERIFY",
+   "reason": "NOT_FOUND",
+   "rule_id": "BR-11",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "dorar",
+      "item_id": "search",
+      "citation": "بحث في الدرر السنية",
+      "url": "https://dorar.net/hadith/search?q=%D9%84%D8%A7%20%D9%8A%D8%B3%D8%AA%D9%82%D9%8A%D9%85%D9%8F%20%D8%A5%D9%8A%D9%85%D8%A7%D9%86%D9%8F%20%D8%B9%D8%A8%D8%AF%D9%8D%20%D8%AD%D8%AA%D9%89%20%D9%8A%D8%B3%D8%AA%D9%82%D9%8A%D9%85%D9%8E%20%D9%82%D9%84%D8%A8%D9%8F%D9%87%D8%8C%20%D9%88%D9%84%D8%A7"
+     },
+     "role": "LINK",
+     "text": "",
+     "match_type": "NONE",
+     "match_reason": "رابط بحث يفتحه الإنسان، لا استدعاء آلي",
+     "diff": [],
+     "highlight": []
+    }
+   ],
+   "relation": null,
+   "explanation": "لم نعثر عليه في المصادر المتاحة لسديد (الكتب الستة). وهذا لا يعني أنه لا يصح؛ حدودنا حدود مصادرنا.",
+   "next_step": "ابحث عنه في الدرر السنية بالرابط المرفق، واذكر مصدره وحكمه إن وجدته.",
+   "confidence": "medium",
+   "notes": [],
+   "bucket": "NEEDS_VERIFICATION",
+   "labels_ar": {
+    "evidence_status": "لم يُعثر عليه في النطاق",
+    "severity": "مرتفع",
+    "action": "تحقّق ووثّق",
+    "bucket": "يتطلب تحققًا",
+    "claim_type": "حديث نبوي"
+   }
+  },
+  {
+   "id": "c5",
+   "claim": {
+    "id": "c5",
+    "text": "إذا أصبح ابن آدم فإن الأعضاءَ كلَّها تكفِّر اللسان؛ تقول: اتق الله فينا، فإنما نحن بك؛ فإن استقمت استقمنا؛ وإن اعوججت اعوججنا",
+    "span": {
+     "start": 1806,
+     "end": 1931
+    },
+    "type": "HADITH_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": "الترمذي في سننه",
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "FOUND_NO_RULING",
+   "severity": "HIGH",
+   "action": "VERIFY",
+   "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+   "rule_id": "BR-10",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "tirmidhi",
+      "item_id": "2331",
+      "citation": "جامع الترمذي، رقم 2331 (بترقيم مجموعة البيانات)",
+      "url": "https://dorar.net/hadith/search?q=%D8%A5%D8%B0%D8%A7%20%D8%A3%D8%B5%D8%A8%D8%AD%20%D8%A7%D8%A8%D9%86%20%D8%A2%D8%AF%D9%85%20%D9%81%D8%A5%D9%86%20%D8%A7%D9%84%D8%A3%D8%B9%D8%B6%D8%A7%D8%A1%D9%8E%20%D9%83%D9%84%D9%91%D9%8E%D9%87%D8%A7%20%D8%AA%D9%83%D9%81%D9%91%D9%90%D8%B1"
+     },
+     "role": "LOCATE",
+     "text": "حَدَّثَنَا مُحَمَّدُ بْنُ مُوسَى الْبَصْرِيُّ حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ عَنْ أَبِي الصَّهْبَاءِ عَنْ سَعِيدِ بْنِ جُبَيْرٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ رَفَعَهُ قَالَ إِذَا أَصْبَحَ ابْنُ آدَمَ فَإِنَّ الْأَعْضَاءَ كُلَّهَا تُكَفِّرُ اللِّسَانَ فَتَقُولُ اتَّقِ اللَّهَ فِينَا فَإِنَّمَا نَحْنُ بِكَ فَإِنْ اسْتَقَمْتَ اسْتَقَمْنَا وَإِنْ اعْوَجَجْتَ اعْوَجَجْنَا حَدَّثَنَا هَنَّادٌ حَدَّثَنَا أَبُو أُسَامَةَ عَنْ حَمَّادِ بْنِ زَيْدٍ نَحْوَهُ وَلَمْ يَرْفَعْهُ وَهَذَا أَصَحُّ مِنْ حَدِيثِ مُحَمَّدِ بْنِ مُوسَى قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ لَا نَعْرِفُهُ إِلَّا مِنْ حَدِيثِ حَمَّادِ بْنِ زَيْدٍ وَقَدْ رَوَاهُ غَيْرُ وَاحِدٍ عَنْ حَمَّادِ بْنِ زَيْدٍ وَلَمْ يَرْفَعُوهُ حَدَّثَنَا صَالِحُ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ عَنْ أَبِي الصَّهْبَاءِ عَنْ سَعِيدِ بْنِ جُبَيْرٍ عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ قَالَ أَحْسِبُهُ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَذَكَرَ نَحْوَهُ",
+     "match_type": "PARTIAL",
+     "match_reason": "تطابق باللفظ مع فروق يسيرة",
+     "diff": [],
+     "highlight": []
+    },
+    {
+     "ref": {
+      "source_id": "dorar",
+      "item_id": "search",
+      "citation": "بحث في الدرر السنية",
+      "url": "https://dorar.net/hadith/search?q=%D8%A5%D8%B0%D8%A7%20%D8%A3%D8%B5%D8%A8%D8%AD%20%D8%A7%D8%A8%D9%86%20%D8%A2%D8%AF%D9%85%20%D9%81%D8%A5%D9%86%20%D8%A7%D9%84%D8%A3%D8%B9%D8%B6%D8%A7%D8%A1%D9%8E%20%D9%83%D9%84%D9%91%D9%8E%D9%87%D8%A7%20%D8%AA%D9%83%D9%81%D9%91%D9%90%D8%B1"
+     },
+     "role": "LINK",
+     "text": "",
+     "match_type": "NONE",
+     "match_reason": "رابط بحث يفتحه الإنسان، لا استدعاء آلي",
+     "diff": [],
+     "highlight": []
+    }
+   ],
+   "relation": null,
+   "explanation": "وُجد في جامع الترمذي، رقم 2331 (بترقيم مجموعة البيانات). والحكم عليه خارج ما يملكه سديد من بيانات؛ فوجوده في الكتاب لا يعني صحته ولا ضعفه.",
+   "next_step": "تحقق من حكم الحديث في الدرر السنية قبل الاستشهاد به، واذكر حكمه في المسودة.",
+   "confidence": "medium",
+   "notes": [],
+   "bucket": "NEEDS_VERIFICATION",
+   "labels_ar": {
+    "evidence_status": "وُجد دون حكم",
+    "severity": "مرتفع",
+    "action": "تحقّق ووثّق",
+    "bucket": "يتطلب تحققًا",
+    "claim_type": "حديث نبوي"
+   }
+  },
+  {
+   "id": "c6",
+   "claim": {
+    "id": "c6",
+    "text": "من كان يؤمن بالله واليوم الآخر فليقل خيرًا أو ليصمت",
+    "span": {
+     "start": 2449,
+     "end": 2500
+    },
+    "type": "HADITH_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": "الصحيحين",
+     "source_mentioned": "الصحيحين",
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "SUPPORTED",
+   "severity": "NONE",
+   "action": "NONE",
+   "reason": null,
+   "rule_id": "BR-06",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "bukhari",
+      "item_id": "5559",
+      "citation": "صحيح البخاري، رقم 5559 (بترقيم مجموعة البيانات)",
+      "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D9%83%D8%A7%D9%86%20%D9%8A%D8%A4%D9%85%D9%86%20%D8%A8%D8%A7%D9%84%D9%84%D9%87%20%D9%88%D8%A7%D9%84%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%A2%D8%AE%D8%B1%20%D9%81%D9%84%D9%8A%D9%82%D9%84%20%D8%AE%D9%8A%D8%B1%D9%8B%D8%A7"
+     },
+     "role": "AUTHENTIC",
+     "text": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ حَدَّثَنَا أَبُو الْأَحْوَصِ عَنْ أَبِي حَصِينٍ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلَا يُؤْذِ جَارَهُ وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+     "match_type": "NORMALIZED",
+     "match_reason": "تطابق حرفي بعد حذف التشكيل",
+     "diff": [],
+     "highlight": [
+      {
+       "start": 335,
+       "end": 420
+      }
+     ]
+    },
+    {
+     "ref": {
+      "source_id": "muslim",
+      "item_id": "67",
+      "citation": "صحيح مسلم، رقم 67 (بترقيم مجموعة البيانات)",
+      "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D9%83%D8%A7%D9%86%20%D9%8A%D8%A4%D9%85%D9%86%20%D8%A8%D8%A7%D9%84%D9%84%D9%87%20%D9%88%D8%A7%D9%84%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%A2%D8%AE%D8%B1%20%D9%81%D9%84%D9%8A%D9%82%D9%84%20%D8%AE%D9%8A%D8%B1%D9%8B%D8%A7"
+     },
+     "role": "AUTHENTIC",
+     "text": "حَدَّثَنِي حَرْمَلَةُ بْنُ يَحْيَى أَنْبَأَنَا ابْنُ وَهْبٍ قَالَ أَخْبَرَنِي يُونُسُ عَنْ ابْنِ شِهَابٍ عَنْ أَبِي سَلَمَةَ بْنِ عَبْدِ الرَّحْمَنِ عَنْ أَبِي هُرَيْرَةَ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ جَارَهُ وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ",
+     "match_type": "NORMALIZED",
+     "match_reason": "تطابق حرفي بعد حذف التشكيل",
+     "diff": [],
+     "highlight": [
+      {
+       "start": 232,
+       "end": 317
+      }
+     ]
+    }
+   ],
+   "relation": null,
+   "explanation": "وُجد الحديث في صحيح البخاري، رقم 5559 (بترقيم مجموعة البيانات) بلفظه أو بجزء منه.",
+   "next_step": "لا إجراء.",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "SUPPORTED_BY_SOURCES",
+   "labels_ar": {
+    "evidence_status": "مؤيَّد بالمصدر",
+    "severity": "—",
+    "action": "لا إجراء",
+    "bucket": "تؤيده المصادر",
+    "claim_type": "حديث نبوي"
+   }
+  },
+  {
+   "id": "c7",
+   "claim": {
+    "id": "c7",
+    "text": "ادْفَعْ بِالَّتِي هِيَ أَحْسَنُ فَإِذَا الَّذِي بَيْنَكَ وَبَيْنَهُ عَدَاوَةٌ كَأَنَّهُ وَلِيٌّ حَمِيمٌ * وَمَا يُلَقَّاهَا إِلَّا الَّذِينَ صَبَرُوا وَمَا يُلَقَّاهَا إِلَّا ذُو حَظٍّ عَظِيمٍ",
+    "span": {
+     "start": 2775,
+     "end": 2969
+    },
+    "type": "QURAN_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": "[فصلت: 34، 35]",
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "SUPPORTED",
+   "severity": "NONE",
+   "action": "NONE",
+   "reason": null,
+   "rule_id": "BR-01",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "quran",
+      "item_id": "41:34-35",
+      "citation": "فصلت: 34–35",
+      "url": "https://tanzil.net/#41:34"
+     },
+     "role": "REFERENCE_TEXT",
+     "text": "وَلَا تَسْتَوِى ٱلْحَسَنَةُ وَلَا ٱلسَّيِّئَةُ ٱدْفَعْ بِٱلَّتِى هِىَ أَحْسَنُ فَإِذَا ٱلَّذِى بَيْنَكَ وَبَيْنَهُۥ عَدَٰوَةٌ كَأَنَّهُۥ وَلِىٌّ حَمِيمٌ (34) وَمَا يُلَقَّىٰهَآ إِلَّا ٱلَّذِينَ صَبَرُوا۟ وَمَا يُلَقَّىٰهَآ إِلَّا ذُو حَظٍّ عَظِيمٍ (35)",
+     "match_type": "PARTIAL",
+     "match_reason": "تطابق تام مع جزء من الآية",
+     "diff": [],
+     "highlight": []
+    }
+   ],
+   "relation": null,
+   "explanation": "النص مطابق لنص المصحف المعتمد في سديد (فصلت: 34–35).",
+   "next_step": "لا إجراء.",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "SUPPORTED_BY_SOURCES",
+   "labels_ar": {
+    "evidence_status": "مؤيَّد بالمصدر",
+    "severity": "—",
+    "action": "لا إجراء",
+    "bucket": "تؤيده المصادر",
+    "claim_type": "آية قرآنية"
+   }
+  },
+  {
+   "id": "c8",
+   "claim": {
+    "id": "c8",
+    "text": "من كثر كلامه كثر سقطه، ومن كثر سقطه قلَّ حياؤه، ومن قلَّ حياؤه قلَّ ورعه، ومن قلَّ ورعه مات قلبه",
+    "span": {
+     "start": 3114,
+     "end": 3210
+    },
+    "type": "ATTRIBUTED_SAYING",
+    "level": "B",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": "عمر بن الخطاب"
+    },
+    "linked_conclusion": null,
+    "origin": "llm"
+   },
+   "evidence_status": "OUT_OF_SCOPE",
+   "severity": "MEDIUM",
+   "action": "VERIFY",
+   "reason": "NO_SOURCE",
+   "rule_id": "BR-12",
+   "evidence": [],
+   "relation": null,
+   "explanation": "لا يملك سديد مصدرًا يتحقق به من هذا النوع (قول منسوب)، ولم تذكر المسودة مصدره.",
+   "next_step": "يحسن توثيقه بذكر مصدره (الكتاب والموضع).",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "NEEDS_VERIFICATION",
+   "labels_ar": {
+    "evidence_status": "خارج نطاق الفحص",
+    "severity": "متوسط",
+    "action": "تحقّق ووثّق",
+    "bucket": "يتطلب تحققًا",
+    "claim_type": "قول منسوب"
+   }
+  },
+  {
+   "id": "c9",
+   "claim": {
+    "id": "c9",
+    "text": "أطول الناس شقاءً وأعظمهم بلاءً من ابتُلي بلسانٍ مُنطلِق وفؤاد منطبق",
+    "span": {
+     "start": 3230,
+     "end": 3297
+    },
+    "type": "ATTRIBUTED_SAYING",
+    "level": "B",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "llm"
+   },
+   "evidence_status": "OUT_OF_SCOPE",
+   "severity": "MEDIUM",
+   "action": "VERIFY",
+   "reason": "NO_SOURCE",
+   "rule_id": "BR-12",
+   "evidence": [],
+   "relation": null,
+   "explanation": "لا يملك سديد مصدرًا يتحقق به من هذا النوع (قول منسوب)، ولم تذكر المسودة مصدره.",
+   "next_step": "يحسن توثيقه بذكر مصدره (الكتاب والموضع).",
+   "confidence": "high",
+   "notes": [],
+   "bucket": "NEEDS_VERIFICATION",
+   "labels_ar": {
+    "evidence_status": "خارج نطاق الفحص",
+    "severity": "متوسط",
+    "action": "تحقّق ووثّق",
+    "bucket": "يتطلب تحققًا",
+    "claim_type": "قول منسوب"
+   }
+  },
+  {
+   "id": "c10",
+   "claim": {
+    "id": "c10",
+    "text": "كُفَّ عليك هذا",
+    "span": {
+     "start": 3551,
+     "end": 3565
+    },
+    "type": "HADITH_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": "الترمذي وغيره",
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "FOUND_NO_RULING",
+   "severity": "HIGH",
+   "action": "VERIFY",
+   "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+   "rule_id": "BR-10",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "tirmidhi",
+      "item_id": "2541",
+      "citation": "جامع الترمذي، رقم 2541 (بترقيم مجموعة البيانات)",
+      "url": "https://dorar.net/hadith/search?q=%D9%83%D9%8F%D9%81%D9%91%D9%8E%20%D8%B9%D9%84%D9%8A%D9%83%20%D9%87%D8%B0%D8%A7"
+     },
+     "role": "LOCATE",
+     "text": "حَدَّثَنَا ابْنُ أَبِي عُمَرَ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُعَاذٍ الصَّنْعَانِيُّ عَنْ مَعْمَرٍ عَنْ عَاصِمِ بْنِ أَبِي النَّجُودِ عَنْ أَبِي وَائِلٍ عَنْ مُعَاذِ بْنِ جَبَلٍ قَالَ كُنْتُ مَعَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي سَفَرٍ فَأَصْبَحْتُ يَوْمًا قَرِيبًا مِنْهُ وَنَحْنُ نَسِيرُ فَقُلْتُ يَا رَسُولَ اللَّهِ أَخْبِرْنِي بِعَمَلٍ يُدْخِلُنِي الْجَنَّةَ وَيُبَاعِدُنِي عَنْ النَّارِ قَالَ لَقَدْ سَأَلْتَنِي عَنْ عَظِيمٍ وَإِنَّهُ لَيَسِيرٌ عَلَى مَنْ يَسَّرَهُ اللَّهُ عَلَيْهِ تَعْبُدُ اللَّهَ وَلَا تُشْرِكْ بِهِ شَيْئًا وَتُقِيمُ الصَّلَاةَ وَتُؤْتِي الزَّكَاةَ وَتَصُومُ رَمَضَانَ وَتَحُجُّ الْبَيْتَ ثُمَّ قَالَ أَلَا أَدُلُّكَ عَلَى أَبْوَابِ الْخَيْرِ الصَّوْمُ جُنَّةٌ وَالصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ وَصَلَاةُ الرَّجُلِ مِنْ جَوْفِ اللَّيْلِ قَالَ ثُمَّ تَلَا { تَتَجَافَى جُنُوبُهُمْ عَنْ الْمَضَاجِعِ حَتَّى بَلَغَ يَعْمَلُونَ } ثُمَّ قَالَ أَلَا أُخْبِرُكَ بِرَأْسِ الْأَمْرِ كُلِّهِ وَعَمُودِهِ وَذِرْوَةِ سَنَامِهِ قُلْتُ بَلَى يَا رَسُولَ اللَّهِ قَالَ رَأْسُ الْأَمْرِ الْإِسْلَامُ وَعَمُودُهُ الصَّلَاةُ وَذِرْوَةُ سَنَامِهِ الْجِهَادُ ثُمَّ قَالَ أَلَا أُخْبِرُكَ بِمَلَاكِ ذَلِكَ كُلِّهِ قُلْتُ بَلَى يَا نَبِيَّ اللَّهِ فَأَخَذَ بِلِسَانِهِ قَالَ كُفَّ عَلَيْكَ هَذَا فَقُلْتُ يَا نَبِيَّ اللَّهِ وَإِنَّا لَمُؤَاخَذُونَ بِمَا نَتَكَلَّمُ بِهِ فَقَالَ ثَكِلَتْكَ أُمُّكَ يَا مُعَاذُ وَهَلْ يَكُبُّ النَّاسَ فِي النَّارِ عَلَى وُجُوهِهِمْ أَوْ عَلَى مَنَاخِرِهِمْ إِلَّا حَصَائِدُ أَلْسِنَتِهِمْ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ صَحِيحٌ",
+     "match_type": "NORMALIZED",
+     "match_reason": "تطابق حرفي بعد حذف التشكيل",
+     "diff": [],
+     "highlight": [
+      {
+       "start": 1230,
+       "end": 1250
+      }
+     ]
+    },
+    {
+     "ref": {
+      "source_id": "dorar",
+      "item_id": "search",
+      "citation": "بحث في الدرر السنية",
+      "url": "https://dorar.net/hadith/search?q=%D9%83%D9%8F%D9%81%D9%91%D9%8E%20%D8%B9%D9%84%D9%8A%D9%83%20%D9%87%D8%B0%D8%A7"
+     },
+     "role": "LINK",
+     "text": "",
+     "match_type": "NONE",
+     "match_reason": "رابط بحث يفتحه الإنسان، لا استدعاء آلي",
+     "diff": [],
+     "highlight": []
+    }
+   ],
+   "relation": null,
+   "explanation": "وُجد في جامع الترمذي، رقم 2541 (بترقيم مجموعة البيانات). والحكم عليه خارج ما يملكه سديد من بيانات؛ فوجوده في الكتاب لا يعني صحته ولا ضعفه.",
+   "next_step": "تحقق من حكم الحديث في الدرر السنية قبل الاستشهاد به، واذكر حكمه في المسودة.",
+   "confidence": "medium",
+   "notes": [],
+   "bucket": "NEEDS_VERIFICATION",
+   "labels_ar": {
+    "evidence_status": "وُجد دون حكم",
+    "severity": "مرتفع",
+    "action": "تحقّق ووثّق",
+    "bucket": "يتطلب تحققًا",
+    "claim_type": "حديث نبوي"
+   }
+  },
+  {
+   "id": "c11",
+   "claim": {
+    "id": "c11",
+    "text": "ثكلتك أمك يا معاذ، وهل يكُبُّ الناسَ في النار على وجوههم إلا حصائدُ ألسنتهم؟!",
+    "span": {
+     "start": 3685,
+     "end": 3762
+    },
+    "type": "HADITH_QUOTE",
+    "level": "A",
+    "hints": {
+     "presented_as_verbatim": true,
+     "cited_ref": null,
+     "cited_book": null,
+     "source_mentioned": null,
+     "speaker": null
+    },
+    "linked_conclusion": null,
+    "origin": "both"
+   },
+   "evidence_status": "FOUND_NO_RULING",
+   "severity": "HIGH",
+   "action": "VERIFY",
+   "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+   "rule_id": "BR-10",
+   "evidence": [
+    {
+     "ref": {
+      "source_id": "ibnmajah",
+      "item_id": "3963",
+      "citation": "سنن ابن ماجه، رقم 3963 (بترقيم مجموعة البيانات)",
+      "url": "https://dorar.net/hadith/search?q=%D8%AB%D9%83%D9%84%D8%AA%D9%83%20%D8%A3%D9%85%D9%83%20%D9%8A%D8%A7%20%D9%85%D8%B9%D8%A7%D8%B0%D8%8C%20%D9%88%D9%87%D9%84%20%D9%8A%D9%83%D9%8F%D8%A8%D9%91%D9%8F%20%D8%A7%D9%84%D9%86%D8%A7%D8%B3%D9%8E%20%D9%81%D9%8A"
+     },
+     "role": "LOCATE",
+     "text": "حَدَّثَنَا مُحَمَّدُ بْنُ أَبِي عُمَرَ الْعَدَنِيُّ حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُعَاذٍ عَنْ مَعْمَرٍ عَنْ عَاصِمِ بْنِ أَبِي النُّجُودِ عَنْ أَبِي وَائِلٍ عَنْ مُعَاذِ بْنِ جَبَلٍ قَالَ كُنْتُ مَعَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي سَفَرٍ فَأَصْبَحْتُ يَوْمًا قَرِيبًا مِنْهُ وَنَحْنُ نَسِيرُ فَقُلْتُ يَا رَسُولَ اللَّهِ أَخْبِرْنِي بِعَمَلٍ يُدْخِلُنِي الْجَنَّةَ وَيُبَاعِدُنِي مِنْ النَّارِ قَالَ لَقَدْ سَأَلْتَ عَظِيمًا وَإِنَّهُ لَيَسِيرٌ عَلَى مَنْ يَسَّرَهُ اللَّهُ عَلَيْهِ تَعْبُدُ اللَّهَ لَا تُشْرِكُ بِهِ شَيْئًا وَتُقِيمُ الصَّلَاةَ وَتُؤْتِي الزَّكَاةَ وَتَصُومُ رَمَضَانَ وَتَحُجَّ الْبَيْتَ ثُمَّ قَالَ أَلَا أَدُلُّكَ عَلَى أَبْوَابِ الْخَيْرِ الصَّوْمُ جُنَّةٌ وَالصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ النَّارَ الْمَاءُ وَصَلَاةُ الرَّجُلِ مِنْ جَوْفِ اللَّيْلِ ثُمَّ قَرَأَ { تَتَجَافَى جُنُوبُهُمْ عَنْ الْمَضَاجِعِ حَتَّى بَلَغَ جَزَاءً بِمَا كَانُوا يَعْمَلُونَ } ثُمَّ قَالَ أَلَا أُخْبِرُكَ بِرَأْسِ الْأَمْرِ وَعَمُودِهِ وَذُرْوَةِ سَنَامِهِ الْجِهَادُ ثُمَّ قَالَ أَلَا أُخْبِرُكَ بِمِلَاكِ ذَلِكَ كُلِّهِ قُلْتُ بَلَى فَأَخَذَ بِلِسَانِهِ فَقَالَ تَكُفُّ عَلَيْكَ هَذَا قُلْتُ يَا نَبِيَّ اللَّهِ وَإِنَّا لَمُؤَاخَذُونَ بِمَا نَتَكَلَّمُ بِهِ قَالَ ثَكِلَتْكَ أُمُّكَ يَا مُعَاذُ وَهَلْ يُكِبُّ النَّاسَ عَلَى وُجُوهِهِمْ فِي النَّارِ إِلَّا حَصَائِدُ أَلْسِنَتِهِمْ",
+     "match_type": "PARTIAL",
+     "match_reason": "تطابق باللفظ مع فروق يسيرة",
+     "diff": [],
+     "highlight": []
+    },
+    {
+     "ref": {
+      "source_id": "dorar",
+      "item_id": "search",
+      "citation": "بحث في الدرر السنية",
+      "url": "https://dorar.net/hadith/search?q=%D8%AB%D9%83%D9%84%D8%AA%D9%83%20%D8%A3%D9%85%D9%83%20%D9%8A%D8%A7%20%D9%85%D8%B9%D8%A7%D8%B0%D8%8C%20%D9%88%D9%87%D9%84%20%D9%8A%D9%83%D9%8F%D8%A8%D9%91%D9%8F%20%D8%A7%D9%84%D9%86%D8%A7%D8%B3%D9%8E%20%D9%81%D9%8A"
+     },
+     "role": "LINK",
+     "text": "",
+     "match_type": "NONE",
+     "match_reason": "رابط بحث يفتحه الإنسان، لا استدعاء آلي",
+     "diff": [],
+     "highlight": []
+    }
+   ],
+   "relation": null,
+   "explanation": "وُجد في سنن ابن ماجه، رقم 3963 (بترقيم مجموعة البيانات). والحكم عليه خارج ما يملكه سديد من بيانات؛ فوجوده في الكتاب لا يعني صحته ولا ضعفه.",
+   "next_step": "تحقق من حكم الحديث في الدرر السنية قبل الاستشهاد به، واذكر حكمه في المسودة.",
+   "confidence": "medium",
+   "notes": [],
+   "bucket": "NEEDS_VERIFICATION",
+   "labels_ar": {
+    "evidence_status": "وُجد دون حكم",
+    "severity": "مرتفع",
+    "action": "تحقّق ووثّق",
+    "bucket": "يتطلب تحققًا",
+    "claim_type": "حديث نبوي"
+   }
+  }
+ ],
+ "coverage": {
+  "sources": [
+   {
+    "id": "quran",
+    "name_ar": "المصحف (مصحف المدينة، رواية حفص عن عاصم)",
+    "role": "REFERENCE_TEXT",
+    "count": 6236,
+    "version": "Tanzil 1.1",
+    "license": "CC BY 3.0, verbatim (tanzil.net)",
+    "review_status": "approved"
+   },
+   {
+    "id": "bukhari",
+    "name_ar": "صحيح البخاري",
+    "role": "AUTHENTIC",
+    "count": 7008,
+    "version": "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات",
+    "license": "ODbL 1.0 / DbCL 1.0",
+    "review_status": "approved"
+   },
+   {
+    "id": "muslim",
+    "name_ar": "صحيح مسلم",
+    "role": "AUTHENTIC",
+    "count": 5362,
+    "version": "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات",
+    "license": "ODbL 1.0 / DbCL 1.0",
+    "review_status": "approved"
+   },
+   {
+    "id": "abudawud",
+    "name_ar": "سنن أبي داود",
+    "role": "LOCATE",
+    "count": 4590,
+    "version": "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات",
+    "license": "ODbL 1.0 / DbCL 1.0",
+    "review_status": "approved"
+   },
+   {
+    "id": "tirmidhi",
+    "name_ar": "جامع الترمذي",
+    "role": "LOCATE",
+    "count": 3891,
+    "version": "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات",
+    "license": "ODbL 1.0 / DbCL 1.0",
+    "review_status": "approved"
+   },
+   {
+    "id": "nasai",
+    "name_ar": "سنن النسائي",
+    "role": "LOCATE",
+    "count": 5662,
+    "version": "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات",
+    "license": "ODbL 1.0 / DbCL 1.0",
+    "review_status": "approved"
+   },
+   {
+    "id": "ibnmajah",
+    "name_ar": "سنن ابن ماجه",
+    "role": "LOCATE",
+    "count": 4332,
+    "version": "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات",
+    "license": "ODbL 1.0 / DbCL 1.0",
+    "review_status": "approved"
+   },
+   {
+    "id": "known_weak",
+    "name_ar": "قائمة المشتهر الذي لا يصح (سديد)",
+    "role": "RULING",
+    "count": 28,
+    "version": "مسودة 2026-10-04",
+    "license": "CC BY 4.0 (سديد) — والأحكام منقولة بنسبتها",
+    "review_status": "draft (0/28 معتمد)"
+   },
+   {
+    "id": "dorar",
+    "name_ar": "الدرر السنية (رابط بحث فقط)",
+    "role": "LINK",
+    "count": 0,
+    "version": "—",
+    "license": "رابط فقط، لا استدعاء آلي",
+    "review_status": "approved"
+   }
+  ]
+ },
+ "meta": {
+  "saadeed_version": "0.1.0",
+  "llm": "groq:openai/gpt-oss-120b",
+  "prompt_versions": {
+   "extract": "v1",
+   "judge_hadiths": "v1"
+  },
+  "policy_version": "BR-2026.10.04-v2",
+  "manifest": {
+   "id": "saadeed-2026.10-v1",
+   "sha256": "61421b6734853f0925a17e00478a19906959a7ac5c4e0e5a9f1b9a1f6324035b"
+  },
+  "duration_ms": 249,
+  "llm_calls": 2,
+  "prompt_tokens": 4449,
+  "completion_tokens": 2702,
+  "warnings": []
+ }
+}

@@ -78,6 +78,14 @@ def build_engine(data_dir: Path = DATA_DIR, prompts_dir: Path = PROMPTS_DIR) -> 
     return Engine(sources, quran, hadith, PromptSet.load(prompts_dir))
 
 
+def configured_model_id(provider: str | None = None, model: str | None = None) -> str:
+    """معرّف النموذج المضبوط في الإعداد، دون إنشاء اتصال (لوضع الإعادة بلا مفتاح)."""
+    load_env()
+    provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "groq")).lower()
+    model = model or os.environ.get("SAADEED_LLM_MODEL") or DEFAULT_MODELS.get(provider, "")
+    return f"{provider}:{model}"
+
+
 def cached(
     llm: LLMPort | None, mode: str = "use", salt: str = "", cache_dir: Path | None = None
 ) -> LLMPort | None:
@@ -87,4 +95,5 @@ def cached(
     d = cache_dir or Path(os.environ.get("SAADEED_CACHE_DIR", ROOT / ".cache" / "llm"))
     if not d.is_absolute():
         d = ROOT / d
-    return CachedLLM(llm, d, mode=mode, salt=salt)
+    model_id = llm.model_id if llm is not None else configured_model_id()
+    return CachedLLM(llm, d, mode=mode, salt=salt, model_id=model_id)
