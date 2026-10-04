@@ -1,0 +1,58 @@
+[project]
+name = "saadeed"
+version = "0.1.0"
+description = "سديد: مراجِع ما قبل النشر للمسودات الدعوية العربية"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Mohammed Abdulrahman" }]
+dependencies = [
+    "pydantic>=2.7",
+    "typer>=0.12",
+    "httpx>=0.27",
+    "rapidfuzz>=3.9",
+]
+
+[project.optional-dependencies]
+gemini = ["google-genai>=1.0"]
+api = ["fastapi>=0.115", "uvicorn>=0.30"]
+
+[project.scripts]
+saadeed = "saadeed.adapters.cli.main:app"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6", "import-linter>=2.1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saadeed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["E501", "RUF001", "RUF002", "RUF003", "B008"]  # B008: أسلوب typer المعتاد
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.importlinter]
+root_package = "saadeed"
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "النواة لا تستورد المحوّلات (المعمارية السداسية)"
+type = "forbidden"
+source_modules = ["saadeed.domain", "saadeed.text", "saadeed.verifiers", "saadeed.application"]
+forbidden_modules = ["saadeed.adapters", "httpx", "typer", "fastapi", "google", "uvicorn"]
+
+[[tool.importlinter.contracts]]
+name = "الطبقات: application ← verifiers ← text ← domain"
+type = "layers"
+layers = ["saadeed.adapters", "saadeed.application", "saadeed.verifiers", "saadeed.text", "saadeed.domain"]

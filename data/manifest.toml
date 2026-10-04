@@ -1,0 +1,93 @@
+# ملف المرجعية المعتمدة (ADR-0010)
+# يحدد المصادر المفعّلة، وأدوارها، وإصداراتها، وتراخيصها. وكل تقرير يحمل معرّفه وبصمته.
+# تغيير الدور هنا يغيّر ما يجوز للمصدر أن يقرره، دون أي تعديل في الكود.
+#
+# الأدوار: REFERENCE_TEXT (نص معتمد) · AUTHENTIC (مصدر احتجاج) · RULING (حكم منقول)
+#          LOCATE (مصدر موضع، دون حكم) · LINK (رابط فقط)
+
+[manifest]
+id = "saadeed-2026.10-v1"
+description = "المرجعية الواحدة للتحدي: ما سمّته الحزمة العلمية، بأدوار معلنة"
+reviewed_by = "محمد عبدالرحمن"
+reviewed_on = "2026-10-04"
+
+[[source]]
+id = "quran"
+adapter = "tanzil"
+role = "REFERENCE_TEXT"
+name_ar = "المصحف (مصحف المدينة، رواية حفص عن عاصم)"
+files = ["raw/tanzil/quran-simple.txt", "raw/tanzil/quran-uthmani.txt"]
+version = "Tanzil 1.1"
+license = "CC BY 3.0 — نسخ حرفي دون تعديل، مع ذكر tanzil.net"
+
+[[source]]
+id = "bukhari"
+adapter = "open_hadith"
+role = "AUTHENTIC"
+name_ar = "صحيح البخاري"
+files = ["processed/bukhari.json"]
+version = "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات"
+license = "ODbL 1.0 / DbCL 1.0"
+
+[[source]]
+id = "muslim"
+adapter = "open_hadith"
+role = "AUTHENTIC"
+name_ar = "صحيح مسلم"
+files = ["processed/muslim.json"]
+version = "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات"
+license = "ODbL 1.0 / DbCL 1.0"
+
+[[source]]
+id = "abudawud"
+adapter = "open_hadith"
+role = "LOCATE"
+name_ar = "سنن أبي داود"
+files = ["processed/abudawud.json"]
+version = "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات"
+license = "ODbL 1.0 / DbCL 1.0"
+
+[[source]]
+id = "tirmidhi"
+adapter = "open_hadith"
+role = "LOCATE"
+name_ar = "جامع الترمذي"
+files = ["processed/tirmidhi.json"]
+version = "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات"
+license = "ODbL 1.0 / DbCL 1.0"
+
+[[source]]
+id = "nasai"
+adapter = "open_hadith"
+role = "LOCATE"
+name_ar = "سنن النسائي"
+files = ["processed/nasai.json"]
+version = "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات"
+license = "ODbL 1.0 / DbCL 1.0"
+
+[[source]]
+id = "ibnmajah"
+adapter = "open_hadith"
+role = "LOCATE"
+name_ar = "سنن ابن ماجه"
+files = ["processed/ibnmajah.json"]
+version = "Open-Hadith-Data (master, 2026-10-04) — ترقيم مجموعة البيانات"
+license = "ODbL 1.0 / DbCL 1.0"
+
+[[source]]
+id = "known_weak"
+adapter = "known_weak"
+role = "RULING"
+name_ar = "قائمة المشتهر الذي لا يصح (سديد)"
+files = ["known_weak.json"]
+version = "مسودة 2026-10-04"
+license = "CC BY 4.0 (سديد) — والأحكام منقولة بنسبتها"
+
+[[source]]
+id = "dorar"
+adapter = "dorar_link"
+role = "LINK"
+name_ar = "الدرر السنية (رابط بحث فقط)"
+files = []
+version = "—"
+license = "رابط فقط، لا استدعاء آلي"

@@ -33,3 +33,10 @@ build/
 !/docs/planning/05-evaluation-protocol.md
 CLAUDE.md
 /private/
+
+# بيانات خام كبيرة: تُنزَّل بأمر saadeed data build
+/data/raw/
+# ذاكرة نداءات النموذج المحلية
+/.cache/
+# بيانات معالجة كبيرة: تُبنى بأمر saadeed data build
+/data/processed/
