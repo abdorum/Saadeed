@@ -39,3 +39,16 @@ def test_canonical_books():
     assert canonical_books("في الصحيحين") == {"bukhari", "muslim"}
     assert canonical_books("رواه أبو داود") == {"abudawud"}
     assert canonical_books("رواه أحمد") == {"other"}
+
+
+def test_double_parentheses_hadith_and_comma_range():
+    """فجوة كشفتها خطبة حقيقية (الألوكة): (( )) للحديث، و[فصلت: 34، 35] للإحالة."""
+    text = (
+        "أن رسول الله صلى الله عليه وسلم قال: ((لا يستقيم إيمان عبد حتى يستقيم قلبه)). "
+        "وقال سبحانه: ﴿ ادْفَعْ بِالَّتِي هِيَ أَحْسَنُ ﴾ [فصلت: 34، 35]."
+    )
+    marks = scan(text)
+    assert [m.kind for m in marks] == ["hadith", "quran"]
+    assert marks[0].text.startswith("لا يستقيم")
+    assert marks[1].ref_parsed == (41, 34, 35)
+    assert parse_ref("[المؤمنون: 1 - 3]") == (23, 1, 3)
