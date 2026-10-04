@@ -1,0 +1,35 @@
+# الأسرار — المفاتيح في .env فقط (CLAUDE.md قاعدة 6)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# أدوات محلية
+.claude/settings.local.json
+.DS_Store
+.idea/
+.vscode/
+
+# ذاكرة التسجيل والإعادة الكبيرة تُضاف يدويًا عند الحاجة
+*.log
+
+# ── النشر المحدود (قرار محمد، 4 أكتوبر 2026) ──
+# من الوثائق لا يُرفع إلا الأربع أدناه + README. والبقية محلية فقط.
+/docs/*
+!/docs/planning/
+/docs/planning/*
+!/docs/planning/01-vision.md
+!/docs/planning/03-requirements.md
+!/docs/planning/04-architecture.md
+!/docs/planning/05-evaluation-protocol.md
+CLAUDE.md
+/private/
