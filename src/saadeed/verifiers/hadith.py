@@ -192,21 +192,42 @@ class HadithVerifier:
                     hits.append(i)
             match_type = MatchType.PARTIAL
             if not hits:
-                return HadithPending(
-                    [
-                        Candidate(
-                            key=f"{self.index.docs[i].source_id}:{self.index.docs[i].item_id}",
-                            source_id=self.index.docs[i].source_id,
-                            item_id=self.index.docs[i].item_id,
-                            role=self.index.docs[i].role,
-                            score=round(s, 3),
-                            text_plain=self._passage(i).text_plain,
-                        )
-                        for i, s in ranked
-                    ]
-                )
+                return HadithPending([self._candidate(i, s) for i, s in self._candidate_pool(q)])
         return self._found(
             text, hits, match_type, presented_as_verbatim, cited_book, by_meaning=False
+        )
+
+    def _candidate_pool(self, q: str) -> list[tuple[int, float]]:
+        """أفضل 3 من كل الكتب + أفضل 2 من مصادر الاحتجاج، ومصادر الاحتجاج أولًا (ERRORS.md E-002).
+
+        فالحديث الذي في البخاري والترمذي معًا لا يُعرض للحَكَم من الترمذي وحده.
+        """
+        overall = self.index.ranked(q, k=3)
+        authentic_ids = [
+            sid for sid, src in self.index.sources.items() if src.info.role is SourceRole.AUTHENTIC
+        ]
+        auth: list[tuple[int, float]] = []
+        for sid in authentic_ids:
+            auth += self.index.ranked(q, k=2, only=sid)
+        auth = sorted(auth, key=lambda x: -x[1])[:2]
+        seen: set[int] = set()
+        pool: list[tuple[int, float]] = []
+        for i, s in [*overall, *auth]:
+            if i not in seen:
+                seen.add(i)
+                pool.append((i, s))
+        pool.sort(key=lambda x: (self.index.docs[x[0]].role is not SourceRole.AUTHENTIC, -x[1]))
+        return pool[:TOP_K]
+
+    def _candidate(self, i: int, s: float) -> Candidate:
+        d = self.index.docs[i]
+        return Candidate(
+            key=f"{d.source_id}:{d.item_id}",
+            source_id=d.source_id,
+            item_id=d.item_id,
+            role=d.role,
+            score=round(s, 3),
+            text_plain=self._passage(i).text_plain,
         )
 
     # ── ٣. بعد حكم النموذج ──

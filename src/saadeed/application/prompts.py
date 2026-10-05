@@ -49,8 +49,8 @@ class PromptSet:
     @classmethod
     def load(cls, prompts_dir: Path) -> PromptSet:
         return cls(
-            extract=load_prompt(prompts_dir / "extract_v1.md"),
-            judge=load_prompt(prompts_dir / "judge_hadiths_v1.md"),
+            extract=load_prompt(prompts_dir / "extract_v2.md"),
+            judge=load_prompt(prompts_dir / "judge_hadiths_v2.md"),
             baseline=load_prompt(prompts_dir / "baseline_v1.md"),
         )
 
