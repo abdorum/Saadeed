@@ -75,3 +75,6 @@ class TanzilQuranRepo:
 
     def sura_names(self) -> dict[int, str]:
         return {s: sura_name(s) for s in range(1, 115)}
+
+    def ayah_url(self, sura: int, aya: int) -> str:
+        return f"https://tanzil.net/#{sura}:{aya}"

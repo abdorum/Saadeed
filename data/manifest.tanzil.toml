@@ -1,3 +1,4 @@
+# ملف مرجعية بديل: وصلة Tanzil للمصحف (ADR-0015). للتجربة: SAADEED_MANIFEST=data/manifest.tanzil.toml
 # ملف المرجعية المعتمدة (ADR-0010)
 # يحدد المصادر المفعّلة، وأدوارها، وإصداراتها، وتراخيصها. وكل تقرير يحمل معرّفه وبصمته.
 # تغيير الدور هنا يغيّر ما يجوز للمصدر أن يقرره، دون أي تعديل في الكود.
@@ -6,23 +7,24 @@
 #          LOCATE (مصدر موضع، دون حكم) · LINK (رابط فقط)
 
 [manifest]
-id = "saadeed-2026.10-v3"
+id = "saadeed-2026.10-v3-tanzil"
 description = "المرجعية الواحدة للتحدي: ما سمّته الحزمة العلمية، بأدوار معلنة"
 reviewed_by = "محمد عبدالرحمن"
-reviewed_on = "2026-10-05"
+reviewed_on = "2026-10-04"
 
 [[source]]
 id = "quran"
-adapter = "quranpedia"
+adapter = "tanzil"
 role = "REFERENCE_TEXT"
-name_ar = "المصحف (الموسوعة القرآنية، رواية حفص، موافق لطبعة مجمع الملك فهد)"
-files = ["vendor/quranpedia/mushafs-1.json.gz", "vendor/quranpedia/mushafs-2.json.gz"]
-version = "quranpedia.net dump 2026-10-02 (mushafs-1 للبحث، mushafs-2 للعرض) — مثبّتة في data/vendor"
-license = "quranpedia.net — استعمال حر داخل التطبيقات، مع ذكر المصدر"
-# المصدر المسمّى في الحزمة العلمية للمسابقة («…أو الواردة في quranpedia.net»). (ADR-0015)
-# والوصلة البديلة Tanzil في data/manifest.tanzil.toml، وطابقناها بهذه آيةً آية:
-# 6228 من 6236 متطابقة بعد التطبيع، والفروق معلنة في docs/research/quran-text-check.md.
-# وعلى dev أعطت الوصلتان الأرقام نفسها حرفيًا (eval/reports/dev_v4e_quranpedia.md).
+name_ar = "المصحف (مصحف المدينة، رواية حفص عن عاصم)"
+files = ["raw/tanzil/quran-simple.txt", "raw/tanzil/quran-uthmani.txt"]
+version = "Tanzil 1.1"
+license = "CC BY 3.0 — نسخ حرفي دون تعديل، مع ذكر tanzil.net"
+# مطابقة بالمصدر المسمّى في الحزمة العلمية (quranpedia.net، «مصحف حفص» الموافق لطبعة مجمع الملك فهد)،
+# نسخة 2026-10-05: 6228 من 6236 آية متطابقة بعد التطبيع. والفروق الثمانية: 3 فصل ووصل («بعد ما/بعدما»)،
+# و3 إملائية («الزنى/الزنا»، «يا ويلتى/يا ويلتا»، «يا حسرتى/يا حسرتا»)، و2 بسملة في أول التين والقدر
+# كانت خللًا في محوّلنا وأُصلح. التفصيل: docs/research/quran-text-check.md
+verified_against = "quranpedia.net mushafs-1 (2026-10-05): 6228/6236"
 
 [[source]]
 id = "bukhari"

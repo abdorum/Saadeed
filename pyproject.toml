@@ -1,6 +1,6 @@
 [project]
 name = "saadeed"
-version = "0.2.5"
+version = "0.3.0"
 description = "سديد: مراجِع ما قبل النشر للمسودات الدعوية العربية"
 readme = "README.md"
 requires-python = ">=3.12"

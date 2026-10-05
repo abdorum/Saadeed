@@ -1,5 +1,5 @@
 {
- "about": "قائمة «المشتهر الذي لا يصح» في سديد (ADR-0010، دور RULING). مسودة صاغها Claude في 2026-10-04 من أشهر ما ذكرته كتب الأحاديث المشتهرة (كالمقاصد الحسنة للسخاوي وكشف الخفاء للعجلوني والسلسلة الضعيفة للألباني). لا يُعتمد بند حتى يتحقق محمد من حكمه في الدرر وينقل لفظه ومصدره ويجعل verified=true. وحقل alternative (v2.5) يشير إلى حديث في المخزن يؤدي المعنى بلفظ ثابت أو مروي؛ نصه يُجلب من المخزن لا من هذا الملف، ودوره (احتجاج أو موضع) من ملف المرجعية.",
+ "about": "قائمة «المشتهر الذي لا يصح» في سديد (ADR-0010، دور RULING). مسودة صاغها Claude في 2026-10-04 من أشهر ما ذكرته كتب الأحاديث المشتهرة (كالمقاصد الحسنة للسخاوي وكشف الخفاء للعجلوني والسلسلة الضعيفة للألباني). لا يُعتمد بند حتى يتحقق محمد من حكمه في الدرر وينقل لفظه ومصدره ويجعل verified=true. وحقل alternative (v2.5) يشير إلى حديث في المخزن يؤدي المعنى بلفظ ثابت أو مروي؛ نصه يُجلب من المخزن لا من هذا الملف، ودوره (احتجاج أو موضع) من ملف المرجعية. وعند الاعتماد يُملأ reviewed_by (اسم المراجع) وreviewed_on (التاريخ)، ويظهران مع البند في كل تقرير.",
  "items": [
   {
    "id": "kw-001",
@@ -11,6 +11,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D8%B7%D9%84%D8%A8%D9%88%D8%A7%20%D8%A7%D9%84%D8%B9%D9%84%D9%85%20%D9%88%D9%84%D9%88%20%D8%A8%D8%A7%D9%84%D8%B5%D9%8A%D9%86",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": {
     "source_id": "ibnmajah",
@@ -28,6 +30,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D8%AE%D8%AA%D9%84%D8%A7%D9%81%20%D8%A3%D9%85%D8%AA%D9%8A%20%D8%B1%D8%AD%D9%85%D8%A9",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -41,6 +45,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%AD%D8%A8%20%D8%A7%D9%84%D9%88%D8%B7%D9%86%20%D9%85%D9%86%20%D8%A7%D9%84%D8%A5%D9%8A%D9%85%D8%A7%D9%86",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -54,6 +60,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%81%D8%A9%20%D9%85%D9%86%20%D8%A7%D9%84%D8%A5%D9%8A%D9%85%D8%A7%D9%86",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": {
     "source_id": "muslim",
@@ -69,6 +77,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D8%AF%D9%8A%D9%86%20%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D9%85%D9%84%D8%A9",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -80,6 +90,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A3%D8%AF%D8%A8%D9%86%D9%8A%20%D8%B1%D8%A8%D9%8A%20%D9%81%D8%A3%D8%AD%D8%B3%D9%86%20%D8%AA%D8%A3%D8%AF%D9%8A%D8%A8%D9%8A",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -93,6 +105,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%AE%D9%8A%D8%B1%20%D8%A7%D9%84%D8%A3%D8%B3%D9%85%D8%A7%D8%A1%20%D9%85%D8%A7%20%D8%AD%D9%85%D8%AF%20%D9%88%D8%B9%D8%A8%D8%AF",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": {
     "source_id": "muslim",
@@ -108,6 +122,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D8%B9%D9%85%D9%84%20%D9%84%D8%AF%D9%86%D9%8A%D8%A7%D9%83%20%D9%83%D8%A3%D9%86%D9%83%20%D8%AA%D8%B9%D9%8A%D8%B4%20%D8%A3%D8%A8%D8%AF%D8%A7%20%D9%88%D8%A7%D8%B9%D9%85%D9%84%20%D9%84%D8%A2%D8%AE%D8%B1%D8%AA%D9%83%20%D9%83%D8%A3%D9%86%D9%83%20%D8%AA%D9%85%D9%88%D8%AA%20%D8%BA%D8%AF%D8%A7",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -119,6 +135,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%85%D8%A7%20%D8%AE%D8%A7%D8%A8%20%D9%85%D9%86%20%D8%A7%D8%B3%D8%AA%D8%AE%D8%A7%D8%B1%20%D9%88%D9%84%D8%A7%20%D9%86%D8%AF%D9%85%20%D9%85%D9%86%20%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -130,6 +148,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D8%AC%D9%86%D8%A9%20%D8%AA%D8%AD%D8%AA%20%D8%A3%D9%82%D8%AF%D8%A7%D9%85%20%D8%A7%D9%84%D8%A3%D9%85%D9%87%D8%A7%D8%AA",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": {
     "source_id": "nasai",
@@ -148,6 +168,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%AA%D9%81%D9%83%D8%B1%20%D8%B3%D8%A7%D8%B9%D8%A9%20%D8%AE%D9%8A%D8%B1%20%D9%85%D9%86%20%D8%B9%D8%A8%D8%A7%D8%AF%D8%A9%20%D8%B3%D9%86%D8%A9",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -159,6 +181,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D8%B9%D8%B1%D9%81%20%D9%86%D9%81%D8%B3%D9%87%20%D9%81%D9%82%D8%AF%20%D8%B9%D8%B1%D9%81%20%D8%B1%D8%A8%D9%87",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -170,6 +194,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%B5%D9%88%D9%85%D9%88%D8%A7%20%D8%AA%D8%B5%D8%AD%D9%88%D8%A7",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -183,6 +209,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D9%85%D8%B9%D8%AF%D8%A9%20%D8%A8%D9%8A%D8%AA%20%D8%A7%D9%84%D8%AF%D8%A7%D8%A1%20%D9%88%D8%A7%D9%84%D8%AD%D9%85%D9%8A%D8%A9%20%D8%B1%D8%A3%D8%B3%20%D8%A7%D9%84%D8%AF%D9%88%D8%A7%D8%A1",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -194,6 +222,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D9%84%D9%87%D9%85%20%D8%A8%D8%A7%D8%B1%D9%83%20%D9%84%D9%86%D8%A7%20%D9%81%D9%8A%20%D8%B1%D8%AC%D8%A8%20%D9%88%D8%B4%D8%B9%D8%A8%D8%A7%D9%86%20%D9%88%D8%A8%D9%84%D8%BA%D9%86%D8%A7%20%D8%B1%D9%85%D8%B6%D8%A7%D9%86",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -207,6 +237,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D8%AD%D8%AC%20%D9%88%D9%84%D9%85%20%D9%8A%D8%B2%D8%B1%D9%86%D9%8A%20%D9%81%D9%82%D8%AF%20%D8%AC%D9%81%D8%A7%D9%86%D9%8A",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -218,6 +250,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A3%D8%B5%D8%AD%D8%A7%D8%A8%D9%8A%20%D9%83%D8%A7%D9%84%D9%86%D8%AC%D9%88%D9%85%20%D8%A8%D8%A3%D9%8A%D9%87%D9%85%20%D8%A7%D9%82%D8%AA%D8%AF%D9%8A%D8%AA%D9%85%20%D8%A7%D9%87%D8%AA%D8%AF%D9%8A%D8%AA%D9%85",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -231,6 +265,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%84%D9%88%D9%84%D8%A7%D9%83%20%D9%84%D9%85%D8%A7%20%D8%AE%D9%84%D9%82%D8%AA%20%D8%A7%D9%84%D8%A3%D9%81%D9%84%D8%A7%D9%83",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -244,6 +280,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%83%D9%86%D8%AA%20%D9%83%D9%86%D8%B2%D8%A7%20%D9%85%D8%AE%D9%81%D9%8A%D8%A7%20%D9%81%D8%A3%D8%AD%D8%A8%D8%A8%D8%AA%20%D8%A3%D9%86%20%D8%A3%D8%B9%D8%B1%D9%81%20%D9%81%D8%AE%D9%84%D9%82%D8%AA%20%D8%A7%D9%84%D8%AE%D9%84%D9%82",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -255,6 +293,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%B1%D8%AC%D8%B9%D9%86%D8%A7%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AC%D9%87%D8%A7%D8%AF%20%D8%A7%D9%84%D8%A3%D8%B5%D8%BA%D8%B1%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D8%AC%D9%87%D8%A7%D8%AF%20%D8%A7%D9%84%D8%A3%D9%83%D8%A8%D8%B1",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -266,6 +306,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D8%A3%D9%82%D8%B1%D8%A8%D9%88%D9%86%20%D8%A3%D9%88%D9%84%D9%89%20%D8%A8%D8%A7%D9%84%D9%85%D8%B9%D8%B1%D9%88%D9%81",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -277,6 +319,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A8%D8%AF%D9%8A%D9%86%20%D8%A7%D9%84%D8%B9%D8%AC%D8%A7%D8%A6%D8%B2",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -288,6 +332,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%AE%D9%8A%D8%B1%20%D8%A7%D9%84%D8%A3%D9%85%D9%88%D8%B1%20%D8%A3%D9%88%D8%B3%D8%B7%D9%87%D8%A7",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -299,6 +345,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D8%A8%D9%84%D8%BA%20%D8%A7%D9%84%D8%A3%D8%B1%D8%A8%D8%B9%D9%8A%D9%86%20%D9%88%D9%84%D9%85%20%D9%8A%D8%BA%D9%84%D8%A8%20%D8%AE%D9%8A%D8%B1%D9%87%20%D8%B4%D8%B1%D9%87%20%D9%81%D9%84%D9%8A%D8%AA%D8%AC%D9%87%D8%B2%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D9%86%D8%A7%D8%B1",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -310,6 +358,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%B3%D9%8A%D8%AF%20%D8%A7%D9%84%D9%82%D9%88%D9%85%20%D8%AE%D8%A7%D8%AF%D9%85%D9%87%D9%85",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -323,6 +373,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D8%AA%D8%B9%D9%84%D9%85%20%D9%84%D8%BA%D8%A9%20%D9%82%D9%88%D9%85%20%D8%A3%D9%85%D9%86%20%D9%85%D9%83%D8%B1%D9%87%D9%85",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -334,6 +386,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D8%A7%D9%84%D9%86%D8%B8%D8%B1%20%D8%A5%D9%84%D9%89%20%D9%88%D8%AC%D9%87%20%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%20%D8%B9%D8%A8%D8%A7%D8%AF%D8%A9",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   },
@@ -345,6 +399,8 @@
    "ruling_source": "🔍 يُنقل لفظ الحكم ومصدره من الدرر السنية عند الاعتماد",
    "url": "https://dorar.net/hadith/search?q=%D9%86%D9%8A%D8%A9%20%D8%A7%D9%84%D9%85%D8%A4%D9%85%D9%86%20%D8%AE%D9%8A%D8%B1%20%D9%85%D9%86%20%D8%B9%D9%85%D9%84%D9%87",
    "verified": false,
+   "reviewed_by": null,
+   "reviewed_on": null,
    "note": null,
    "alternative": null
   }

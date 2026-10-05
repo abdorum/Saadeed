@@ -47,6 +47,15 @@ def fetch_raw(data_dir: Path, force: bool = False) -> list[str]:
         if force or not dest.exists():
             _download(TANZIL_URL.format(kind=kind), dest)
             done.append(str(dest))
+    # وصلة الموسوعة القرآنية (المسمّاة في الحزمة): ملفان صغيران، ليكون التبديل إليها سطرًا في ملف المرجعية.
+    from saadeed.adapters.sources.quranpedia import DUMPS_URL, FILES
+
+    for name in FILES:
+        # النسخة مثبّتة في المستودع (data/vendor) لإعادة الإنتاج، ولا تُنزَّل إلا إن غابت.
+        dest = data_dir / "vendor" / "quranpedia" / name
+        if force or not dest.exists():
+            _download(DUMPS_URL.format(name=name), dest)
+            done.append(str(dest))
     for book, stem in BOOK_FILES.items():
         for suffix in ("_ahadith.utf8.csv", "_ahadith_mushakkala_mufassala.utf8.csv"):
             dest = data_dir / "raw" / "open_hadith" / f"{stem}{suffix}"

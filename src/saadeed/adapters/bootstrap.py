@@ -13,6 +13,7 @@ from pathlib import Path
 
 from saadeed.adapters.sources.known_weak import DorarLinker, JsonKnownWeakRepo
 from saadeed.adapters.sources.open_hadith import OpenHadithSource
+from saadeed.adapters.sources.quranpedia import QuranpediaQuranRepo
 from saadeed.adapters.sources.tanzil import TanzilQuranRepo
 from saadeed.application.manifest import SourceManifest, load_manifest
 from saadeed.domain.enums import SourceRole
@@ -40,7 +41,7 @@ def load_env(path: Path | None = None) -> None:
 @dataclass
 class SourceBundle:
     manifest: SourceManifest
-    quran: TanzilQuranRepo
+    quran: TanzilQuranRepo | QuranpediaQuranRepo
     hadith_sources: list[OpenHadithSource]
     known_weak: JsonKnownWeakRepo | None
     linker: DorarLinker
@@ -78,8 +79,9 @@ class SourceBundle:
 
 @lru_cache(maxsize=2)
 def load_sources(data_dir: Path = DATA_DIR) -> SourceBundle:
-    manifest = load_manifest(data_dir / "manifest.toml")
-    quran: TanzilQuranRepo | None = None
+    # ملف مرجعية بديل للتجربة دون تعديل الأصلي: SAADEED_MANIFEST=data/manifest.quranpedia.toml
+    manifest = load_manifest(Path(os.environ.get("SAADEED_MANIFEST", data_dir / "manifest.toml")))
+    quran: TanzilQuranRepo | QuranpediaQuranRepo | None = None
     hadith: list[OpenHadithSource] = []
     known_weak: JsonKnownWeakRepo | None = None
     for e in manifest.sources:
@@ -88,6 +90,10 @@ def load_sources(data_dir: Path = DATA_DIR) -> SourceBundle:
         )
         if e.adapter == "tanzil":
             quran = TanzilQuranRepo(data_dir / e.files[0], data_dir / e.files[1], version=e.version)
+        elif e.adapter == "quranpedia":
+            quran = QuranpediaQuranRepo(
+                data_dir / e.files[0], data_dir / e.files[1], version=e.version
+            )
         elif e.adapter == "open_hadith":
             if e.role not in (SourceRole.AUTHENTIC, SourceRole.LOCATE):
                 raise ValueError(f"{e.id}: دور غير صالح لكتاب حديث: {e.role}")

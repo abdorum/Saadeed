@@ -1,0 +1,5702 @@
+{
+ "metrics": {
+  "systems": {
+   "saadeed": {
+    "detection": 0.9667,
+    "detection_ci": [
+     0.9167,
+     1.0
+    ],
+    "detection_strict": 0.85,
+    "false_alarm": 0.0323,
+    "false_alarm_ci": [
+     0.0,
+     0.0968
+    ],
+    "precision": 0.9831,
+    "critical_missed": 0,
+    "critical_missed_ids": [],
+    "critical_total": 24,
+    "fabricated_citations": 0,
+    "fabricated_confirmed_H7": 0,
+    "unverifiable_sourcing_O1": 0,
+    "false_accusation_H8": 0,
+    "mandatory_referral": 0.75,
+    "exceeds_precision": null,
+    "extraction_recall": 0.8242,
+    "by_category": {
+     "C0": 1.0,
+     "H1": 1.0,
+     "H10": 1.0,
+     "H2": 1.0,
+     "H3": 1.0,
+     "H4": 0.5,
+     "H5": 1.0,
+     "H6": 1.0,
+     "H7": 1.0,
+     "H8a": 1.0,
+     "H8b": 1.0,
+     "H9": 0.6667,
+     "O1": 1.0,
+     "O2": 1.0,
+     "O3": 1.0,
+     "O4": 1.0,
+     "O5": 0.5,
+     "O6": 1.0,
+     "O7": 1.0,
+     "OF": 1.0,
+     "Q1": 1.0,
+     "Q2": 1.0,
+     "Q3": 1.0,
+     "Q4": 1.0,
+     "Q5": 1.0,
+     "Q6": 1.0,
+     "Q7": 1.0,
+     "Q8": 1.0,
+     "Q9": 1.0
+    },
+    "by_group": {
+     "آيات": 1.0,
+     "أحاديث": 0.9333,
+     "أرقام وإحصاءات": 1.0,
+     "أقوال منسوبة": 1.0,
+     "أمثلة الحزمة": 1.0,
+     "إجماع وتعميم": 1.0,
+     "إحالات": 0.8333,
+     "جمل سليمة": 1.0
+    },
+    "latency_p50_ms": 18,
+    "latency_p95_ms": 365,
+    "tokens": 56518,
+    "llm_calls": 23,
+    "errors": [],
+    "consistency": null
+   },
+   "B0": {
+    "detection": 0.8333,
+    "detection_ci": [
+     0.7333,
+     0.9167
+    ],
+    "detection_strict": null,
+    "false_alarm": 0.4194,
+    "false_alarm_ci": [
+     0.2581,
+     0.5806
+    ],
+    "precision": 0.7937,
+    "critical_missed": 2,
+    "critical_missed_ids": [
+     "OF-d03",
+     "Q7-d05"
+    ],
+    "critical_total": 24,
+    "fabricated_citations": 6,
+    "fabricated_confirmed_H7": 0,
+    "unverifiable_sourcing_O1": 0,
+    "false_accusation_H8": 2,
+    "mandatory_referral": 0.75,
+    "exceeds_precision": null,
+    "extraction_recall": 0.7473,
+    "by_category": {
+     "C0": 1.0,
+     "H1": 0.0,
+     "H10": 1.0,
+     "H2": 0.0,
+     "H3": 1.0,
+     "H4": 0.5,
+     "H5": 1.0,
+     "H6": 1.0,
+     "H7": 1.0,
+     "H8a": 1.0,
+     "H8b": 1.0,
+     "H9": 0.3333,
+     "O1": 1.0,
+     "O2": 1.0,
+     "O3": 1.0,
+     "O4": 0.0,
+     "O5": 0.5,
+     "O6": 1.0,
+     "O7": 1.0,
+     "OF": 0.5,
+     "Q1": 0.5,
+     "Q2": 0.0,
+     "Q3": 1.0,
+     "Q4": 1.0,
+     "Q5": 1.0,
+     "Q6": 0.75,
+     "Q7": 0.6667,
+     "Q8": 0.3333,
+     "Q9": 1.0
+    },
+    "by_group": {
+     "آيات": 0.697,
+     "أحاديث": 0.7,
+     "أرقام وإحصاءات": 1.0,
+     "أقوال منسوبة": 1.0,
+     "أمثلة الحزمة": 0.5,
+     "إجماع وتعميم": 0.5,
+     "إحالات": 0.8333,
+     "جمل سليمة": 1.0
+    },
+    "latency_p50_ms": 5,
+    "latency_p95_ms": 8,
+    "tokens": 25063,
+    "llm_calls": 16,
+    "errors": [],
+    "consistency": null
+   }
+  },
+  "n_cases": 91,
+  "mcnemar_saadeed_vs_B0": {
+   "saadeed_only": 21,
+   "b0_only": 1,
+   "p": 1.1e-05
+  },
+  "split": "dev",
+  "k": 1,
+  "systems_run": [
+   "saadeed",
+   "B0"
+  ],
+  "overreach": false,
+  "replay": true,
+  "model": "replay",
+  "prompt_versions": {
+   "extract": "v4",
+   "judge_hadiths": "v2"
+  },
+  "manifest": {
+   "id": "saadeed-2026.10-v2",
+   "sha256": "772e352a24d5e2b66cc4e4aa1422c8fb70593fb5688ae150032841010ba739b9"
+  },
+  "carriers": 16,
+  "generated_at": "2026-10-05T14:19:00+00:00"
+ },
+ "runs": {
+  "saadeed": [
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-001",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       33,
+       70
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "كذبوا بآياتنا كلها فأخذناهم أخذ مقتدر",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "54:42",
+        "role": "REFERENCE_TEXT",
+        "text": "كَذَّبُوا۟ بِـَٔايَٰتِنَا كُلِّهَا فَأَخَذْنَٰهُمْ أَخْذَ عَزِيزٍ مُّقْتَدِرٍ (42)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       176,
+       226
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "FOUND_NO_RULING",
+      "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "إذا أهل الرجل بالحج ثم قدم مكة فطاف بالبيت وبالصفا",
+      "evidence": [
+       {
+        "source_id": "abudawud",
+        "item_id": "1526",
+        "role": "LOCATE",
+        "text": "حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُعَاذٍ حَدَّثَنِي أَبِي حَدَّثَنَا النَّهَّاسُ عَنْ عَطَاءٍ عَنْ ابْنِ عَبَّاسٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِذَا أَهَلَّ الرَّجُلُ بِالْحَجِّ ثُمَّ قَدِمَ مَكَّةَ فَطَافَ بِالْبَيْتِ وَبِالصَّفَا وَالْمَرْوَةِ فَقَدْ حَلَّ وَهِيَ عُمْرَةٌ قَالَ أَبُو دَاوُد رَوَاهُ ابْنُ جُرَيْجٍ عَنْ رَجُلٍ عَنْ عَطَاءٍ دَخَلَ أَصْحَابُ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مُهِلِّينَ بِالْحَجِّ خَالِصًا فَجَعَلَهَا النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ عُمْرَةً",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       248,
+       294
+      ],
+      "claim_type": "CONSENSUS_CLAIM",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "UNVERIFIED_CONSENSUS",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "كل المسلمين متفقون على هذه المسألة دون استثناء",
+      "evidence": [
+       {
+        "source_id": "dorar_fiqh",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       397,
+       417
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إنما الأعمال بالنيات",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "1",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا الْحُمَيْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ قَالَ حَدَّثَنَا سُفْيَانُ قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ قَالَ أَخْبَرَنِي مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ أَنَّهُ سَمِعَ عَلْقَمَةَ بْنَ وَقَّاصٍ اللَّيْثِيَّ يَقُولُ سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ عَلَى الْمِنْبَرِ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا أَوْ إِلَى امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "abudawud",
+        "item_id": "1882",
+        "role": "LOCATE",
+        "text": "حَدَّثَنَا مُحَمَّدُ بْنُ كَثِيرٍ أَخْبَرَنَا سُفْيَانُ حَدَّثَنِي يَحْيَى بْنُ سَعِيدٍ عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ التَّيْمِيِّ عَنْ عَلْقَمَةَ بْنِ وَقَّاصٍ اللَّيْثِيِّ قَالَ سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ يَقُولُ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَتَزَوَّجُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       420,
+       471
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "OVERGENERALIZATION",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "فدل على أن كل عمل صحت نيته فهو مقبول ولو خالف الشرع",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 12,
+    "prompt_tokens": 1864,
+    "completion_tokens": 1142,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-002",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       85,
+       134
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إذا نودي للصلاة أدبر الشيطان وله ضراط حتى لا يسمع",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "573",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ قَالَ أَخْبَرَنَا مَالِكٌ عَنْ أَبِي الزِّنَادِ عَنْ الْأَعْرَجِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِذَا نُودِيَ لِلصَّلَاةِ أَدْبَرَ الشَّيْطَانُ وَلَهُ ضُرَاطٌ حَتَّى لَا يَسْمَعَ التَّأْذِينَ فَإِذَا قَضَى النِّدَاءَ أَقْبَلَ حَتَّى إِذَا ثُوِّبَ بِالصَّلَاةِ أَدْبَرَ حَتَّى إِذَا قَضَى التَّثْوِيبَ أَقْبَلَ حَتَّى يَخْطِرَ بَيْنَ الْمَرْءِ وَنَفْسِهِ يَقُولُ اذْكُرْ كَذَا اذْكُرْ كَذَا لِمَا لَمْ يَكُنْ يَذْكُرُ حَتَّى يَظَلَّ الرَّجُلُ لَا يَدْرِي كَمْ صَلَّى",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "nasai",
+        "item_id": "664",
+        "role": "LOCATE",
+        "text": "أَخْبَرَنَا قُتَيْبَةُ عَنْ مَالِكٍ عَنْ أَبِي الزِّنَادِ عَنْ الْأَعْرَجِ عَنْ أَبِي هُرَيْرَةَ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِذَا نُودِيَ لِلصَّلَاةِ أَدْبَرَ الشَّيْطَانُ وَلَهُ ضُرَاطٌ حَتَّى لَا يَسْمَعَ التَّأْذِينَ فَإِذَا قُضِيَ النِّدَاءُ أَقْبَلَ حَتَّى إِذَا ثُوِّبَ بِالصَّلَاةِ أَدْبَرَ حَتَّى إِذَا قُضِيَ التَّثْوِيبُ أَقْبَلَ حَتَّى يَخْطُرَ بَيْنَ الْمَرْءِ وَنَفْسِهِ يَقُولُ اذْكُرْ كَذَا اذْكُرْ كَذَا لِمَا لَمْ يَكُنْ يَذْكُرُ حَتَّى يَظَلَّ الْمَرْءُ إِنْ يَدْرِي كَمْ صَلَّى",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       176,
+       228
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "لو أن أردنا نتخذ لهوا لاتخذناه من لدنا إن كنا فاعلين",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "21:17",
+        "role": "REFERENCE_TEXT",
+        "text": "لَوْ أَرَدْنَآ أَن نَّتَّخِذَ لَهْوًا لَّٱتَّخَذْنَٰهُ مِن لَّدُنَّآ إِن كُنَّا فَٰعِلِينَ (17)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       247,
+       306
+      ],
+      "claim_type": "RULING",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "FATWA_REQUIRED",
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "ومن حلف بالطلاق على زوجته ثم حنث فلا يقع طلاقه في حالتك هذه",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       343,
+       400
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "آلْآنَ وَقَدْ عَصَيْتَ قَبْلُ وَكُنتَ مِنَ الْمُفْسِدِينَ",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "10:91",
+        "role": "REFERENCE_TEXT",
+        "text": "ءَآلْـَٰٔنَ وَقَدْ عَصَيْتَ قَبْلُ وَكُنتَ مِنَ ٱلْمُفْسِدِينَ (91)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 9,
+    "prompt_tokens": 1878,
+    "completion_tokens": 943,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-003",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       30,
+       76
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "MISATTRIBUTED",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "من أعتق نصيبا أو شقيصا في مملوك فخلاصه عليه في",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "2342",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا أَحْمَدُ ابْنُ أَبِي رَجَاءٍ حَدَّثَنَا يَحْيَى بْنُ آدَمَ حَدَّثَنَا جَرِيرُ بْنُ حَازِمٍ سَمِعْتُ قَتَادَةَ قَالَ حَدَّثَنِي النَّضْرُ بْنُ أَنَسِ بْنِ مَالِكٍ عَنْ بَشِيرِ بْنِ نَهِيكٍ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ أَعْتَقَ شَقِيصًا مِنْ عَبْدٍ حَدَّثَنَا مُسَدَّدٌ حَدَّثَنَا يَزِيدُ بْنُ زُرَيْعٍ حَدَّثَنَا سَعِيدٌ عَنْ قَتَادَةَ عَنْ النَّضْرِ بْنِ أَنَسٍ عَنْ بَشِيرِ بْنِ نَهِيكٍ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَنْ أَعْتَقَ نَصِيبًا أَوْ شَقِيصًا فِي مَمْلُوكٍ فَخَلَاصُهُ عَلَيْهِ فِي مَالِهِ إِنْ كَانَ لَهُ مَالٌ وَإِلَّا قُوِّمَ عَلَيْهِ فَاسْتُسْعِيَ بِهِ غَيْرَ مَشْقُوقٍ عَلَيْهِ تَابَعَهُ حَجَّاجُ بْنُ حَجَّاجٍ وَأَبَانُ وَمُوسَى بْنُ خَلَفٍ عَنْ قَتَادَةَ اخْتَصَرَهُ شُعْبَةُ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       113,
+       144
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "KNOWN_WEAK",
+      "action": "RECONSIDER",
+      "source": null,
+      "correct_text": null,
+      "quote": "تفكر ساعة خير من عبادة ستين سنة",
+      "evidence": [
+       {
+        "source_id": "known_weak",
+        "item_id": "kw-011",
+        "role": "RULING",
+        "text": "تفكر ساعة خير من عبادة سنة",
+        "match_type": "PARTIAL"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       184,
+       210
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "خيركم من تعلم القرآن وعلمه",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "4639",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ حَدَّثَنَا شُعْبَةُ قَالَ أَخْبَرَنِي عَلْقَمَةُ بْنُ مَرْثَدٍ سَمِعْتُ سَعْدَ بْنَ عُبَيْدَةَ عَنْ أَبِي عَبْدِ الرَّحْمَنِ السُّلَمِيِّ عَنْ عُثْمَانَ رَضِيَ اللَّهُ عَنْهُ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ قَالَ وَأَقْرَأَ أَبُو عَبْدِ الرَّحْمَنِ فِي إِمْرَةِ عُثْمَانَ حَتَّى كَانَ الْحَجَّاجُ قَالَ وَذَاكَ الَّذِي أَقْعَدَنِي مَقْعَدِي هَذَا",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "abudawud",
+        "item_id": "1240",
+        "role": "LOCATE",
+        "text": "حَدَّثَنَا حَفْصُ بْنُ عُمَرَ حَدَّثَنَا شُعْبَةُ عَنْ عَلْقَمَةَ بْنِ مَرْثَدٍ عَنْ سَعْدِ بْنِ عُبَيْدَةَ عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَنْ عُثْمَانَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       350,
+       388
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "أفضل الناس من يتعلم القرآن ويعلمه غيره",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "4640",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا أَبُو نُعَيْمٍ حَدَّثَنَا سُفْيَانُ عَنْ عَلْقَمَةَ بْنِ مَرْثَدٍ عَنْ أَبِي عَبْدِ الرَّحْمَنِ السُّلَمِيِّ عَنْ عُثْمَانَ بْنِ عَفَّانَ قَالَ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ أَفْضَلَكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+        "match_type": "PARAPHRASE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       407,
+       442
+      ],
+      "claim_type": "GROUP_JUDGMENT",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "GROUP_JUDGMENT",
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "وأتباع المذاهب الأخرى كلهم على باطل",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 118,
+    "prompt_tokens": 2928,
+    "completion_tokens": 1303,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-004",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       34,
+       67
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "خيركم من صبر على جاره ثلاثين يوما",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       101,
+       139
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "KNOWN_WEAK",
+      "action": "RECONSIDER",
+      "source": null,
+      "correct_text": null,
+      "quote": "النظافة من الإيمان والوساخة من الشيطان",
+      "evidence": [
+       {
+        "source_id": "known_weak",
+        "item_id": "kw-004",
+        "role": "RULING",
+        "text": "النظافة من الإيمان",
+        "match_type": "PARTIAL"
+       },
+       {
+        "source_id": "muslim",
+        "item_id": "328",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا إِسْحَقُ بْنُ مَنْصُورٍ حَدَّثَنَا حَبَّانُ بْنُ هِلَالٍ حَدَّثَنَا أَبَانُ حَدَّثَنَا يَحْيَى أَنَّ زَيْدًا حَدَّثَهُ أَنَّ أَبَا سَلَّامٍ حَدَّثَهُ عَنْ أَبِي مَالِكٍ الْأَشْعَرِيِّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الطُّهُورُ شَطْرُ الْإِيمَانِ وَالْحَمْدُ لِلَّهِ تَمْلَأُ الْمِيزَانَ وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ تَمْلَآَنِ أَوْ تَمْلَأُ مَا بَيْنَ السَّمَاوَاتِ وَالْأَرْضِ وَالصَّلَاةُ نُورٌ وَالصَّدَقَةُ بُرْهَانٌ وَالصَّبْرُ ضِيَاءٌ وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ كُلُّ النَّاسِ يَغْدُو فَبَايِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا",
+        "match_type": "PARAPHRASE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       220,
+       272
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "أم أنزلنا عليهم فهو سلطانا يتكلم بما كانوا به يشركون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "30:35",
+        "role": "REFERENCE_TEXT",
+        "text": "أَمْ أَنزَلْنَا عَلَيْهِمْ سُلْطَٰنًا فَهُوَ يَتَكَلَّمُ بِمَا كَانُوا۟ بِهِۦ يُشْرِكُونَ (35)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       319,
+       335
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "يسروا ولا تعسروا",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "67",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ قَالَ حَدَّثَنَا شُعْبَةُ قَالَ حَدَّثَنِي أَبُو التَّيَّاحِ عَنْ أَنَسِ بْنِ مَالِكٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ يَسِّرُوا وَلَا تُعَسِّرُوا وَبَشِّرُوا وَلَا تُنَفِّرُوا",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "muslim",
+        "item_id": "3264",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُعَاذٍ الْعَنْبَرِيُّ حَدَّثَنَا أَبِي حَدَّثَنَا شُعْبَةُ عَنْ أَبِي التَّيَّاحِ عَنْ أَنَسٍ ح و حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ سَعِيدٍ ح و حَدَّثَنَا مُحَمَّدُ بْنُ الْوَلِيدِ حَدَّثَنَا مُحَمَّدُ بْنُ جَعْفَرٍ كِلَاهُمَا عَنْ شُعْبَةَ عَنْ أَبِي التَّيَّاحِ قَالَ سَمِعْتُ أَنَسَ بْنَ مَالِكٍ يَقُولُا قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَسِّرُوا وَلَا تُعَسِّرُوا وَسَكِّنُوا وَلَا تُنَفِّرُوا",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       349,
+       377
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "OVERGENERALIZATION",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "كل تشديد في الدين بدعة محرمة",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       423,
+       447
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "كل مصور في النار يجعل له",
+      "evidence": [
+       {
+        "source_id": "muslim",
+        "item_id": "3945",
+        "role": "AUTHENTIC",
+        "text": "قَالَ مُسْلِم قَرَأْتُ عَلَى نَصْرِ بْنِ عَلِيٍّ الْجَهْضَمِيِّ عَنْ عَبْدِ الْأَعْلَى بْنِ عَبْدِ الْأَعْلَى حَدَّثَنَا يَحْيَى بْنُ أَبِي إِسْحَقَ عَنْ سَعِيدِ بْنِ أَبِي الْحَسَنِ قَالَ جَاءَ رَجُلٌ إِلَى ابْنِ عَبَّاسٍ فَقَالَ إِنِّي رَجُلٌ أُصَوِّرُ هَذِهِ الصُّوَرَ فَأَفْتِنِي فِيهَا فَقَالَ لَهُ ادْنُ مِنِّي فَدَنَا مِنْهُ ثُمَّ قَالَ ادْنُ مِنِّي فَدَنَا حَتَّى وَضَعَ يَدَهُ عَلَى رَأْسِهِ قَالَ أُنَبِّئُكَ بِمَا سَمِعْتُ مِنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ كُلُّ مُصَوِّرٍ فِي النَّارِ يَجْعَلُ لَهُ بِكُلِّ صُورَةٍ صَوَّرَهَا نَفْسًا فَتُعَذِّبُهُ فِي جَهَنَّمَ و قَالَ إِنْ كُنْتَ لَا بُدَّ فَاعِلًا فَاصْنَعْ الشَّجَرَ وَمَا لَا نَفْسَ لَهُ فَأَقَرَّ بِهِ نَصْرُ بْنُ عَلِيٍّ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 187,
+    "prompt_tokens": 2958,
+    "completion_tokens": 1386,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-005",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       33,
+       75
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "FOUND_NO_RULING",
+      "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "اللهم إني أعوذ بك من الأربع من علم لا ينفع",
+      "evidence": [
+       {
+        "source_id": "abudawud",
+        "item_id": "1324",
+        "role": "LOCATE",
+        "text": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ حَدَّثَنَا اللَّيْثُ عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ الْمَقْبُرِيِّ عَنْ أَخِيهِ عَبَّادِ بْنِ أَبِي سَعِيدٍ أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ يَقُولُ كَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْأَرْبَعِ مِنْ عِلْمٍ لَا يَنْفَعُ وَمِنْ قَلْبٍ لَا يَخْشَعُ وَمِنْ نَفْسٍ لَا تَشْبَعُ وَمِنْ دُعَاءٍ لَا يُسْمَعُ",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "nasai",
+        "item_id": "5372",
+        "role": "LOCATE",
+        "text": "أَخْبَرَنَا قُتَيْبَةُ قَالَ حَدَّثَنَا اللَّيْثُ عَنْ سَعِيدِ بْنِ أَبِي سَعِيدٍ عَنْ أَخِيهِ عَبَّادِ بْنِ أَبِي سَعِيدٍ أَنَّهُ سَمِعَ أَبَا هُرَيْرَةَ يَقُولُ كَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْأَرْبَعِ مِنْ عِلْمٍ لَا يَنْفَعُ وَمِنْ قَلْبٍ لَا يَخْشَعُ وَمِنْ نَفْسٍ لَا تَشْبَعُ وَمِنْ دُعَاءٍ لَا يُسْمَعُ",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       111,
+       157
+      ],
+      "claim_type": "ATTRIBUTED_SAYING",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "NO_SOURCE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "يا ابن آدم إنما أنت أيام كلما ذهب يوم ذهب بعضك",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       196,
+       243
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "FOUND_NO_RULING",
+      "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "القنطار اثنا عشر ألف أوقية كل أوقية خير مما بين",
+      "evidence": [
+       {
+        "source_id": "ibnmajah",
+        "item_id": "3650",
+        "role": "LOCATE",
+        "text": "حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ حَدَّثَنَا عَبْدُ الصَّمَدِ بْنُ عَبْدِ الْوَارِثِ عَنْ حَمَّادِ بْنِ سَلَمَةَ عَنْ عَاصِمٍ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ الْقِنْطَارُ اثْنَا عَشَرَ أَلْفَ أُوقِيَّةٍ كُلُّ أُوقِيَّةٍ خَيْرٌ مِمَّا بَيْنَ السَّمَاءِ وَالْأَرْضِ وَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِنَّ الرَّجُلَ لَتُرْفَعُ دَرَجَتُهُ فِي الْجَنَّةِ فَيَقُولُ أَنَّى هَذَا فَيُقَالُ بِاسْتِغْفَارِ وَلَدِكَ لَكَ",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       262,
+       306
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "OVERGENERALIZATION",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "ولا يحضر أحد صلاة الفجر في المسجد هذه الأيام",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       343,
+       388
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "يوم يأت لا نفس تكلم إلا بإذنه فمنهم شقي وسعيد",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "11:105",
+        "role": "REFERENCE_TEXT",
+        "text": "يَوْمَ يَأْتِ لَا تَكَلَّمُ نَفْسٌ إِلَّا بِإِذْنِهِۦ فَمِنْهُمْ شَقِىٌّ وَسَعِيدٌ (105)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       424,
+       486
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "ومن الليل فتهجد به كلهم نافلة لك عسى أن يبعثك ربك مقاما محمودا",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "17:79",
+        "role": "REFERENCE_TEXT",
+        "text": "وَمِنَ ٱلَّيْلِ فَتَهَجَّدْ بِهِۦ نَافِلَةً لَّكَ عَسَىٰٓ أَن يَبْعَثَكَ رَبُّكَ مَقَامًا مَّحْمُودًا (79)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 13,
+    "prompt_tokens": 1872,
+    "completion_tokens": 1146,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-006",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       37,
+       97
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "لو يجدون ملجأ دائما أو مغارات أو مدخلا لولوا إليه وهم يجمحون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "9:57",
+        "role": "REFERENCE_TEXT",
+        "text": "لَوْ يَجِدُونَ مَلْجَـًٔا أَوْ مَغَٰرَٰتٍ أَوْ مُدَّخَلًا لَّوَلَّوْا۟ إِلَيْهِ وَهُمْ يَجْمَحُونَ (57)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       116,
+       169
+      ],
+      "claim_type": "RULING",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "SPECIALIST_REQUIRED",
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "وتجب الزكاة في الحلي المعد للاستعمال على القول الصحيح",
+      "evidence": [
+       {
+        "source_id": "dorar_fiqh",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       197,
+       268
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وآتوا النساء صدقاتهن نحلة فإن طبن لكم عن شيء منه نفسا فكلوه هنيئا مريئا",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "4:4",
+        "role": "REFERENCE_TEXT",
+        "text": "وَءَاتُوا۟ ٱلنِّسَآءَ صَدُقَٰتِهِنَّ نِحْلَةً فَإِن طِبْنَ لَكُمْ عَن شَىْءٍ مِّنْهُ نَفْسًا فَكُلُوهُ هَنِيٓـًٔا مَّرِيٓـًٔا (4)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       316,
+       369
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "والذين الحق ما آتوا وقلوبهم وجلة أنهم إلى ربهم راجعون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "23:60",
+        "role": "REFERENCE_TEXT",
+        "text": "وَٱلَّذِينَ يُؤْتُونَ مَآ ءَاتَوا۟ وَّقُلُوبُهُمْ وَجِلَةٌ أَنَّهُمْ إِلَىٰ رَبِّهِمْ رَٰجِعُونَ (60)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       417,
+       507
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "الزاني ينكح لا إلا زانية أو مشركة والزانية لا ينكحها إلا زان أو مشرك وحرم ذلك على المؤمنين",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "24:3",
+        "role": "REFERENCE_TEXT",
+        "text": "ٱلزَّانِى لَا يَنكِحُ إِلَّا زَانِيَةً أَوْ مُشْرِكَةً وَٱلزَّانِيَةُ لَا يَنكِحُهَآ إِلَّا زَانٍ أَوْ مُشْرِكٌ وَحُرِّمَ ذَٰلِكَ عَلَى ٱلْمُؤْمِنِينَ (3)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       547,
+       594
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "من قتل نفسا معاهدا لم يرح رائحة الجنة وإن ريحها",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "6403",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا قَيْسُ بْنُ حَفْصٍ حَدَّثَنَا عَبْدُ الْوَاحِدِ حَدَّثَنَا الْحَسَنُ حَدَّثَنَا مُجَاهِدٌ عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ مَنْ قَتَلَ نَفْسًا مُعَاهَدًا لَمْ يَرِحْ رَائِحَةَ الْجَنَّةِ وَإِنَّ رِيحَهَا لَيُوجَدُ مِنْ مَسِيرَةِ أَرْبَعِينَ عَامًا",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 12,
+    "prompt_tokens": 1933,
+    "completion_tokens": 1102,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-007",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       32,
+       68
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "فطاف عليها طائف من ربك قلوبهم نائمون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "68:19",
+        "role": "REFERENCE_TEXT",
+        "text": "فَطَافَ عَلَيْهَا طَآئِفٌ مِّن رَّبِّكَ وَهُمْ نَآئِمُونَ (19)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       113,
+       156
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إني أنفسهم اليوم بما صبروا أنهم هم الفائزون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "23:111",
+        "role": "REFERENCE_TEXT",
+        "text": "إِنِّى جَزَيْتُهُمُ ٱلْيَوْمَ بِمَا صَبَرُوٓا۟ أَنَّهُمْ هُمُ ٱلْفَآئِزُونَ (111)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       198,
+       231
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "OVERGENERALIZATION",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "الناس جميعا يعلمون أن الصدق منجاة",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       233,
+       324
+      ],
+      "claim_type": "PERSONAL_CASE",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "FATWA_REQUIRED",
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "ثم اعلموا رحمكم الله، فإن كنت مقيما في بلد لا يعترف بالزواج الشرعي فيكفيك العقد المدني وحده",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       359,
+       380
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "NOT_QURAN",
+      "action": "RECONSIDER",
+      "source": null,
+      "correct_text": null,
+      "quote": "العلم نور والجهل ظلام",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       416,
+       459
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "والقمر قدرناه منازل حتى عاد كالعرجون القديم",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "36:39",
+        "role": "REFERENCE_TEXT",
+        "text": "وَٱلْقَمَرَ قَدَّرْنَٰهُ مَنَازِلَ حَتَّىٰ عَادَ كَٱلْعُرْجُونِ ٱلْقَدِيمِ (39)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 15,
+    "prompt_tokens": 1877,
+    "completion_tokens": 1183,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-008",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       39,
+       89
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "من تبسم في وجه يتيم أظله الله تحت عرشه يوم القيامة",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       106,
+       153
+      ],
+      "claim_type": "CONSENSUS_CLAIM",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "UNVERIFIED_CONSENSUS",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "اتفق العلماء على أن الصدقة أفضل من صيام النافلة",
+      "evidence": [
+       {
+        "source_id": "dorar_fiqh",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       165,
+       223
+      ],
+      "claim_type": "STATISTIC",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "NO_SOURCE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "سبعون بالمئة من حالات الطلاق سببها وسائل التواصل الاجتماعي",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       239,
+       270
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "OVERGENERALIZATION",
+      "action": "REPHRASE",
+      "source": null,
+      "correct_text": null,
+      "quote": "أهل البادية كلهم جفاة لا يفقهون",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       307,
+       460
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وَإِذَا مَسَّكُمُ الضُّرُّ فِي الْبَحْرِ ضَلَّ مَن تَدْعُونَ إِلَّا إِيَّاهُ فَلَمَّا نَجَّاكُمْ إِلَى الْبَرِّ أَعْرَضْتُمْ وَكَانَ الْإِنسَانُ كَفُورًا",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "17:67",
+        "role": "REFERENCE_TEXT",
+        "text": "وَإِذَا مَسَّكُمُ ٱلضُّرُّ فِى ٱلْبَحْرِ ضَلَّ مَن تَدْعُونَ إِلَّآ إِيَّاهُ فَلَمَّا نَجَّىٰكُمْ إِلَى ٱلْبَرِّ أَعْرَضْتُمْ وَكَانَ ٱلْإِنسَٰنُ كَفُورًا (67)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       491,
+       509
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "الطهور شطر الإيمان",
+      "evidence": [
+       {
+        "source_id": "muslim",
+        "item_id": "328",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا إِسْحَقُ بْنُ مَنْصُورٍ حَدَّثَنَا حَبَّانُ بْنُ هِلَالٍ حَدَّثَنَا أَبَانُ حَدَّثَنَا يَحْيَى أَنَّ زَيْدًا حَدَّثَهُ أَنَّ أَبَا سَلَّامٍ حَدَّثَهُ عَنْ أَبِي مَالِكٍ الْأَشْعَرِيِّ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ الطُّهُورُ شَطْرُ الْإِيمَانِ وَالْحَمْدُ لِلَّهِ تَمْلَأُ الْمِيزَانَ وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ تَمْلَآَنِ أَوْ تَمْلَأُ مَا بَيْنَ السَّمَاوَاتِ وَالْأَرْضِ وَالصَّلَاةُ نُورٌ وَالصَّدَقَةُ بُرْهَانٌ وَالصَّبْرُ ضِيَاءٌ وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ كُلُّ النَّاسِ يَغْدُو فَبَايِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 221,
+    "prompt_tokens": 2977,
+    "completion_tokens": 1579,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-009",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       33,
+       128
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وَقَالَ ارْكَبُوا فِيهَا بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا إِنَّ رَبِّي لَغَفُورٌ رَّحِيمٌ",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "11:41",
+        "role": "REFERENCE_TEXT",
+        "text": "وَقَالَ ٱرْكَبُوا۟ فِيهَا بِسْمِ ٱللَّهِ مَجْر۪ىٰهَا وَمُرْسَىٰهَآ إِنَّ رَبِّى لَغَفُورٌ رَّحِيمٌ (41)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       171,
+       219
+      ],
+      "claim_type": "ATTRIBUTED_SAYING",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "NO_SOURCE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "رأيي صواب يحتمل الخطأ ورأي غيري خطأ يحتمل الصواب",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       305,
+       326
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "KNOWN_WEAK",
+      "action": "RECONSIDER",
+      "source": null,
+      "correct_text": null,
+      "quote": "حب الأوطان من الإيمان",
+      "evidence": [
+       {
+        "source_id": "known_weak",
+        "item_id": "kw-003",
+        "role": "RULING",
+        "text": "حب الوطن من الإيمان",
+        "match_type": "PARTIAL"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       366,
+       412
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "MISATTRIBUTED",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إذا عطس أحدكم فليقل الحمد لله وليقل له أخوه أو",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "5756",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا مَالِكُ بْنُ إِسْمَاعِيلَ حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ أَبِي سَلَمَةَ أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ دِينَارٍ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِذَا عَطَسَ أَحَدُكُمْ فَلْيَقُلْ الْحَمْدُ لِلَّهِ وَلْيَقُلْ لَهُ أَخُوهُ أَوْ صَاحِبُهُ يَرْحَمُكَ اللَّهُ فَإِذَا قَالَ لَهُ يَرْحَمُكَ اللَّهُ فَلْيَقُلْ يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       442,
+       500
+      ],
+      "claim_type": "RULING",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "SPECIALIST_REQUIRED",
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "إن كانت أمك مريضة لا تستطيع الصيام فلا قضاء عليها ولا فدية",
+      "evidence": [
+       {
+        "source_id": "dorar_fiqh",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 21,
+    "prompt_tokens": 1898,
+    "completion_tokens": 1008,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-010",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       48,
+       79
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إذا سلم عليكم أهل الكتاب فقولوا",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "5788",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَةَ حَدَّثَنَا هُشَيْمٌ أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ أَبِي بَكْرِ بْنِ أَنَسٍ حَدَّثَنَا أَنَسُ بْنُ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ قَالَ قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِذَا سَلَّمَ عَلَيْكُمْ أَهْلُ الْكِتَابِ فَقُولُوا وَعَلَيْكُمْ",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "muslim",
+        "item_id": "4024",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا يَحْيَى بْنُ يَحْيَى أَخْبَرَنَا هُشَيْمٌ عَنْ عُبَيْدِ اللَّهِ بْنِ أَبِي بَكْرٍ قَالَ سَمِعْتُ أَنَسًا يَقُولُا قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ح و حَدَّثَنِي إِسْمَعِيلُ بْنُ سَالِمٍ حَدَّثَنَا هُشَيْمٌ أَخْبَرَنَا عُبَيْدُ اللَّهِ بْنُ أَبِي بَكْرٍ عَنْ جَدِّهِ أَنَسِ بْنِ مَالِكٍ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِذَا سَلَّمَ عَلَيْكُمْ أَهْلُ الْكِتَابِ فَقُولُوا وَعَلَيْكُمْ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       163,
+       216
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إن الذين يصنعون هذه الصور يعذبون يوم القيامة يقال لهم",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "5495",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا إِبْرَاهِيمُ بْنُ الْمُنْذِرِ حَدَّثَنَا أَنَسُ بْنُ عِيَاضٍ عَنْ عُبَيْدِ اللَّهِ عَنْ نَافِعٍ أَنَّ عَبْدَ اللَّهِ بْنَ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا أَخْبَرَهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ الَّذِينَ يَصْنَعُونَ هَذِهِ الصُّوَرَ يُعَذَّبُونَ يَوْمَ الْقِيَامَةِ يُقَالُ لَهُمْ أَحْيُوا مَا خَلَقْتُمْ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       260,
+       273
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "تهادوا تحابوا",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       311,
+       333
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "NOT_QURAN",
+      "action": "RECONSIDER",
+      "source": null,
+      "correct_text": null,
+      "quote": "تبسمك في وجه أخيك صدقة",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       371,
+       412
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "منها خلقناكم وفيها نعيدكم ومنها تارة أخرى",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "20:55",
+        "role": "REFERENCE_TEXT",
+        "text": "مِنْهَا خَلَقْنَٰكُمْ وَفِيهَا نُعِيدُكُمْ وَمِنْهَا نُخْرِجُكُمْ تَارَةً أُخْرَىٰ (55)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 81,
+    "prompt_tokens": 2997,
+    "completion_tokens": 933,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-011",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       32,
+       69
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "WRONG_REFERENCE",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "أم اتخذ مما يخلق بنات وأصفاكم بالبنين",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "43:16",
+        "role": "REFERENCE_TEXT",
+        "text": "أَمِ ٱتَّخَذَ مِمَّا يَخْلُقُ بَنَاتٍ وَأَصْفَىٰكُم بِٱلْبَنِينَ (16)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       117,
+       145
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "إنما بعثت لأتمم صالح الأخلاق",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       185,
+       251
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "الله لا يهتم بأشكالكم وثرواتكم وإنما يهتم بما في قلوبكم وما تعملون",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       288,
+       321
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "الذين يستمعون القول فيتبعون أحسنه",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "39:18",
+        "role": "REFERENCE_TEXT",
+        "text": "ٱلَّذِينَ يَسْتَمِعُونَ ٱلْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُۥٓ أُو۟لَٰٓئِكَ ٱلَّذِينَ هَدَىٰهُمُ ٱللَّهُ وَأُو۟لَٰٓئِكَ هُمْ أُو۟لُوا۟ ٱلْأَلْبَٰبِ (18)",
+        "match_type": "PARTIAL"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       355,
+       416
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "ليست القوة في غلبة الناس وإنما القوي من يتحكم في نفسه إذا غضب",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       463,
+       506
+      ],
+      "claim_type": "STATISTIC",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "NO_SOURCE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "تسعين بالمئة من الأمراض سببها التوتر والقلق",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 365,
+    "prompt_tokens": 3821,
+    "completion_tokens": 975,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-012",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       34,
+       52
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "الكلمة الطيبة صدقة",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "2767",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنِي إِسْحَاقُ أَخْبَرَنَا عَبْدُ الرَّزَّاقِ أَخْبَرَنَا مَعْمَرٌ عَنْ هَمَّامٍ عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كُلُّ سُلَامَى مِنْ النَّاسِ عَلَيْهِ صَدَقَةٌ كُلَّ يَوْمٍ تَطْلُعُ فِيهِ الشَّمْسُ يَعْدِلُ بَيْنَ الِاثْنَيْنِ صَدَقَةٌ وَيُعِينُ الرَّجُلَ عَلَى دَابَّتِهِ فَيَحْمِلُ عَلَيْهَا أَوْ يَرْفَعُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ وَكُلُّ خُطْوَةٍ يَخْطُوهَا إِلَى الصَّلَاةِ صَدَقَةٌ وَيُمِيطُ الْأَذَى عَنْ الطَّرِيقِ صَدَقَةٌ",
+        "match_type": "PARTIAL"
+       },
+       {
+        "source_id": "muslim",
+        "item_id": "1677",
+        "role": "AUTHENTIC",
+        "text": "و حَدَّثَنَا مُحَمَّدُ بْنُ رَافِعٍ حَدَّثَنَا عَبْدُ الرَّزَّاقِ بْنُ هَمَّامٍ حَدَّثَنَا مَعْمَرٌ عَنْ هَمَّامِ بْنِ مُنَبِّهٍ قَالَ هَذَا مَا حَدَّثَنَا أَبُو هُرَيْرَةَ عَنْ مُحَمَّدٍ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَذَكَرَ أَحَادِيثَ مِنْهَا وَقَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كُلُّ سُلَامَى مِنْ النَّاسِ عَلَيْهِ صَدَقَةٌ كُلَّ يَوْمٍ تَطْلُعُ فِيهِ الشَّمْسُ قَالَ تَعْدِلُ بَيْنَ الِاثْنَيْنِ صَدَقَةٌ وَتُعِينُ الرَّجُلَ فِي دَابَّتِهِ فَتَحْمِلُهُ عَلَيْهَا أَوْ تَرْفَعُ لَهُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ قَالَ وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ وَكُلُّ خُطْوَةٍ تَمْشِيهَا إِلَى الصَّلَاةِ صَدَقَةٌ وَتُمِيطُ الْأَذَى عَنْ الطَّرِيقِ صَدَقَةٌ",
+        "match_type": "PARTIAL"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       130,
+       268
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وَقَالُوا مَالِ هَٰذَا الرَّسُولِ يَأْكُلُ الطَّعَامَ وَيَمْشِي فِي الْأَسْوَاقِ لَوْلَا أُنزِلَ إِلَيْهِ مَلَكٌ فَيَكُونَ مَعَهُ نَذِيرًا",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "25:7",
+        "role": "REFERENCE_TEXT",
+        "text": "وَقَالُوا۟ مَالِ هَٰذَا ٱلرَّسُولِ يَأْكُلُ ٱلطَّعَامَ وَيَمْشِى فِى ٱلْأَسْوَاقِ لَوْلَآ أُنزِلَ إِلَيْهِ مَلَكٌ فَيَكُونَ مَعَهُۥ نَذِيرًا (7)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       298,
+       343
+      ],
+      "claim_type": "GROUP_JUDGMENT",
+      "evidence_status": "OUT_OF_SCOPE",
+      "reason": "GROUP_JUDGMENT",
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "أجمعت الأمة على تحريم الأناشيد المصحوبة بالدف",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       378,
+       417
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "TEXT_MISMATCH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "أم يريدون رحيم فالذين كفروا هم المكيدون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "52:42",
+        "role": "REFERENCE_TEXT",
+        "text": "أَمْ يُرِيدُونَ كَيْدًا فَٱلَّذِينَ كَفَرُوا۟ هُمُ ٱلْمَكِيدُونَ (42)",
+        "match_type": "MISMATCH"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       507,
+       584
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "ولو نشاء لأريناكهم فلعرفتهم بسيماهم ولتعرفنهم في لحن القول والله يعلم أعمالكم",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "47:30",
+        "role": "REFERENCE_TEXT",
+        "text": "وَلَوْ نَشَآءُ لَأَرَيْنَٰكَهُمْ فَلَعَرَفْتَهُم بِسِيمَٰهُمْ وَلَتَعْرِفَنَّهُمْ فِى لَحْنِ ٱلْقَوْلِ وَٱللَّهُ يَعْلَمُ أَعْمَٰلَكُمْ (30)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 15,
+    "prompt_tokens": 1959,
+    "completion_tokens": 1419,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-013",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       45,
+       102
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "FOUND_NO_RULING",
+      "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "أن من سلك طريقا يطلب فيه علما سهل الله له طريقا إلى الجنة",
+      "evidence": [
+       {
+        "source_id": "tirmidhi",
+        "item_id": "2570",
+        "role": "LOCATE",
+        "text": "حَدَّثَنَا مَحْمُودُ بْنُ غَيْلَانَ حَدَّثَنَا أَبُو أُسَامَةَ عَنْ الْأَعْمَشِ عَنْ أَبِي صَالِحٍ عَنْ أَبِي هُرَيْرَةَ قَالَ قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ قَالَ أَبُو عِيسَى هَذَا حَدِيثٌ حَسَنٌ",
+        "match_type": "PARAPHRASE"
+       },
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       198,
+       221
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "CONTRADICTED",
+      "reason": "NOT_QURAN",
+      "action": "RECONSIDER",
+      "source": null,
+      "correct_text": null,
+      "quote": "إن الله جميل يحب الجمال",
+      "evidence": [
+       {
+        "source_id": "muslim",
+        "item_id": "131",
+        "role": "AUTHENTIC",
+        "text": "و حَدَّثَنَا مُحَمَّدُ بْنُ الْمُثَنَّى وَمُحَمَّدُ بْنُ بَشَّارٍ وَإِبْرَاهِيمُ بْنُ دِينَارٍ جَمِيعًا عَنْ يَحْيَى بْنِ حَمَّادٍ قَالَ ابْنُ الْمُثَنَّى حَدَّثَنِي يَحْيَى بْنُ حَمَّادٍ أَخْبَرَنَا شُعْبَةُ عَنْ أَبَانَ بْنِ تَغْلِبَ عَنْ فُضَيْلٍ الْفُقَيْمِيِّ عَنْ إِبْرَاهِيمَ النَّخَعِيِّ عَنْ عَلْقَمَةَ عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ قَالَ رَجُلٌ إِنَّ الرَّجُلَ يُحِبُّ أَنْ يَكُونَ ثَوْبُهُ حَسَنًا وَنَعْلُهُ حَسَنَةً قَالَ إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ الْكِبْرُ بَطَرُ الْحَقِّ وَغَمْطُ النَّاسِ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       257,
+       296
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "WRONG_REFERENCE",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "لا شريك له وبذلك أمرت وأنا أول المسلمين",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "6:163",
+        "role": "REFERENCE_TEXT",
+        "text": "لَا شَرِيكَ لَهُۥ وَبِذَٰلِكَ أُمِرْتُ وَأَنَا۠ أَوَّلُ ٱلْمُسْلِمِينَ (163)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       403,
+       459
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "WRONG_REFERENCE",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "قل يجمع بيننا ربنا ثم يفتح بيننا بالحق وهو الفتاح العليم",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "34:26",
+        "role": "REFERENCE_TEXT",
+        "text": "قُلْ يَجْمَعُ بَيْنَنَا رَبُّنَا ثُمَّ يَفْتَحُ بَيْنَنَا بِٱلْحَقِّ وَهُوَ ٱلْفَتَّاحُ ٱلْعَلِيمُ (26)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 203,
+    "prompt_tokens": 3085,
+    "completion_tokens": 979,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-014",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       39,
+       90
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "MISATTRIBUTED",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "لا يدخل المدينة رعب المسيح لها يومئذ سبعة أبواب على",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "6593",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا مُحَمَّدُ بْنُ بِشْرٍ حَدَّثَنَا مِسْعَرٌ حَدَّثَنَا سَعْدُ بْنُ إِبْرَاهِيمَ عَنْ أَبِيهِ عَنْ أَبِي بَكْرَةَ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ لَا يَدْخُلُ الْمَدِينَةَ رُعْبُ الْمَسِيحِ لَهَا يَوْمَئِذٍ سَبْعَةُ أَبْوَابٍ عَلَى كُلِّ بَابٍ مَلَكَانِ قَالَ وَقَالَ ابْنُ إِسْحَاقَ عَنْ صَالِحِ بْنِ إِبْرَاهِيمَ عَنْ أَبِيهِ قَالَ قَدِمْتُ الْبَصْرَةَ فَقَالَ لِي أَبُو بَكْرَةَ سَمِعْتُ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِهَذَا",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       144,
+       178
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "ثلاثة يؤتون أجرهم مرتين الرجل تكون",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "2789",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ حَدَّثَنَا سُفْيَانُ بْنُ عُيَيْنَةَ حَدَّثَنَا صَالِحُ بْنُ حَيٍّ أَبُو حَسَنٍ قَالَ سَمِعْتُ الشَّعْبِيَّ يَقُولُ حَدَّثَنِي أَبُو بُرْدَةَ أَنَّهُ سَمِعَ أَبَاهُ عَنْ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ ثَلَاثَةٌ يُؤْتَوْنَ أَجْرَهُمْ مَرَّتَيْنِ الرَّجُلُ تَكُونُ لَهُ الْأَمَةُ فَيُعَلِّمُهَا فَيُحْسِنُ تَعْلِيمَهَا وَيُؤَدِّبُهَا فَيُحْسِنُ أَدَبَهَا ثُمَّ يُعْتِقُهَا فَيَتَزَوَّجُهَا فَلَهُ أَجْرَانِ وَمُؤْمِنُ أَهْلِ الْكِتَابِ الَّذِي كَانَ مُؤْمِنًا ثُمَّ آمَنَ بِالنَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَلَهُ أَجْرَانِ وَالْعَبْدُ الَّذِي يُؤَدِّي حَقَّ اللَّهِ وَيَنْصَحُ لِسَيِّدِهِ ثُمَّ قَالَ الشَّعْبِيُّ وَأَعْطَيْتُكَهَا بِغَيْرِ شَيْءٍ وَقَدْ كَانَ الرَّجُلُ يَرْحَلُ فِي أَهْوَنَ مِنْهَا إِلَى الْمَدِينَةِ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       216,
+       255
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NOT_FOUND",
+      "reason": "NOT_FOUND",
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "من أحسن إلى جاره أحسن الله إليه في قبره",
+      "evidence": [
+       {
+        "source_id": "dorar",
+        "item_id": "search",
+        "role": "LINK",
+        "text": "",
+        "match_type": "NONE"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       338,
+       366
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "WRONG_REFERENCE",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "إن لك ألا تجوع فيها ولا تعرى",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "20:118",
+        "role": "REFERENCE_TEXT",
+        "text": "إِنَّ لَكَ أَلَّا تَجُوعَ فِيهَا وَلَا تَعْرَىٰ (118)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       420,
+       478
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "فإن يصبروا فالنار مثوى لهم وإن يستعتبوا فما هم من المعتبين",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "41:24",
+        "role": "REFERENCE_TEXT",
+        "text": "فَإِن يَصْبِرُوا۟ فَٱلنَّارُ مَثْوًى لَّهُمْ وَإِن يَسْتَعْتِبُوا۟ فَمَا هُم مِّنَ ٱلْمُعْتَبِينَ (24)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 209,
+    "prompt_tokens": 2971,
+    "completion_tokens": 1203,
+    "llm_calls": 2,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-015",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       35,
+       59
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": null,
+      "correct_text": null,
+      "quote": "اتقوا النار ولو بشق تمرة",
+      "evidence": [
+       {
+        "source_id": "bukhari",
+        "item_id": "1328",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ حَدَّثَنَا شُعْبَةُ عَنْ أَبِي إِسْحَاقَ قَالَ سَمِعْتُ عَبْدَ اللَّهِ بْنَ مَعْقِلٍ قَالَ سَمِعْتُ عَدِيَّ بْنَ حَاتِمٍ رَضِيَ اللَّهُ عَنْهُ قَالَ سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ اتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "muslim",
+        "item_id": "1689",
+        "role": "AUTHENTIC",
+        "text": "حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَأَبُو كُرَيْبٍ قَالَا حَدَّثَنَا أَبُو مُعَاوِيَةَ عَنْ الْأَعْمَشِ عَنْ عَمْرِو بْنِ مُرَّةَ عَنْ خَيْثَمَةَ عَنْ عَدِيِّ بْنِ حَاتِمٍ قَالَ ذَكَرَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ النَّارَ فَأَعْرَضَ وَأَشَاحَ ثُمَّ قَالَ اتَّقُوا النَّارَ ثُمَّ أَعْرَضَ وَأَشَاحَ حَتَّى ظَنَنَّا أَنَّهُ كَأَنَّمَا يَنْظُرُ إِلَيْهَا ثُمَّ قَالَ اتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ فَمَنْ لَمْ يَجِدْ فَبِكَلِمَةٍ طَيِّبَةٍ وَلَمْ يَذْكُرْ أَبُو كُرَيْبٍ كَأَنَّمَا وَقَالَ حَدَّثَنَا أَبُو مُعَاوِيَةَ حَدَّثَنَا الْأَعْمَشُ",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 4,
+    "prompt_tokens": 1724,
+    "completion_tokens": 539,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": [
+     "النص قصير. سديد صُمّم للمسودة الكاملة، وقد فُحص ما فيه."
+    ]
+   },
+   {
+    "system": "saadeed",
+    "carrier_id": "dev-v25-01",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       28,
+       111
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "MERGED_AYAT",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "ولبثوا في كهفهم ثلاث مائة سنين وازدادوا تسعا ويقولون أئنا لتاركو آلهتنا لشاعر مجنون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "18:25",
+        "role": "REFERENCE_TEXT",
+        "text": "وَلَبِثُوا۟ فِى كَهْفِهِمْ ثَلَٰثَ مِا۟ئَةٍ سِنِينَ وَٱزْدَادُوا۟ تِسْعًا (25)",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "quran",
+        "item_id": "37:36",
+        "role": "REFERENCE_TEXT",
+        "text": "وَيَقُولُونَ أَئِنَّا لَتَارِكُوٓا۟ ءَالِهَتِنَا لِشَاعِرٍ مَّجْنُونٍۭ (36)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       144,
+       231
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "MERGED_AYAT",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وأن لو استقاموا على الطريقة لأسقيناهم ماء غدقا وزكريا ويحيى وعيسى وإلياس كل من الصالحين",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "72:16",
+        "role": "REFERENCE_TEXT",
+        "text": "وَأَلَّوِ ٱسْتَقَٰمُوا۟ عَلَى ٱلطَّرِيقَةِ لَأَسْقَيْنَٰهُم مَّآءً غَدَقًا (16)",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "quran",
+        "item_id": "6:85",
+        "role": "REFERENCE_TEXT",
+        "text": "وَزَكَرِيَّا وَيَحْيَىٰ وَعِيسَىٰ وَإِلْيَاسَ كُلٌّ مِّنَ ٱلصَّٰلِحِينَ (85)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       291,
+       316
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "QURAN_AS_HADITH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "ارجعي إلى ربك راضية مرضية",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "89:28",
+        "role": "REFERENCE_TEXT",
+        "text": "ٱرْجِعِىٓ إِلَىٰ رَبِّكِ رَاضِيَةً مَّرْضِيَّةً (28)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       363,
+       406
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "QURAN_AS_HADITH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وكم أهلكنا قبلهم من قرن هم أحسن أثاثا ورئيا",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "19:74",
+        "role": "REFERENCE_TEXT",
+        "text": "وَكَمْ أَهْلَكْنَا قَبْلَهُم مِّن قَرْنٍ هُمْ أَحْسَنُ أَثَٰثًا وَرِءْيًا (74)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       444,
+       527
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "MERGED_AYAT",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "الأخلاء يومئذ بعضهم لبعض عدو إلا المتقين ولقد فتنا قبلهم قوم فرعون وجاءهم رسول كريم",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "43:67",
+        "role": "REFERENCE_TEXT",
+        "text": "ٱلْأَخِلَّآءُ يَوْمَئِذٍۭ بَعْضُهُمْ لِبَعْضٍ عَدُوٌّ إِلَّا ٱلْمُتَّقِينَ (67)",
+        "match_type": "NORMALIZED"
+       },
+       {
+        "source_id": "quran",
+        "item_id": "44:17",
+        "role": "REFERENCE_TEXT",
+        "text": "وَلَقَدْ فَتَنَّا قَبْلَهُمْ قَوْمَ فِرْعَوْنَ وَجَآءَهُمْ رَسُولٌ كَرِيمٌ (17)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     },
+     {
+      "span": [
+       587,
+       621
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "reason": "QURAN_AS_HADITH",
+      "action": "CORRECT_FROM_SOURCE",
+      "source": null,
+      "correct_text": null,
+      "quote": "وقيله يا رب إن هؤلاء قوم لا يؤمنون",
+      "evidence": [
+       {
+        "source_id": "quran",
+        "item_id": "43:88",
+        "role": "REFERENCE_TEXT",
+        "text": "وَقِيلِهِۦ يَٰرَبِّ إِنَّ هَٰٓؤُلَآءِ قَوْمٌ لَّا يُؤْمِنُونَ (88)",
+        "match_type": "NORMALIZED"
+       }
+      ],
+      "issue": null
+     }
+    ],
+    "latency_ms": 12,
+    "prompt_tokens": 1928,
+    "completion_tokens": 1008,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   }
+  ],
+  "B0": [
+   {
+    "system": "B0",
+    "carrier_id": "dev-001",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       16,
+       70
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿كذبوا بآياتنا كلها فأخذناهم أخذ مقتدر",
+      "evidence": [],
+      "issue": "النص غير موجود في القرآن ولا يتطابق مع أي آية معروفة؛ الإحالة غير صحيحة."
+     },
+     {
+      "span": [
+       162,
+       226
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال النبي ﷺ: «إذا أهل الرجل بالحج ثم قدم مكة فطاف بالبيت وبالصفا",
+      "evidence": [],
+      "issue": "الحديث غير موجود في كتب الحديث المعتمدة؛ لا دليل على صحته أو ضعفه."
+     },
+     {
+      "span": [
+       248,
+       294
+      ],
+      "claim_type": "CONSENSUS_CLAIM",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "كل المسلمين متفقون على هذه المسألة دون استثناء",
+      "evidence": [],
+      "issue": "لا يوجد دليل موثق على إجماع كامل المسلمين على ما ذُكر؛ الادعاء غير مؤكد."
+     },
+     {
+      "span": [
+       379,
+       417
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "صحيح البخاري 1، كتاب الإيمان، باب النية",
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «إنما الأعمال بالنيات",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 4,
+    "prompt_tokens": 781,
+    "completion_tokens": 614,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-002",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       85,
+       134
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "إذا نودي للصلاة أدبر الشيطان وله ضراط حتى لا يسمع",
+      "evidence": [],
+      "issue": "الحديث ضعيف أو غير موجود في كتب الصحاح؛ لا يوجد إسناد موثّق له"
+     },
+     {
+      "span": [
+       176,
+       228
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "لو أن أردنا نتخذ لهوا لاتخذناه من لدنا إن كنا فاعلين",
+      "evidence": [],
+      "issue": "النص ليس آية قرآنية ولا يوجد في المصحف؛ اقتباس غير صحيح"
+     },
+     {
+      "span": [
+       343,
+       400
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "آلْآنَ وَقَدْ عَصَيْتَ قَبْلُ وَكُنتَ مِنَ الْمُفْسِدِينَ",
+      "evidence": [],
+      "issue": "النص لا يتطابق مع أي آية قرآنية معروفة؛ اقتباس غير موثّق"
+     },
+     {
+      "span": [
+       248,
+       306
+      ],
+      "claim_type": "RULING",
+      "evidence_status": "REFER",
+      "reason": null,
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "من حلف بالطلاق على زوجته ثم حنث فلا يقع طلاقه في حالتك هذه",
+      "evidence": [],
+      "issue": "قضية فقهية تحتاج إلى فقيه مختص لتحديد الحكم وفق المذهب المعتمد"
+     },
+     {
+      "span": [
+       419,
+       454
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "القرآن الكريم: سورة البقرة آية 195؛ حديث صحيح عن النبي ﷺ يبين محبة المؤمن للخير",
+      "correct_text": null,
+      "quote": "ومن صفات المؤمن أنه يحب الخير للناس",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 5,
+    "prompt_tokens": 798,
+    "completion_tokens": 736,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-003",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       12,
+       76
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "صحيح مسلم، لا يوجد هذا النص",
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «من أعتق نصيبا أو شقيصا في مملوك فخلاصه عليه في",
+      "evidence": [],
+      "issue": "نص الحديث غير مكتمل ولا يتطابق مع نص رواه مسلم؛ لا يوجد حديث بهذا الصياغة في صحيحه."
+     },
+     {
+      "span": [
+       99,
+       144
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال النبي ﷺ: «تفكر ساعة خير من عبادة ستين سنة",
+      "evidence": [],
+      "issue": "الحديث غير ثابت؛ لا يوجد في كتب الصحاح، وقد ورد بصيغ مختلفة غير موثقة."
+     },
+     {
+      "span": [
+       166,
+       210
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "صحيح البخاري (كتاب الفتح)، رقم 5020؛ وصحيح مسلم (كتاب الفتح)، رقم 2745",
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «خيركم من تعلم القرآن وعلمه",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       407,
+       442
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "وأتباع المذاهب الأخرى كلهم على باطل",
+      "evidence": [],
+      "issue": "تعميم غير دقيق يفتقر إلى دليل نصي أو إسنادي؛ يحتاج إلى توضيح أو حذف."
+     }
+    ],
+    "latency_ms": 6,
+    "prompt_tokens": 770,
+    "completion_tokens": 511,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-004",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       34,
+       67
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "خيركم من صبر على جاره ثلاثين يوما",
+      "evidence": [],
+      "issue": "الحديث غير موجود في كتب الصحاح ولا في مسند الإمام مسلم؛ لا أصل له."
+     },
+     {
+      "span": [
+       101,
+       139
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "النظافة من الإيمان والوساخة من الشيطان",
+      "evidence": [],
+      "issue": "الحديث ضعيف أو موضوع؛ لا يوجد في الصحاح ولا في كتب الحديث الموثوقة."
+     },
+     {
+      "span": [
+       159,
+       188
+      ],
+      "claim_type": "RULING",
+      "evidence_status": "REFER",
+      "reason": null,
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "التأمين التجاري حرام بلا تردد",
+      "evidence": [],
+      "issue": "يتطلب فتاوى مختصين في الفقه المالِي لتحديد حكم التأمين وفق مقارنه بأحكام الربا والضمان."
+     },
+     {
+      "span": [
+       203,
+       284
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "القرآن الكريم، سورة الروم، الآية 35 (النص الأصلي: \"أَمْ أَنْزَلْنَا عَلَىٰ إِنسَانٍ مِنْهُ ...\")",
+      "correct_text": "أَمْ أَنْزَلْنَا عَلَىٰ إِنسَانٍ مِنْهُ مَا لَمْ يَكُنْ يَعْلَمُ",
+      "quote": "قال الله تعالى: ﴿أم أنزلنا عليهم فهو سلطانا يتكلم بما كانوا به يشركون﴾ [الروم: 35",
+      "evidence": [],
+      "issue": "النص المقتبس غير مطابق للآية 35 من سورة الروم؛ الصياغة غير صحيحة ولا توجد إشارة إلى \"سلطانًا يتكلم\"."
+     },
+     {
+      "span": [
+       319,
+       335
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "صحيح البخاري، رقم 5675؛ صحيح مسلم، رقم 1902",
+      "correct_text": null,
+      "quote": "يسروا ولا تعسروا",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       338,
+       377
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "فدل على أن كل تشديد في الدين بدعة محرمة",
+      "evidence": [],
+      "issue": "تعميم غير مدعوم بأدلة نصية أو فقهية؛ لا يمكن الجزم بأن كل تشديد بدعة."
+     },
+     {
+      "span": [
+       423,
+       447
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "مسند الإمام أحمد، باب تصوير الصور (ضعيف)",
+      "correct_text": null,
+      "quote": "كل مصور في النار يجعل له",
+      "evidence": [],
+      "issue": "الحديث ضعيف (ضعيف الإسناد) ولا يصح كدليل قطعي."
+     }
+    ],
+    "latency_ms": 6,
+    "prompt_tokens": 775,
+    "completion_tokens": 1049,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-005",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       33,
+       75
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "اللهم إني أعوذ بك من الأربع من علم لا ينفع",
+      "evidence": [],
+      "issue": "لا يوجد هذا الحديث في كتب السنة المعتمدة؛ النص غير موثّق."
+     },
+     {
+      "span": [
+       111,
+       157
+      ],
+      "claim_type": "ATTRIBUTED_SAYING",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "يا ابن آدم إنما أنت أيام كلما ذهب يوم ذهب بعضك",
+      "evidence": [],
+      "issue": "نقلاً غير موثّق عن الحسن البصري؛ لا يوجد في كتب الأدب أو التراجم."
+     },
+     {
+      "span": [
+       196,
+       243
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "القنطار اثنا عشر ألف أوقية كل أوقية خير مما بين",
+      "evidence": [],
+      "issue": "الحديث غير موجود في كتب الصحاح؛ النص غير ثابت."
+     },
+     {
+      "span": [
+       343,
+       388
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": "﴿يوم يأتي لا نفس تكلم إلا بإذنه فمنهم شقي وسعيد﴾ (ليس نصاً قرآنيًا أصلاً؛ لا يوجد في القرآن).",
+      "quote": "يوم يأت لا نفس تكلم إلا بإذنه فمنهم شقي وسعيد",
+      "evidence": [],
+      "issue": "الآية غير مطابقة للنص القرآني؛ لا توجد بهذه الصياغة في القرآن."
+     },
+     {
+      "span": [
+       424,
+       486
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "ومن الليل فتهجد به كلهم نافلة لك عسى أن يبعثك ربك مقاما محمودا",
+      "evidence": [],
+      "issue": "الآية غير موجودة في القرآن؛ خلط بين مفردات قرآنية وغير قرآنية."
+     }
+    ],
+    "latency_ms": 5,
+    "prompt_tokens": 793,
+    "completion_tokens": 725,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-006",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       20,
+       97
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿لو يجدون ملجأ دائما أو مغارات أو مدخلا لولوا إليه وهم يجمحون",
+      "evidence": [],
+      "issue": "الآية غير موجودة في القرآن ولا توجد إشارة لها في أي مصدر موثوق."
+     },
+     {
+      "span": [
+       180,
+       280
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿وآتوا النساء صدقاتهن نحلة فإن طبن لكم عن شيء منه نفسا فكلوه هنيئا مريئا﴾ [النساء: 4",
+      "evidence": [],
+      "issue": "النص غير موجود في سورة النساء ولا في أي موضع من القرآن؛ الإحالة غير صحيحة."
+     },
+     {
+      "span": [
+       299,
+       384
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿والذين الحق ما آتوا وقلوبهم وجلة أنهم إلى ربهم راجعون﴾ [المؤمنون: 60",
+      "evidence": [],
+      "issue": "الآية غير موجودة في سورة المؤمنون ولا في القرآن؛ الإحالة غير صحيحة."
+     },
+     {
+      "span": [
+       400,
+       507
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿الزاني ينكح لا إلا زانية أو مشركة والزانية لا ينكحها إلا زان أو مشرك وحرم ذلك على المؤمنين",
+      "evidence": [],
+      "issue": "النص لا يوجد في القرآن ولا يمكن إسناده إلى الله تعالى."
+     },
+     {
+      "span": [
+       529,
+       608
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «من قتل نفسا معاهدا لم يرح رائحة الجنة وإن ريحها» رواه البخاري",
+      "evidence": [],
+      "issue": "الحديث غير موجود في صحيح البخاري؛ صياغته غير مألوفة وتحتاج إلى تدقيق المصدر."
+     }
+    ],
+    "latency_ms": 6,
+    "prompt_tokens": 853,
+    "completion_tokens": 869,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-007",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       15,
+       80
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿فطاف عليها طائف من ربك قلوبهم نائمون﴾ [القلم: 19",
+      "evidence": [],
+      "issue": "الآية غير موجودة في سورة القلم ولا في أي سورة أخرى؛ الإحالة إلى \"القلم: 19\" خاطئة."
+     },
+     {
+      "span": [
+       96,
+       172
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿إني أنفسهم اليوم بما صبروا أنهم هم الفائزون﴾ [المؤمنون: 111",
+      "evidence": [],
+      "issue": "الآية غير موجودة في سورة المؤمنون ولا في أي سورة؛ الإحالة إلى \"المؤمنون: 111\" غير صحيحة."
+     },
+     {
+      "span": [
+       342,
+       380
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿العلم نور والجهل ظلام",
+      "evidence": [],
+      "issue": "العبارة ليست آية قرآنية؛ لا توجد آية بهذه الصيغة في القرآن."
+     },
+     {
+      "span": [
+       399,
+       459
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿والقمر قدرناه منازل حتى عاد كالعرجون القديم",
+      "evidence": [],
+      "issue": "العبارة ليست آية قرآنية ولا توجد في القرآن؛ الإحالة غير موجودة."
+     }
+    ],
+    "latency_ms": 4,
+    "prompt_tokens": 798,
+    "completion_tokens": 460,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-008",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       39,
+       89
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "من تبسم في وجه يتيم أظله الله تحت عرشه يوم القيامة",
+      "evidence": [],
+      "issue": "الحديث ضعيف (ليس صحيحًا) ولا يوجد إسناد ثابت له في الصحاح."
+     },
+     {
+      "span": [
+       106,
+       153
+      ],
+      "claim_type": "CONSENSUS_CLAIM",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "اتفق العلماء على أن الصدقة أفضل من صيام النافلة",
+      "evidence": [],
+      "issue": "لا يوجد دليل صريح على إجماع العلماء بهذا الشكل؛ النصوص تختلف في تفضيل الصدقة أو الصوم حسب الظروف."
+     },
+     {
+      "span": [
+       165,
+       223
+      ],
+      "claim_type": "STATISTIC",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "سبعون بالمئة من حالات الطلاق سببها وسائل التواصل الاجتماعي",
+      "evidence": [],
+      "issue": "الإحصائية غير موثقة ولا توجد دراسة إسلامية أو إحصائية معتمدة تدعم هذا الرقم."
+     },
+     {
+      "span": [
+       239,
+       270
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "أهل البادية كلهم جفاة لا يفقهون",
+      "evidence": [],
+      "issue": "تعميم غير عادل ولا يستند إلى دليل شرعي أو إحصائي."
+     },
+     {
+      "span": [
+       307,
+       460
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "سورة الأنبياء، الآية 87",
+      "correct_text": null,
+      "quote": "وَإِذَا مَسَّكُمُ الضُّرُّ فِي الْبَحْرِ ضَلَّ مَن تَدْعُونَ إِلَّا إِيَّاهُ فَلَمَّا نَجَّاكُمْ إِلَى الْبَرِّ أَعْرَضْتُمْ وَكَانَ الْإِنسَانُ كَفُورًا",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       491,
+       509
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "صحيح البخاري (كتاب الطهارة، باب فضل الطهارة) رقم 1، وصحيح مسلم (كتاب الطهارة، باب فضل الطهارة) رقم 1",
+      "correct_text": null,
+      "quote": "الطهور شطر الإيمان",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 6,
+    "prompt_tokens": 846,
+    "completion_tokens": 1259,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-009",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       16,
+       128
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿وَقَالَ ارْكَبُوا فِيهَا بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا إِنَّ رَبِّي لَغَفُورٌ رَّحِيمٌ",
+      "evidence": [],
+      "issue": "الآية غير موجودة في القرآن ولا توجد إشارة صحيحة لها."
+     },
+     {
+      "span": [
+       149,
+       219
+      ],
+      "claim_type": "ATTRIBUTED_SAYING",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "وقال الإمام الشافعي: «رأيي صواب يحتمل الخطأ ورأي غيري خطأ يحتمل الصواب",
+      "evidence": [],
+      "issue": "نقلاً غير موثق إلى الإمام الشافعي؛ لا يوجد مصدر موثّق لهذا القول."
+     },
+     {
+      "span": [
+       291,
+       326
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال النبي ﷺ: «حب الأوطان من الإيمان",
+      "evidence": [],
+      "issue": "الحديث غير مذكور في كتب الحديث المعتمدة؛ لا دليل على صحته."
+     },
+     {
+      "span": [
+       348,
+       423
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "صحيح مسلم، كتاب الأدب، باب ما جاء في العطس، رقم الحديث 2742",
+      "correct_text": "إذا عطس أحدكم فليقل الحمد لله، فليقل له أخوه أو من سمعه: يرحمك الله",
+      "quote": "قال رسول الله ﷺ: «إذا عطس أحدكم فليقل الحمد لله وليقل له أخوه أو» رواه مسلم",
+      "evidence": [],
+      "issue": "نص الحديث غير دقيق؛ النص الصحيح في مسلم هو: «إذا عطس أحدكم فليقل الحمد لله، فليقل له أخوه أو من سمعه: يرحمك الله»."
+     },
+     {
+      "span": [
+       442,
+       500
+      ],
+      "claim_type": "RULING",
+      "evidence_status": "REFER",
+      "reason": null,
+      "action": "REFER",
+      "source": null,
+      "correct_text": null,
+      "quote": "إن كانت أمك مريضة لا تستطيع الصيام فلا قضاء عليها ولا فدية",
+      "evidence": [],
+      "issue": "مسألة فريضة الصوم على المرأة الحامل أو المرضعة تحتاج إلى فتاوى مختصة؛ النص غير مستند إلى دليل شرعي واضح."
+     }
+    ],
+    "latency_ms": 5,
+    "prompt_tokens": 818,
+    "completion_tokens": 886,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-010",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       48,
+       79
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "صحيح البخاري (رقم 3320) – \"إذا سلم عليكم أهل الكتاب فقلوا: وعليكم السلام\"",
+      "correct_text": "إذا سلم عليكم أهل الكتاب فقلوا: وعليكم السلام",
+      "quote": "إذا سلم عليكم أهل الكتاب فقولوا",
+      "evidence": [],
+      "issue": "نص الحديث غير صحيح ومقطوع؛ الصياغة غير مطابقة للنص الأصلي."
+     },
+     {
+      "span": [
+       163,
+       216
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "إن الذين يصنعون هذه الصور يعذبون يوم القيامة يقال لهم",
+      "evidence": [],
+      "issue": "الحديث غير موجود في كتب الحديث الموثوقة؛ يُعدّ حديثًا ضعيفًا أو مُختلقًا."
+     },
+     {
+      "span": [
+       260,
+       273
+      ],
+      "claim_type": "GENERALIZATION",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "تهادوا تحابوا",
+      "evidence": [],
+      "issue": "العبارة لا تُنسب إلى القرآن ولا إلى حديث صحيح؛ لا مصدر موثّق لها."
+     },
+     {
+      "span": [
+       311,
+       333
+      ],
+      "claim_type": "ATTRIBUTED_SAYING",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "تبسمك في وجه أخيك صدقة",
+      "evidence": [],
+      "issue": "العبارة ليست آية قرآنية ولا حديثًا نبويًا؛ لا دليل على صحتها في المصادر الشرعية."
+     },
+     {
+      "span": [
+       371,
+       412
+      ],
+      "claim_type": "ATTRIBUTED_SAYING",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "منها خلقناكم وفيها نعيدكم ومنها تارة أخرى",
+      "evidence": [],
+      "issue": "العبارة لا توجد في القرآن ولا في السنة؛ لا مصدر موثوق لها."
+     }
+    ],
+    "latency_ms": 4,
+    "prompt_tokens": 768,
+    "completion_tokens": 827,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-011",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       32,
+       69
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "الزمر: 19",
+      "correct_text": null,
+      "quote": "أم اتخذ مما يخلق بنات وأصفاكم بالبنين",
+      "evidence": [],
+      "issue": "الإحالة إلى سورة الزخرف غير صحيحة؛ الآية من سورة الزمر."
+     },
+     {
+      "span": [
+       117,
+       145
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "إنما بعثت لأتمم صالح الأخلاق",
+      "evidence": [],
+      "issue": "نص الحديث غير مأثور في الصحاح؛ يشبه صياغة غير صحيحة أو ضعيفة."
+     },
+     {
+      "span": [
+       185,
+       251
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "الله لا يهتم بأشكالكم وثرواتكم وإنما يهتم بما في قلوبكم وما تعملون",
+      "evidence": [],
+      "issue": "الحديث غير موجود في كتب الحديث الموثوقة؛ يُحتمل أنه مُختلق."
+     },
+     {
+      "span": [
+       355,
+       416
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "ليست القوة في غلبة الناس وإنما القوي من يتحكم في نفسه إذا غضب",
+      "evidence": [],
+      "issue": "الحديث غير ثابت ولا يُذكر في مصادر الحديث المعتمدة."
+     },
+     {
+      "span": [
+       442,
+       506
+      ],
+      "claim_type": "STATISTIC",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "تشير الدراسات إلى أن تسعين بالمئة من الأمراض سببها التوتر والقلق",
+      "evidence": [],
+      "issue": "لا يوجد مصدر علمي موثّق يُثبت النسبة المذكورة؛ تحتاج إلى إشارة إلى دراسة محددة."
+     }
+    ],
+    "latency_ms": 6,
+    "prompt_tokens": 797,
+    "completion_tokens": 701,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-012",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       16,
+       52
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "صحيح البخاري 6100، ص. 274",
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «الكلمة الطيبة صدقة",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       130,
+       281
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "سورة الفرقان، الآية 7",
+      "correct_text": null,
+      "quote": "وَقَالُوا مَالِ هَٰذَا الرَّسُولِ يَأْكُلُ الطَّعَامَ وَيَمْشِي فِي الْأَسْوَاقِ لَوْلَا أُنزِلَ إِلَيْهِ مَلَكٌ فَيَكُونَ مَعَهُ نَذِيرًا﴾ [الفرقان: 7",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       378,
+       417
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "أم يريدون رحيم فالذين كفروا هم المكيدون",
+      "evidence": [],
+      "issue": "الآية غير موجودة في القرآن ولا توجد إشارة إلى سورة أو رقم صحيح"
+     },
+     {
+      "span": [
+       507,
+       595
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "ولو نشاء لأريناكهم فلعرفتهم بسيماهم ولتعرفنهم في لحن القول والله يعلم أعمالكم﴾ [محمد: 30",
+      "evidence": [],
+      "issue": "النص غير موجود في سورة محمد ولا في أي موضع قرآني؛ الإحالة غير صحيحة"
+     },
+     {
+      "span": [
+       298,
+       343
+      ],
+      "claim_type": "CONSENSUS_CLAIM",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "أجمعت الأمة على تحريم الأناشيد المصحوبة بالدف",
+      "evidence": [],
+      "issue": "لا يوجد دليل موثق على إجماع كامل للأمة؛ العبارة عامة وتحتاج إلى إسناد"
+     }
+    ],
+    "latency_ms": 6,
+    "prompt_tokens": 876,
+    "completion_tokens": 1008,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-013",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       45,
+       102
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "أن من سلك طريقا يطلب فيه علما سهل الله له طريقا إلى الجنة",
+      "evidence": [],
+      "issue": "الحديث غير مثبت في كتب الصحاح ولا في كتب الأحاديث الضعيفة؛ لا يوجد إسناد واضح."
+     },
+     {
+      "span": [
+       198,
+       221
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "سورة الرحمن 95:4",
+      "correct_text": null,
+      "quote": "إن الله جميل يحب الجمال",
+      "evidence": [],
+      "issue": null
+     },
+     {
+      "span": [
+       257,
+       296
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": "الآية الصحيحة التي تحتوي على «لا شريك له» هي: ﴿قُلْ هُوَ اللَّهُ أَحَدٌ…﴾ (سورة الإخلاص 112:1) أو ﴿وَإِنَّ رَبَّكَ هُوَ الْعَزِيزُ الرَّحِيمُ﴾ (سورة البقرة 2:255) حسب السياق.",
+      "quote": "لا شريك له وبذلك أمرت وأنا أول المسلمين",
+      "evidence": [],
+      "issue": "النص غير موجود بصيغته في القرآن؛ خلط بين آيات مختلفة أو تحريف."
+     },
+     {
+      "span": [
+       403,
+       459
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "سورة سبأ 34:28",
+      "correct_text": null,
+      "quote": "قل يجمع بيننا ربنا ثم يفتح بيننا بالحق وهو الفتاح العليم",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 4,
+    "prompt_tokens": 789,
+    "completion_tokens": 826,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-014",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       21,
+       101
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «لا يدخل المدينة رعب المسيح لها يومئذ سبعة أبواب على» رواه مسلم",
+      "evidence": [],
+      "issue": "نص الحديث غير موجود في صحيح مسلم ولا في أي مصدر موثوق؛ الصياغة غير صحيحة."
+     },
+     {
+      "span": [
+       144,
+       178
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "ثلاثة يؤتون أجرهم مرتين الرجل تكون",
+      "evidence": [],
+      "issue": "العبارة لا تتطابق مع أي حديث صحيح أو ضعيف معروف؛ يبدو أنها مختلقة أو مشوهة."
+     },
+     {
+      "span": [
+       216,
+       255
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "من أحسن إلى جاره أحسن الله إليه في قبره",
+      "evidence": [],
+      "issue": "الحديث غير مروي في كتب الحديث المعتمدة بصيغته هذه؛ قد يكون مقولة مأخوذة من أقوال الصحابة أو من أقوال العلماء، لكنه ليس حديثًا ثابتًا."
+     },
+     {
+      "span": [
+       338,
+       382
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": "القرآن الكريم، سورة الأنبياء، الآية 118",
+      "correct_text": "وَلَا تَجْعَلْ يَدَكَ مَغْلُولَةً إِلَىٰ عُنُقِكَ",
+      "quote": "إن لك ألا تجوع فيها ولا تعرى﴾ [الأنبياء: 118",
+      "evidence": [],
+      "issue": "النص غير مطابق للآية 118 من سورة الأنبياء؛ الآية هي: \"وَلَا تَجْعَلْ يَدَكَ مَغْلُولَةً إِلَىٰ عُنُقِكَ\"."
+     },
+     {
+      "span": [
+       420,
+       478
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "فإن يصبروا فالنار مثوى لهم وإن يستعتبوا فما هم من المعتبين",
+      "evidence": [],
+      "issue": "العبارة لا توجد في القرآن الكريم ولا في أي نص إسلامي موثوق؛ يبدو أنها تركيب غير صحيح."
+     }
+    ],
+    "latency_ms": 5,
+    "prompt_tokens": 790,
+    "completion_tokens": 828,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-015",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       17,
+       59
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "SUPPORTED",
+      "reason": null,
+      "action": "NONE",
+      "source": "صحيح البخاري (الأدب المفرد 1/2) أو سنن الترمذي 2515",
+      "correct_text": null,
+      "quote": "قال رسول الله ﷺ: «اتقوا النار ولو بشق تمرة",
+      "evidence": [],
+      "issue": null
+     }
+    ],
+    "latency_ms": 1,
+    "prompt_tokens": 656,
+    "completion_tokens": 324,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   },
+   {
+    "system": "B0",
+    "carrier_id": "dev-v25-01",
+    "run": 1,
+    "preds": [
+     {
+      "span": [
+       11,
+       111
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿ولبثوا في كهفهم ثلاث مائة سنين وازدادوا تسعا ويقولون أئنا لتاركو آلهتنا لشاعر مجنون",
+      "evidence": [],
+      "issue": "الآية غير موجودة في القرآن ولا تتطابق مع أي آية؛ النص مختلط بين قصة أصحاب الكهف وآية غير موجودة."
+     },
+     {
+      "span": [
+       127,
+       231
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿وأن لو استقاموا على الطريقة لأسقيناهم ماء غدقا وزكريا ويحيى وعيسى وإلياس كل من الصالحين",
+      "evidence": [],
+      "issue": "الآية غير موجودة في القرآن؛ لا توجد آية بهذه الصياغة ولا ذكر للأنبياء المذكورين بهذه الطريقة."
+     },
+     {
+      "span": [
+       256,
+       316
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال رسول الله صلى الله عليه وسلم: «ارجعي إلى ربك راضية مرضية",
+      "evidence": [],
+      "issue": "الحديث غير موجود في كتب الحديث المعتمدة؛ لا يوجد نص بهذا اللفظ ولا إسناد صحيح."
+     },
+     {
+      "span": [
+       328,
+       406
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال رسول الله صلى الله عليه وسلم: «وكم أهلكنا قبلهم من قرن هم أحسن أثاثا ورئيا",
+      "evidence": [],
+      "issue": "الحديث غير ثابت ولا يوجد في أي من كتب الصحاح؛ النص غير معروف."
+     },
+     {
+      "span": [
+       427,
+       527
+      ],
+      "claim_type": "QURAN_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال الله تعالى: ﴿الأخلاء يومئذ بعضهم لبعض عدو إلا المتقين ولقد فتنا قبلهم قوم فرعون وجاءهم رسول كريم",
+      "evidence": [],
+      "issue": "الآية مركبة من عدة آيات غير متصلة ولا توجد بهذه الصياغة في القرآن."
+     },
+     {
+      "span": [
+       552,
+       621
+      ],
+      "claim_type": "HADITH_QUOTE",
+      "evidence_status": "NEEDS_VERIFICATION",
+      "reason": null,
+      "action": "VERIFY",
+      "source": null,
+      "correct_text": null,
+      "quote": "قال رسول الله صلى الله عليه وسلم: «وقيله يا رب إن هؤلاء قوم لا يؤمنون",
+      "evidence": [],
+      "issue": "الحديث غير ثابت ولا يوجد في المصادر الموثوقة؛ لا دليل على صحة الإسناد."
+     }
+    ],
+    "latency_ms": 8,
+    "prompt_tokens": 849,
+    "completion_tokens": 683,
+    "llm_calls": 1,
+    "error": null,
+    "warnings": []
+   }
+  ]
+ },
+ "cases": [
+  {
+   "case_id": "C0-d01",
+   "category": "C0",
+   "critical": false,
+   "surface": "فاتقوا الله عباد الله واعلموا أن الدنيا دار ممر لا دار مقر.",
+   "claim_text": "فاتقوا الله عباد الله واعلموا أن الدنيا دار ممر لا دار مقر",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-001",
+   "span": [
+    309,
+    367
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d03",
+   "category": "C0",
+   "critical": false,
+   "surface": "إن الكلمة الطيبة تفتح القلوب المغلقة.",
+   "claim_text": "إن الكلمة الطيبة تفتح القلوب المغلقة",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-014",
+   "span": [
+    267,
+    303
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d06",
+   "category": "C0",
+   "critical": false,
+   "surface": "أيها الأب الكريم، أبناؤك أمانة في عنقك فأحسن تربيتهم.",
+   "claim_text": "أيها الأب الكريم، أبناؤك أمانة في عنقك فأحسن تربيتهم",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-001",
+   "span": [
+    86,
+    138
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d09",
+   "category": "C0",
+   "critical": false,
+   "surface": "إن الصبر على الطاعة يحتاج إلى مجاهدة للنفس.",
+   "claim_text": "إن الصبر على الطاعة يحتاج إلى مجاهدة للنفس",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-012",
+   "span": [
+    433,
+    475
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d12",
+   "category": "C0",
+   "critical": false,
+   "surface": "اللهم اجعلنا من الذين يستمعون القول فيتبعون أحسنه.",
+   "claim_text": "اللهم اجعلنا من الذين يستمعون القول فيتبعون أحسنه",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-011",
+   "span": [
+    272,
+    321
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d16",
+   "category": "C0",
+   "critical": false,
+   "surface": "وكم من نعمة نعيش فيها ولا نشكر الله عليها.",
+   "claim_text": "وكم من نعمة نعيش فيها ولا نشكر الله عليها",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-003",
+   "span": [
+    268,
+    309
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d17",
+   "category": "C0",
+   "critical": false,
+   "surface": "فلنعود ألسنتنا على الذكر والاستغفار.",
+   "claim_text": "فلنعود ألسنتنا على الذكر والاستغفار",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-009",
+   "span": [
+    240,
+    275
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d18",
+   "category": "C0",
+   "critical": false,
+   "surface": "أقول قولي هذا وأستغفر الله لي ولكم.",
+   "claim_text": "أقول قولي هذا وأستغفر الله لي ولكم",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-013",
+   "span": [
+    127,
+    161
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d21",
+   "category": "C0",
+   "critical": false,
+   "surface": "ومن صفات المؤمن أنه يحب الخير للناس.",
+   "claim_text": "ومن صفات المؤمن أنه يحب الخير للناس",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-002",
+   "span": [
+    419,
+    454
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d22",
+   "category": "C0",
+   "critical": false,
+   "surface": "فلتكن أخلاقنا دعوة صامتة لديننا.",
+   "claim_text": "فلتكن أخلاقنا دعوة صامتة لديننا",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-010",
+   "span": [
+    95,
+    126
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d25",
+   "category": "C0",
+   "critical": false,
+   "surface": "فاجعلوا من رمضان بداية لعادة صالحة تستمر.",
+   "claim_text": "فاجعلوا من رمضان بداية لعادة صالحة تستمر",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-002",
+   "span": [
+    15,
+    55
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "C0-d28",
+   "category": "C0",
+   "critical": false,
+   "surface": "وعلى كل واحد منا أن يبدأ بإصلاح نفسه.",
+   "claim_text": "وعلى كل واحد منا أن يبدأ بإصلاح نفسه",
+   "expected": {
+    "evidence_status": "NONE",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-013",
+   "span": [
+    332,
+    368
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "جملة سليمة لا ادعاء فيها",
+   "meta": {}
+  },
+  {
+   "case_id": "H1-06",
+   "category": "H1",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «إن الذين يصنعون هذه الصور يعذبون يوم القيامة يقال لهم».",
+   "claim_text": "إن الذين يصنعون هذه الصور يعذبون يوم القيامة يقال لهم",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-010",
+   "span": [
+    163,
+    216
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:5495"
+   }
+  },
+  {
+   "case_id": "H1-07",
+   "category": "H1",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «من قتل نفسا معاهدا لم يرح رائحة الجنة وإن ريحها» رواه البخاري.",
+   "claim_text": "من قتل نفسا معاهدا لم يرح رائحة الجنة وإن ريحها",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-006",
+   "span": [
+    547,
+    594
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:6403"
+   }
+  },
+  {
+   "case_id": "H1-08",
+   "category": "H1",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «إذا نودي للصلاة أدبر الشيطان وله ضراط حتى لا يسمع».",
+   "claim_text": "إذا نودي للصلاة أدبر الشيطان وله ضراط حتى لا يسمع",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-002",
+   "span": [
+    85,
+    134
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:573"
+   }
+  },
+  {
+   "case_id": "H10-d01",
+   "category": "H10",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «الطهور شطر الإيمان». فدل على عظم منزلة الطهارة في الإسلام.",
+   "claim_text": "فدل على عظم منزلة الطهارة في الإسلام",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-008",
+   "span": [
+    512,
+    548
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "استنتاج لا يزيد على اللفظ",
+   "meta": {}
+  },
+  {
+   "case_id": "H10-d04",
+   "category": "H10",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «الكلمة الطيبة صدقة». فدل على أن الكلمة الطيبة من أبواب الصدقة.",
+   "claim_text": "فدل على أن الكلمة الطيبة من أبواب الصدقة",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-012",
+   "span": [
+    55,
+    95
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "استنتاج لا يزيد على اللفظ",
+   "meta": {}
+  },
+  {
+   "case_id": "H10-d06",
+   "category": "H10",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «خيركم من تعلم القرآن وعلمه». فدل على فضل تعلم القرآن وتعليمه.",
+   "claim_text": "فدل على فضل تعلم القرآن وتعليمه",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-003",
+   "span": [
+    213,
+    244
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "استنتاج لا يزيد على اللفظ",
+   "meta": {}
+  },
+  {
+   "case_id": "H2-02",
+   "category": "H2",
+   "critical": false,
+   "surface": "وفي الحديث أن النبي ﷺ قال: «كل مصور في النار يجعل له».",
+   "claim_text": "كل مصور في النار يجعل له",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-004",
+   "span": [
+    423,
+    447
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "muslim:3945"
+   }
+  },
+  {
+   "case_id": "H2-06",
+   "category": "H2",
+   "critical": false,
+   "surface": "وفي الحديث أن النبي ﷺ قال: «ثلاثة يؤتون أجرهم مرتين الرجل تكون».",
+   "claim_text": "ثلاثة يؤتون أجرهم مرتين الرجل تكون",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-014",
+   "span": [
+    144,
+    178
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:2789"
+   }
+  },
+  {
+   "case_id": "H2-07",
+   "category": "H2",
+   "critical": false,
+   "surface": "وفي الحديث أن النبي ﷺ قال: «إذا سلم عليكم أهل الكتاب فقولوا».",
+   "claim_text": "إذا سلم عليكم أهل الكتاب فقولوا",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-010",
+   "span": [
+    48,
+    79
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "muslim:4024"
+   }
+  },
+  {
+   "case_id": "H3-d04",
+   "category": "H3",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «ليست القوة في غلبة الناس وإنما القوي من يتحكم في نفسه إذا غضب».",
+   "claim_text": "ليست القوة في غلبة الناس وإنما القوي من يتحكم في نفسه إذا غضب",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "PARAPHRASED_AS_WORDING",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-011",
+   "span": [
+    355,
+    416
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "معنى «ليس الشديد بالصرعة…»",
+   "meta": {}
+  },
+  {
+   "case_id": "H3-d06",
+   "category": "H3",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «الله لا يهتم بأشكالكم وثرواتكم وإنما يهتم بما في قلوبكم وما تعملون».",
+   "claim_text": "الله لا يهتم بأشكالكم وثرواتكم وإنما يهتم بما في قلوبكم وما تعملون",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "PARAPHRASED_AS_WORDING",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-011",
+   "span": [
+    185,
+    251
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "معنى «إن الله لا ينظر إلى صوركم وأموالكم…» (مسلم)",
+   "meta": {}
+  },
+  {
+   "case_id": "H4-d02",
+   "category": "H4",
+   "critical": false,
+   "surface": "وقد ورد عن النبي ﷺ ما معناه: «أفضل الناس من يتعلم القرآن ويعلمه غيره».",
+   "claim_text": "أفضل الناس من يتعلم القرآن ويعلمه غيره",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-003",
+   "span": [
+    350,
+    388
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "معنى «خيركم من تعلم القرآن وعلمه» (البخاري)",
+   "meta": {}
+  },
+  {
+   "case_id": "H4-d05",
+   "category": "H4",
+   "critical": false,
+   "surface": "وقد ورد عن النبي ﷺ ما معناه: «أن من سلك طريقا يطلب فيه علما سهل الله له طريقا إلى الجنة».",
+   "claim_text": "أن من سلك طريقا يطلب فيه علما سهل الله له طريقا إلى الجنة",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-013",
+   "span": [
+    45,
+    102
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "قريب من لفظ مسلم",
+   "meta": {}
+  },
+  {
+   "case_id": "H5-01",
+   "category": "H5",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «لا يدخل المدينة رعب المسيح لها يومئذ سبعة أبواب على» رواه مسلم.",
+   "claim_text": "لا يدخل المدينة رعب المسيح لها يومئذ سبعة أبواب على",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "MISATTRIBUTED",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-014",
+   "span": [
+    39,
+    90
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:6593",
+    "cited": "muslim"
+   }
+  },
+  {
+   "case_id": "H5-06",
+   "category": "H5",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «من أعتق نصيبا أو شقيصا في مملوك فخلاصه عليه في» رواه مسلم.",
+   "claim_text": "من أعتق نصيبا أو شقيصا في مملوك فخلاصه عليه في",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "MISATTRIBUTED",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-003",
+   "span": [
+    30,
+    76
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:2342",
+    "cited": "muslim"
+   }
+  },
+  {
+   "case_id": "H5-07",
+   "category": "H5",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «إذا عطس أحدكم فليقل الحمد لله وليقل له أخوه أو» رواه مسلم.",
+   "claim_text": "إذا عطس أحدكم فليقل الحمد لله وليقل له أخوه أو",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "MISATTRIBUTED",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-009",
+   "span": [
+    366,
+    412
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "bukhari:5756",
+    "cited": "muslim"
+   }
+  },
+  {
+   "case_id": "H6-d02",
+   "category": "H6",
+   "critical": true,
+   "surface": "وقال النبي ﷺ: «حب الأوطان من الإيمان».",
+   "claim_text": "حب الأوطان من الإيمان",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "KNOWN_WEAK",
+    "action": "RECONSIDER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-009",
+   "span": [
+    305,
+    326
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "من قائمة المشتهر بصيغة مختلفة (🔍 يُعتمد حكمه مع القائمة)",
+   "meta": {}
+  },
+  {
+   "case_id": "H6-d04",
+   "category": "H6",
+   "critical": true,
+   "surface": "وقال النبي ﷺ: «النظافة من الإيمان والوساخة من الشيطان».",
+   "claim_text": "النظافة من الإيمان والوساخة من الشيطان",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "KNOWN_WEAK",
+    "action": "RECONSIDER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-004",
+   "span": [
+    101,
+    139
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "من قائمة المشتهر بصيغة مختلفة (🔍 يُعتمد حكمه مع القائمة)",
+   "meta": {}
+  },
+  {
+   "case_id": "H6-d08",
+   "category": "H6",
+   "critical": true,
+   "surface": "وقال النبي ﷺ: «تفكر ساعة خير من عبادة ستين سنة».",
+   "claim_text": "تفكر ساعة خير من عبادة ستين سنة",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "KNOWN_WEAK",
+    "action": "RECONSIDER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-003",
+   "span": [
+    113,
+    144
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "من قائمة المشتهر بصيغة مختلفة (🔍 يُعتمد حكمه مع القائمة)",
+   "meta": {}
+  },
+  {
+   "case_id": "H7-d03",
+   "category": "H7",
+   "critical": true,
+   "surface": "وقال رسول الله ﷺ: «خيركم من صبر على جاره ثلاثين يوما».",
+   "claim_text": "خيركم من صبر على جاره ثلاثين يوما",
+   "expected": {
+    "evidence_status": "NOT_FOUND",
+    "reason": "NOT_FOUND",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-004",
+   "span": [
+    34,
+    67
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "مختلق صاغه Claude للاختبار (🔍 يتحقق محمد من عدم وجوده في الدرر)",
+   "meta": {}
+  },
+  {
+   "case_id": "H7-d06",
+   "category": "H7",
+   "critical": true,
+   "surface": "وقال رسول الله ﷺ: «من تبسم في وجه يتيم أظله الله تحت عرشه يوم القيامة».",
+   "claim_text": "من تبسم في وجه يتيم أظله الله تحت عرشه يوم القيامة",
+   "expected": {
+    "evidence_status": "NOT_FOUND",
+    "reason": "NOT_FOUND",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-008",
+   "span": [
+    39,
+    89
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "مختلق صاغه Claude للاختبار (🔍 يتحقق محمد من عدم وجوده في الدرر)",
+   "meta": {}
+  },
+  {
+   "case_id": "H7-d08",
+   "category": "H7",
+   "critical": true,
+   "surface": "وقال رسول الله ﷺ: «من أحسن إلى جاره أحسن الله إليه في قبره».",
+   "claim_text": "من أحسن إلى جاره أحسن الله إليه في قبره",
+   "expected": {
+    "evidence_status": "NOT_FOUND",
+    "reason": "NOT_FOUND",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-014",
+   "span": [
+    216,
+    255
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "مختلق صاغه Claude للاختبار (🔍 يتحقق محمد من عدم وجوده في الدرر)",
+   "meta": {}
+  },
+  {
+   "case_id": "H8a-02",
+   "category": "H8a",
+   "critical": false,
+   "surface": "وقد قال النبي ﷺ: «اللهم إني أعوذ بك من الأربع من علم لا ينفع».",
+   "claim_text": "اللهم إني أعوذ بك من الأربع من علم لا ينفع",
+   "expected": {
+    "evidence_status": "FOUND_NO_RULING",
+    "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-005",
+   "span": [
+    33,
+    75
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "ibnmajah:3827"
+   }
+  },
+  {
+   "case_id": "H8a-04",
+   "category": "H8a",
+   "critical": false,
+   "surface": "وقد قال النبي ﷺ: «القنطار اثنا عشر ألف أوقية كل أوقية خير مما بين».",
+   "claim_text": "القنطار اثنا عشر ألف أوقية كل أوقية خير مما بين",
+   "expected": {
+    "evidence_status": "FOUND_NO_RULING",
+    "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-005",
+   "span": [
+    196,
+    243
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "ibnmajah:3650"
+   }
+  },
+  {
+   "case_id": "H8a-08",
+   "category": "H8a",
+   "critical": false,
+   "surface": "وقد قال النبي ﷺ: «إذا أهل الرجل بالحج ثم قدم مكة فطاف بالبيت وبالصفا».",
+   "claim_text": "إذا أهل الرجل بالحج ثم قدم مكة فطاف بالبيت وبالصفا",
+   "expected": {
+    "evidence_status": "FOUND_NO_RULING",
+    "reason": "FOUND_OUTSIDE_RULING_SCOPE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-001",
+   "span": [
+    176,
+    226
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "source": "abudawud:1526"
+   }
+  },
+  {
+   "case_id": "H8b-d03",
+   "category": "H8b",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «تهادوا تحابوا».",
+   "claim_text": "تهادوا تحابوا",
+   "expected": {
+    "evidence_status": "NOT_FOUND",
+    "reason": "NOT_FOUND",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-010",
+   "span": [
+    260,
+    273
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "في الأدب المفرد للبخاري، وحسّنه بعضهم (🔍)",
+   "meta": {}
+  },
+  {
+   "case_id": "H8b-d04",
+   "category": "H8b",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «إنما بعثت لأتمم صالح الأخلاق».",
+   "claim_text": "إنما بعثت لأتمم صالح الأخلاق",
+   "expected": {
+    "evidence_status": "NOT_FOUND",
+    "reason": "NOT_FOUND",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-011",
+   "span": [
+    117,
+    145
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "عند أحمد والبخاري في الأدب المفرد (🔍)",
+   "meta": {}
+  },
+  {
+   "case_id": "H9-d03",
+   "category": "H9",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «إنما الأعمال بالنيات». فدل على أن كل عمل صحت نيته فهو مقبول ولو خالف الشرع.",
+   "claim_text": "فدل على أن كل عمل صحت نيته فهو مقبول ولو خالف الشرع",
+   "expected": {
+    "evidence_status": "EXCEEDS_SOURCE",
+    "reason": "EXCEEDS_TEXT",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-001",
+   "span": [
+    420,
+    471
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "تعميم",
+   "meta": {}
+  },
+  {
+   "case_id": "H9-d07",
+   "category": "H9",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «يسروا ولا تعسروا». فدل على أن كل تشديد في الدين بدعة محرمة.",
+   "claim_text": "فدل على أن كل تشديد في الدين بدعة محرمة",
+   "expected": {
+    "evidence_status": "EXCEEDS_SOURCE",
+    "reason": "EXCEEDS_TEXT",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-004",
+   "span": [
+    338,
+    377
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "رفع درجة",
+   "meta": {}
+  },
+  {
+   "case_id": "H9-d08",
+   "category": "H9",
+   "critical": false,
+   "surface": "وقال رسول الله ﷺ: «اتقوا النار ولو بشق تمرة». فمن تصدق بشق تمرة نجا من النار قطعا مهما فعل.",
+   "claim_text": "فمن تصدق بشق تمرة نجا من النار قطعا مهما فعل",
+   "expected": {
+    "evidence_status": "EXCEEDS_SOURCE",
+    "reason": "EXCEEDS_TEXT",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-015",
+   "span": [
+    62,
+    106
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "زيادة ورفع درجة",
+   "meta": {}
+  },
+  {
+   "case_id": "O1-d02",
+   "category": "O1",
+   "critical": false,
+   "surface": "وقال الإمام الشافعي: «رأيي صواب يحتمل الخطأ ورأي غيري خطأ يحتمل الصواب».",
+   "claim_text": "رأيي صواب يحتمل الخطأ ورأي غيري خطأ يحتمل الصواب",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "NO_SOURCE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-009",
+   "span": [
+    171,
+    219
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "قول منسوب بلا ذكر مصدره",
+   "meta": {}
+  },
+  {
+   "case_id": "O1-d04",
+   "category": "O1",
+   "critical": false,
+   "surface": "وقال الحسن البصري: «يا ابن آدم إنما أنت أيام كلما ذهب يوم ذهب بعضك».",
+   "claim_text": "يا ابن آدم إنما أنت أيام كلما ذهب يوم ذهب بعضك",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "NO_SOURCE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-005",
+   "span": [
+    111,
+    157
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "قول منسوب بلا ذكر مصدره",
+   "meta": {}
+  },
+  {
+   "case_id": "O2-d02",
+   "category": "O2",
+   "critical": false,
+   "surface": "وتشير الدراسات إلى أن تسعين بالمئة من الأمراض سببها التوتر والقلق.",
+   "claim_text": "وتشير الدراسات إلى أن تسعين بالمئة من الأمراض سببها التوتر والقلق",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "NO_SOURCE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-011",
+   "span": [
+    441,
+    506
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "رقم بلا مصدر",
+   "meta": {}
+  },
+  {
+   "case_id": "O2-d04",
+   "category": "O2",
+   "critical": false,
+   "surface": "وسبعون بالمئة من حالات الطلاق سببها وسائل التواصل الاجتماعي.",
+   "claim_text": "وسبعون بالمئة من حالات الطلاق سببها وسائل التواصل الاجتماعي",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "NO_SOURCE",
+    "action": "VERIFY"
+   },
+   "split": "dev",
+   "carrier_id": "dev-008",
+   "span": [
+    164,
+    223
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "رقم بلا مصدر",
+   "meta": {}
+  },
+  {
+   "case_id": "O3-d03",
+   "category": "O3",
+   "critical": false,
+   "surface": "وأجمعت الأمة على تحريم الأناشيد المصحوبة بالدف.",
+   "claim_text": "وأجمعت الأمة على تحريم الأناشيد المصحوبة بالدف",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "UNVERIFIED_CONSENSUS",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-012",
+   "span": [
+    297,
+    343
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "ادعاء إجماع",
+   "meta": {}
+  },
+  {
+   "case_id": "O3-d06",
+   "category": "O3",
+   "critical": false,
+   "surface": "واتفق العلماء على أن الصدقة أفضل من صيام النافلة.",
+   "claim_text": "واتفق العلماء على أن الصدقة أفضل من صيام النافلة",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "UNVERIFIED_CONSENSUS",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-008",
+   "span": [
+    105,
+    153
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "ادعاء إجماع",
+   "meta": {}
+  },
+  {
+   "case_id": "O4-d03",
+   "category": "O4",
+   "critical": false,
+   "surface": "والناس جميعا يعلمون أن الصدق منجاة.",
+   "claim_text": "والناس جميعا يعلمون أن الصدق منجاة",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "OVERGENERALIZATION",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-007",
+   "span": [
+    197,
+    231
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "تعميم مطلق",
+   "meta": {}
+  },
+  {
+   "case_id": "O4-d06",
+   "category": "O4",
+   "critical": false,
+   "surface": "ولا يحضر أحد صلاة الفجر في المسجد هذه الأيام.",
+   "claim_text": "ولا يحضر أحد صلاة الفجر في المسجد هذه الأيام",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "OVERGENERALIZATION",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-005",
+   "span": [
+    262,
+    306
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "تعميم مطلق",
+   "meta": {}
+  },
+  {
+   "case_id": "O5-d02",
+   "category": "O5",
+   "critical": false,
+   "surface": "وتجب الزكاة في الحلي المعد للاستعمال على القول الصحيح.",
+   "claim_text": "وتجب الزكاة في الحلي المعد للاستعمال على القول الصحيح",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "SPECIALIST_REQUIRED",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-006",
+   "span": [
+    116,
+    169
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حكم فقهي تفصيلي فيه خلاف",
+   "meta": {}
+  },
+  {
+   "case_id": "O5-d04",
+   "category": "O5",
+   "critical": false,
+   "surface": "والتأمين التجاري حرام بلا تردد.",
+   "claim_text": "والتأمين التجاري حرام بلا تردد",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "SPECIALIST_REQUIRED",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-004",
+   "span": [
+    158,
+    188
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حكم فقهي تفصيلي فيه خلاف",
+   "meta": {}
+  },
+  {
+   "case_id": "O6-d03",
+   "category": "O6",
+   "critical": true,
+   "surface": "ومن حلف بالطلاق على زوجته ثم حنث فلا يقع طلاقه في حالتك هذه.",
+   "claim_text": "ومن حلف بالطلاق على زوجته ثم حنث فلا يقع طلاقه في حالتك هذه",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "FATWA_REQUIRED",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-002",
+   "span": [
+    247,
+    306
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "فتوى لحالة شخصية",
+   "meta": {}
+  },
+  {
+   "case_id": "O6-d04",
+   "category": "O6",
+   "critical": true,
+   "surface": "وإن كانت أمك مريضة لا تستطيع الصيام فلا قضاء عليها ولا فدية.",
+   "claim_text": "وإن كانت أمك مريضة لا تستطيع الصيام فلا قضاء عليها ولا فدية",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "FATWA_REQUIRED",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-009",
+   "span": [
+    441,
+    500
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "فتوى لحالة شخصية",
+   "meta": {}
+  },
+  {
+   "case_id": "O7-d02",
+   "category": "O7",
+   "critical": false,
+   "surface": "وأتباع المذاهب الأخرى كلهم على باطل.",
+   "claim_text": "وأتباع المذاهب الأخرى كلهم على باطل",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "GROUP_JUDGMENT",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-003",
+   "span": [
+    407,
+    442
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حكم على جماعة بأكملها",
+   "meta": {}
+  },
+  {
+   "case_id": "O7-d06",
+   "category": "O7",
+   "critical": false,
+   "surface": "وأهل البادية كلهم جفاة لا يفقهون.",
+   "claim_text": "وأهل البادية كلهم جفاة لا يفقهون",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "GROUP_JUDGMENT",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-008",
+   "span": [
+    238,
+    270
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حكم على جماعة بأكملها",
+   "meta": {}
+  },
+  {
+   "case_id": "OF-d01",
+   "category": "OF",
+   "critical": false,
+   "surface": "وكل المسلمين متفقون على هذه المسألة دون استثناء.",
+   "claim_text": "وكل المسلمين متفقون على هذه المسألة دون استثناء",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "UNVERIFIED_CONSENSUS",
+    "action": "REPHRASE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-001",
+   "span": [
+    247,
+    294
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "الحزمة: «هل كل المسلمين يتفقون…؟» ← تمييز القطعي من الاجتهادي",
+   "meta": {}
+  },
+  {
+   "case_id": "OF-d03",
+   "category": "OF",
+   "critical": true,
+   "surface": "فإن كنت مقيما في بلد لا يعترف بالزواج الشرعي فيكفيك العقد المدني وحده.",
+   "claim_text": "فإن كنت مقيما في بلد لا يعترف بالزواج الشرعي فيكفيك العقد المدني وحده",
+   "expected": {
+    "evidence_status": "OUT_OF_SCOPE",
+    "reason": "FATWA_REQUIRED",
+    "action": "REFER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-007",
+   "span": [
+    255,
+    324
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "الحزمة: «أنا في دولة كذا، هل يجوز لي…؟»",
+   "meta": {}
+  },
+  {
+   "case_id": "Q1-01",
+   "category": "Q1",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿وَقَالُوا مَالِ هَٰذَا الرَّسُولِ يَأْكُلُ الطَّعَامَ وَيَمْشِي فِي الْأَسْوَاقِ لَوْلَا أُنزِلَ إِلَيْهِ مَلَكٌ فَيَكُونَ مَعَهُ نَذِيرًا﴾ [الفرقان: 7].",
+   "claim_text": "وَقَالُوا مَالِ هَٰذَا الرَّسُولِ يَأْكُلُ الطَّعَامَ وَيَمْشِي فِي الْأَسْوَاقِ لَوْلَا أُنزِلَ إِلَيْهِ مَلَكٌ فَيَكُونَ مَعَهُ نَذِيرًا",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-012",
+   "span": [
+    130,
+    268
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "25:7"
+   }
+  },
+  {
+   "case_id": "Q1-02",
+   "category": "Q1",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿آلْآنَ وَقَدْ عَصَيْتَ قَبْلُ وَكُنتَ مِنَ الْمُفْسِدِينَ﴾.",
+   "claim_text": "آلْآنَ وَقَدْ عَصَيْتَ قَبْلُ وَكُنتَ مِنَ الْمُفْسِدِينَ",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-002",
+   "span": [
+    343,
+    400
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "10:91"
+   }
+  },
+  {
+   "case_id": "Q1-04",
+   "category": "Q1",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿وَقَالَ ارْكَبُوا فِيهَا بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا إِنَّ رَبِّي لَغَفُورٌ رَّحِيمٌ﴾.",
+   "claim_text": "وَقَالَ ارْكَبُوا فِيهَا بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا إِنَّ رَبِّي لَغَفُورٌ رَّحِيمٌ",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-009",
+   "span": [
+    33,
+    128
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "11:41"
+   }
+  },
+  {
+   "case_id": "Q1-08",
+   "category": "Q1",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿وَإِذَا مَسَّكُمُ الضُّرُّ فِي الْبَحْرِ ضَلَّ مَن تَدْعُونَ إِلَّا إِيَّاهُ فَلَمَّا نَجَّاكُمْ إِلَى الْبَرِّ أَعْرَضْتُمْ وَكَانَ الْإِنسَانُ كَفُورًا﴾.",
+   "claim_text": "وَإِذَا مَسَّكُمُ الضُّرُّ فِي الْبَحْرِ ضَلَّ مَن تَدْعُونَ إِلَّا إِيَّاهُ فَلَمَّا نَجَّاكُمْ إِلَى الْبَرِّ أَعْرَضْتُمْ وَكَانَ الْإِنسَانُ كَفُورًا",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-008",
+   "span": [
+    307,
+    460
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "17:67"
+   }
+  },
+  {
+   "case_id": "Q2-01",
+   "category": "Q2",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿والقمر قدرناه منازل حتى عاد كالعرجون القديم﴾.",
+   "claim_text": "والقمر قدرناه منازل حتى عاد كالعرجون القديم",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-007",
+   "span": [
+    416,
+    459
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "36:39"
+   }
+  },
+  {
+   "case_id": "Q2-02",
+   "category": "Q2",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿وآتوا النساء صدقاتهن نحلة فإن طبن لكم عن شيء منه نفسا فكلوه هنيئا مريئا﴾ [النساء: 4].",
+   "claim_text": "وآتوا النساء صدقاتهن نحلة فإن طبن لكم عن شيء منه نفسا فكلوه هنيئا مريئا",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-006",
+   "span": [
+    197,
+    268
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "4:4"
+   }
+  },
+  {
+   "case_id": "Q2-06",
+   "category": "Q2",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿ولو نشاء لأريناكهم فلعرفتهم بسيماهم ولتعرفنهم في لحن القول والله يعلم أعمالكم﴾ [محمد: 30].",
+   "claim_text": "ولو نشاء لأريناكهم فلعرفتهم بسيماهم ولتعرفنهم في لحن القول والله يعلم أعمالكم",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-012",
+   "span": [
+    507,
+    584
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "47:30"
+   }
+  },
+  {
+   "case_id": "Q2-07",
+   "category": "Q2",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿فإن يصبروا فالنار مثوى لهم وإن يستعتبوا فما هم من المعتبين﴾.",
+   "claim_text": "فإن يصبروا فالنار مثوى لهم وإن يستعتبوا فما هم من المعتبين",
+   "expected": {
+    "evidence_status": "SUPPORTED",
+    "reason": null,
+    "action": "NONE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-014",
+   "span": [
+    420,
+    478
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "41:24"
+   }
+  },
+  {
+   "case_id": "Q3-01",
+   "category": "Q3",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿إني أنفسهم اليوم بما صبروا أنهم هم الفائزون﴾ [المؤمنون: 111].",
+   "claim_text": "إني أنفسهم اليوم بما صبروا أنهم هم الفائزون",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-007",
+   "span": [
+    113,
+    156
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "23:111",
+    "changed": "جزيتهم→أنفسهم"
+   }
+  },
+  {
+   "case_id": "Q3-04",
+   "category": "Q3",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿أم يريدون رحيم فالذين كفروا هم المكيدون﴾.",
+   "claim_text": "أم يريدون رحيم فالذين كفروا هم المكيدون",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-012",
+   "span": [
+    378,
+    417
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "52:42",
+    "changed": "كيدا→رحيم"
+   }
+  },
+  {
+   "case_id": "Q3-05",
+   "category": "Q3",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿والذين الحق ما آتوا وقلوبهم وجلة أنهم إلى ربهم راجعون﴾ [المؤمنون: 60].",
+   "claim_text": "والذين الحق ما آتوا وقلوبهم وجلة أنهم إلى ربهم راجعون",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-006",
+   "span": [
+    316,
+    369
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "23:60",
+    "changed": "يؤتون→الحق"
+   }
+  },
+  {
+   "case_id": "Q3-07",
+   "category": "Q3",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿فطاف عليها طائف من ربك قلوبهم نائمون﴾ [القلم: 19].",
+   "claim_text": "فطاف عليها طائف من ربك قلوبهم نائمون",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-007",
+   "span": [
+    32,
+    68
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "68:19",
+    "changed": "وهم→قلوبهم"
+   }
+  },
+  {
+   "case_id": "Q4-04",
+   "category": "Q4",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿ومن الليل فتهجد به كلهم نافلة لك عسى أن يبعثك ربك مقاما محمودا﴾.",
+   "claim_text": "ومن الليل فتهجد به كلهم نافلة لك عسى أن يبعثك ربك مقاما محمودا",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-005",
+   "span": [
+    424,
+    486
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "17:79",
+    "changed": "زيادة كلهم"
+   }
+  },
+  {
+   "case_id": "Q4-07",
+   "category": "Q4",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿كذبوا بآياتنا كلها فأخذناهم أخذ مقتدر﴾.",
+   "claim_text": "كذبوا بآياتنا كلها فأخذناهم أخذ مقتدر",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-001",
+   "span": [
+    33,
+    70
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "54:42",
+    "changed": "حذف عزيز"
+   }
+  },
+  {
+   "case_id": "Q4-09",
+   "category": "Q4",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿منها خلقناكم وفيها نعيدكم ومنها تارة أخرى﴾.",
+   "claim_text": "منها خلقناكم وفيها نعيدكم ومنها تارة أخرى",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-010",
+   "span": [
+    371,
+    412
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "20:55",
+    "changed": "حذف نخرجكم"
+   }
+  },
+  {
+   "case_id": "Q4-10",
+   "category": "Q4",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿لو يجدون ملجأ دائما أو مغارات أو مدخلا لولوا إليه وهم يجمحون﴾.",
+   "claim_text": "لو يجدون ملجأ دائما أو مغارات أو مدخلا لولوا إليه وهم يجمحون",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-006",
+   "span": [
+    37,
+    97
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "9:57",
+    "changed": "زيادة دائما"
+   }
+  },
+  {
+   "case_id": "Q5-03",
+   "category": "Q5",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿يوم يأت لا نفس تكلم إلا بإذنه فمنهم شقي وسعيد﴾.",
+   "claim_text": "يوم يأت لا نفس تكلم إلا بإذنه فمنهم شقي وسعيد",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-005",
+   "span": [
+    343,
+    388
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "11:105",
+    "changed": "تبديل الكلمتين 3/4"
+   }
+  },
+  {
+   "case_id": "Q5-05",
+   "category": "Q5",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿الزاني ينكح لا إلا زانية أو مشركة والزانية لا ينكحها إلا زان أو مشرك وحرم ذلك على المؤمنين﴾.",
+   "claim_text": "الزاني ينكح لا إلا زانية أو مشركة والزانية لا ينكحها إلا زان أو مشرك وحرم ذلك على المؤمنين",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-006",
+   "span": [
+    417,
+    507
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "24:3",
+    "changed": "تبديل الكلمتين 1/2"
+   }
+  },
+  {
+   "case_id": "Q5-08",
+   "category": "Q5",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿أم أنزلنا عليهم فهو سلطانا يتكلم بما كانوا به يشركون﴾ [الروم: 35].",
+   "claim_text": "أم أنزلنا عليهم فهو سلطانا يتكلم بما كانوا به يشركون",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-004",
+   "span": [
+    220,
+    272
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "30:35",
+    "changed": "تبديل الكلمتين 3/4"
+   }
+  },
+  {
+   "case_id": "Q5-09",
+   "category": "Q5",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿لو أن أردنا نتخذ لهوا لاتخذناه من لدنا إن كنا فاعلين﴾.",
+   "claim_text": "لو أن أردنا نتخذ لهوا لاتخذناه من لدنا إن كنا فاعلين",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "TEXT_MISMATCH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-002",
+   "span": [
+    176,
+    228
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "21:17",
+    "changed": "تبديل الكلمتين 1/2"
+   }
+  },
+  {
+   "case_id": "Q6-02",
+   "category": "Q6",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿لا شريك له وبذلك أمرت وأنا أول المسلمين﴾ [الأنعام: 166].",
+   "claim_text": "لا شريك له وبذلك أمرت وأنا أول المسلمين",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "WRONG_REFERENCE",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-013",
+   "span": [
+    257,
+    296
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "6:163",
+    "cited": "الأنعام: 166"
+   }
+  },
+  {
+   "case_id": "Q6-03",
+   "category": "Q6",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿إن لك ألا تجوع فيها ولا تعرى﴾ [الأنبياء: 118].",
+   "claim_text": "إن لك ألا تجوع فيها ولا تعرى",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "WRONG_REFERENCE",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-014",
+   "span": [
+    338,
+    366
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "20:118",
+    "cited": "الأنبياء: 118"
+   }
+  },
+  {
+   "case_id": "Q6-08",
+   "category": "Q6",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿قل يجمع بيننا ربنا ثم يفتح بيننا بالحق وهو الفتاح العليم﴾ [سبأ: 29].",
+   "claim_text": "قل يجمع بيننا ربنا ثم يفتح بيننا بالحق وهو الفتاح العليم",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "WRONG_REFERENCE",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-013",
+   "span": [
+    403,
+    459
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "34:26",
+    "cited": "سبأ: 29"
+   }
+  },
+  {
+   "case_id": "Q6-10",
+   "category": "Q6",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿أم اتخذ مما يخلق بنات وأصفاكم بالبنين﴾ [الزخرف: 19].",
+   "claim_text": "أم اتخذ مما يخلق بنات وأصفاكم بالبنين",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "WRONG_REFERENCE",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-011",
+   "span": [
+    32,
+    69
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "43:16",
+    "cited": "الزخرف: 19"
+   }
+  },
+  {
+   "case_id": "Q7-d04",
+   "category": "Q7",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿العلم نور والجهل ظلام﴾.",
+   "claim_text": "العلم نور والجهل ظلام",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "NOT_QURAN",
+    "action": "RECONSIDER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-007",
+   "span": [
+    359,
+    380
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حكمة متداولة ليست آية",
+   "meta": {}
+  },
+  {
+   "case_id": "Q7-d05",
+   "category": "Q7",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿إن الله جميل يحب الجمال﴾.",
+   "claim_text": "إن الله جميل يحب الجمال",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "NOT_QURAN",
+    "action": "RECONSIDER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-013",
+   "span": [
+    198,
+    221
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حديث في صحيح مسلم، وليس آية",
+   "meta": {}
+  },
+  {
+   "case_id": "Q7-d08",
+   "category": "Q7",
+   "critical": true,
+   "surface": "قال الله تعالى: ﴿تبسمك في وجه أخيك صدقة﴾.",
+   "claim_text": "تبسمك في وجه أخيك صدقة",
+   "expected": {
+    "evidence_status": "CONTRADICTED",
+    "reason": "NOT_QURAN",
+    "action": "RECONSIDER"
+   },
+   "split": "dev",
+   "carrier_id": "dev-010",
+   "span": [
+    311,
+    333
+   ],
+   "label_source": "drafted",
+   "reviewer": null,
+   "notes": "حديث عند الترمذي، وليس آية",
+   "meta": {}
+  },
+  {
+   "case_id": "Q8-01",
+   "category": "Q8",
+   "critical": false,
+   "surface": "قال رسول الله صلى الله عليه وسلم: «وكم أهلكنا قبلهم من قرن هم أحسن أثاثا ورئيا».",
+   "claim_text": "وكم أهلكنا قبلهم من قرن هم أحسن أثاثا ورئيا",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "QURAN_AS_HADITH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-v25-01",
+   "span": [
+    363,
+    406
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "19:74"
+   }
+  },
+  {
+   "case_id": "Q8-07",
+   "category": "Q8",
+   "critical": false,
+   "surface": "قال رسول الله صلى الله عليه وسلم: «ارجعي إلى ربك راضية مرضية».",
+   "claim_text": "ارجعي إلى ربك راضية مرضية",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "QURAN_AS_HADITH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-v25-01",
+   "span": [
+    291,
+    316
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "89:28"
+   }
+  },
+  {
+   "case_id": "Q8-08",
+   "category": "Q8",
+   "critical": false,
+   "surface": "قال رسول الله صلى الله عليه وسلم: «وقيله يا رب إن هؤلاء قوم لا يؤمنون».",
+   "claim_text": "وقيله يا رب إن هؤلاء قوم لا يؤمنون",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "QURAN_AS_HADITH",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-v25-01",
+   "span": [
+    587,
+    621
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "43:88"
+   }
+  },
+  {
+   "case_id": "Q9-01",
+   "category": "Q9",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿وأن لو استقاموا على الطريقة لأسقيناهم ماء غدقا وزكريا ويحيى وعيسى وإلياس كل من الصالحين﴾.",
+   "claim_text": "وأن لو استقاموا على الطريقة لأسقيناهم ماء غدقا وزكريا ويحيى وعيسى وإلياس كل من الصالحين",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "MERGED_AYAT",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-v25-01",
+   "span": [
+    144,
+    231
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "72:16+6:85"
+   }
+  },
+  {
+   "case_id": "Q9-03",
+   "category": "Q9",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿الأخلاء يومئذ بعضهم لبعض عدو إلا المتقين ولقد فتنا قبلهم قوم فرعون وجاءهم رسول كريم﴾.",
+   "claim_text": "الأخلاء يومئذ بعضهم لبعض عدو إلا المتقين ولقد فتنا قبلهم قوم فرعون وجاءهم رسول كريم",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "MERGED_AYAT",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-v25-01",
+   "span": [
+    444,
+    527
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "43:67+44:17"
+   }
+  },
+  {
+   "case_id": "Q9-04",
+   "category": "Q9",
+   "critical": false,
+   "surface": "قال الله تعالى: ﴿ولبثوا في كهفهم ثلاث مائة سنين وازدادوا تسعا ويقولون أئنا لتاركو آلهتنا لشاعر مجنون﴾.",
+   "claim_text": "ولبثوا في كهفهم ثلاث مائة سنين وازدادوا تسعا ويقولون أئنا لتاركو آلهتنا لشاعر مجنون",
+   "expected": {
+    "evidence_status": "PARTIALLY_SUPPORTED",
+    "reason": "MERGED_AYAT",
+    "action": "CORRECT_FROM_SOURCE"
+   },
+   "split": "dev",
+   "carrier_id": "dev-v25-01",
+   "span": [
+    28,
+    111
+   ],
+   "label_source": "generated",
+   "reviewer": null,
+   "notes": null,
+   "meta": {
+    "ref": "18:25+37:36"
+   }
+  }
+ ]
+}

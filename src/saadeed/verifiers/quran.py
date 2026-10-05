@@ -351,7 +351,10 @@ class QuranVerifier:
             reason = "تشابه عالٍ مع اختلاف في كلمات"
         return Evidence(
             ref=SourceRef(
-                source_id="quran", item_id=item_id, citation=cit, url=_quran_url(sura, first[1])
+                source_id="quran",
+                item_id=item_id,
+                citation=cit,
+                url=self.repo.ayah_url(sura, first[1]),
             ),
             role=SourceRole.REFERENCE_TEXT,
             text=text,
@@ -365,10 +368,6 @@ class QuranVerifier:
         a0 = self.index.ayah_ranges[ayat[0]][0]
         a1 = self.index.ayah_ranges[ayat[-1]][1]
         return g_start == a0 and g_end == a1
-
-
-def _quran_url(sura: int, aya: int) -> str:
-    return f"https://tanzil.net/#{sura}:{aya}"
 
 
 def render_ayat(repo: QuranRepo, ayat: list[tuple[int, int]]) -> str:

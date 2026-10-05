@@ -1,0 +1,15 @@
+.git
+.venv
+.cache
+**/__pycache__
+.pytest_cache
+.ruff_cache
+data/raw
+!data/vendor
+data/processed
+eval/recordings
+docs
+private
+.env
+.env.*
+*.log

@@ -212,18 +212,28 @@ def examples(
     data_dir.mkdir(parents=True, exist_ok=True)
     api.state.engine = eng
     for name, fn in (("coverage", api.coverage), ("results", api.results)):
-        (data_dir / f"{name}.json").write_text(json.dumps(fn(), ensure_ascii=False), encoding="utf-8")
+        (data_dir / f"{name}.json").write_text(
+            json.dumps(fn(), ensure_ascii=False), encoding="utf-8"
+        )
 
 
 @app.command()
 def serve(
     host: str = typer.Option("127.0.0.1"),
     port: int = typer.Option(8000),
+    root_path: str = typer.Option("", help="مسار فرعي خلف وكيل عكسي، مثل /saadeed"),
 ) -> None:
     """يشغّل الواجهة البرمجية والواجهة: http://127.0.0.1:8000"""
     import uvicorn
 
-    uvicorn.run("saadeed.adapters.api.app:app", host=host, port=port)
+    uvicorn.run(
+        "saadeed.adapters.api.app:app",
+        host=host,
+        port=port,
+        root_path=root_path,
+        proxy_headers=True,
+        forwarded_allow_ips="127.0.0.1",
+    )
 
 
 def _register_eval() -> None:

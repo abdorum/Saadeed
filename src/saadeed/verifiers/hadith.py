@@ -365,7 +365,10 @@ class HadithVerifier:
             "ruling_source": kw.ruling_source,
             "draft_note": "" if kw.verified else " (تنبيه: هذا البند في القائمة لم يُعتمد بعد)",
         }
-        notes = [] if kw.verified else ["بند قائمة المشتهر بانتظار الاعتماد"]
+        if kw.verified and kw.reviewed_by:
+            notes = [f"راجع هذا البند على مصدره: {kw.reviewed_by}، في {kw.reviewed_on or '—'}"]
+        else:
+            notes = ["بند قائمة المشتهر بانتظار الاعتماد البشري"]
         evidence = [ev]
         alt = kw.alternative
         idx = self._doc_index(alt.source_id, alt.item_id) if alt else None

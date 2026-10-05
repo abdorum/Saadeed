@@ -56,6 +56,8 @@ class QuranRepo(Protocol):
 
     def sura_names(self) -> dict[int, str]: ...
 
+    def ayah_url(self, sura: int, aya: int) -> str: ...
+
 
 class SourceInfo(BaseModel):
     id: str
@@ -111,6 +113,10 @@ class KnownWeak(BaseModel):
     ruling_source: str
     url: str | None = None
     verified: bool = False
+    reviewed_by: str | None = None
+    """من راجع البند على مصدره (كمحرري KeyCite وShepard's: الحكم يكتبه إنسان مسمّى، لا خوارزمية)."""
+    reviewed_on: str | None = None
+    """تاريخ المراجعة (YYYY-MM-DD)."""
     note: str | None = None
     alternative: StoreRef | None = None
     """حديث في المخزن يؤدي المعنى بلفظ ثابت أو مروي (v2.5): «ما الذي أقوله بدلًا منه؟»."""
