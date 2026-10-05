@@ -83,6 +83,8 @@ def extract_claims(
         hint = sent_starts.get(c.get("s") if isinstance(c.get("s"), int) else -1, 0)
         span = find_span(text, quote, start_hint=hint)
         if span is None:
+            span = _sentence_fallback(quote, c.get("s"), sentences)
+        if span is None:
             warnings.append(f"أُسقط ادعاء لم يوجد نصه في المسودة: «{quote[:40]}»")
             continue
         level = _str(c.get("level")) or "B"
@@ -283,6 +285,25 @@ def _link_conclusions(text: str, claims: list[Claim], sentences: list[Sentence])
             (s.span.end for s in sentences if s.span.start <= start < s.span.end), window_end
         )
         claims[i] = cl.model_copy(update={"linked_conclusion": Span(start=start, end=stop)})
+
+
+REORDER_MIN = 0.9
+"""نسبة كلمات الاقتباس التي يجب أن توجد في الجملة نفسها لنقبل اقتباسًا أعاد النموذج ترتيبه."""
+
+
+def _sentence_fallback(quote: str, s_idx: Any, sentences: list[Sentence]) -> tuple[int, int] | None:
+    """النموذج أحيانًا يعيد ترتيب كلمات الاقتباس. فإن كانت كلماته في الجملة التي أشار إليها،
+    أخذنا **نص الجملة نفسها من المسودة** (لا نص النموذج). وإلا أُسقط الادعاء كما كان."""
+    if not isinstance(s_idx, int) or not (0 <= s_idx < len(sentences)):
+        return None
+    q = normalize(quote).split()
+    sent = sentences[s_idx]
+    if len(q) < 3:
+        return None
+    words = set(normalize(sent.text).split())
+    if sum(1 for w in q if w in words) < REORDER_MIN * len(q):
+        return None
+    return sent.span.start, sent.span.end
 
 
 def is_generalization(fragment: str) -> bool:

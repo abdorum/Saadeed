@@ -188,9 +188,7 @@ class ReviewDraft:
                 )
 
         findings = [self._finding(cl, outcomes[cl.id]) for cl in claims]
-        findings += self._overreach_findings(
-            text, relation_needed, outcomes, judged, len(ex.claims)
-        )
+        findings += self._overreach_findings(text, relation_needed, outcomes, judged, len(claims))
         findings = self.guard.guard(findings)
         if self.guard.dropped:
             ctx.warnings.append(

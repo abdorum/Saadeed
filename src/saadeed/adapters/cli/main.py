@@ -151,6 +151,81 @@ def coverage() -> None:
     typer.echo(f"ملف المرجعية: {m.id} · sha256 {m.sha256[:16]}")
 
 
+EXAMPLES = [
+    {
+        "id": "khutbah",
+        "title": "خطبة قصيرة",
+        "file": "demo_khutbah.txt",
+        "note": "صاغها فريق سديد، وفيها عيوب مزروعة عمدًا للعرض: آية محرّفة، وحديث مشتهر لا يصح، وإجماع مدّعى، وقول منسوب، ورقم بلا مصدر.",
+        "overreach": True,
+    },
+    {
+        "id": "alukah",
+        "title": "خطبة منشورة حقيقية",
+        "file": "alukah_hifz_allisan.txt",
+        "note": "مقتطف من «خطبة عن الحث على حفظ اللسان»، أ. عبدالعزيز بن أحمد الغامدي، شبكة الألوكة. حقوقها لصاحبها، والمقتطف للتحليل مع النسبة. لم نزرع فيها شيئًا.",
+        "source_url": "https://www.alukah.net/alaqeel/1/100556/",
+        "overreach": False,
+    },
+    {
+        "id": "intro",
+        "title": "مادة تعريفية",
+        "file": "intro_rahma.txt",
+        "note": "صاغها فريق سديد لمخاطَب غير مسلم، وفيها عيوب مزروعة عمدًا: إحالة آية خاطئة، وآية نُسبت إلى النبي ﷺ، وحديث مشتهر لا يصح، وإجماع مدّعى، ورقم، وتعميم.",
+        "overreach": False,
+    },
+]
+
+
+@app.command()
+def examples(
+    provider: str | None = typer.Option(None, help="groq أو gemini أو none"),
+) -> None:
+    """يبني الأمثلة الجاهزة بتقاريرها المحفوظة للواجهة (FR-02): web/examples/*.json."""
+    from saadeed.adapters.bootstrap import ROOT
+    from saadeed.adapters.factory import build_engine, build_llm, cached
+    from saadeed.application.review_draft import ReviewConfig
+
+    eng = build_engine()
+    llm = cached(build_llm(provider))
+    out_dir = ROOT / "web" / "examples"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    index = []
+    for ex in EXAMPLES:
+        text = (ROOT / "samples" / ex["file"]).read_text(encoding="utf-8")
+        rep = eng.reviewer(llm, ReviewConfig(enable_overreach=ex["overreach"])).review(text)
+        payload = {
+            **{k: v for k, v in ex.items() if k != "file"},
+            "text": text,
+            "report": rep.model_dump(mode="json"),
+        }
+        (out_dir / f"{ex['id']}.json").write_text(
+            json.dumps(payload, ensure_ascii=False), encoding="utf-8"
+        )
+        index.append({k: ex[k] for k in ("id", "title", "note")})
+        typer.echo(f"{ex['id']}: {rep.summary.total_claims} ادعاءً · {rep.meta.duration_ms} ms")
+    (out_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
+    # نسخة ثابتة من التغطية والنتائج للمعاينة بلا خادم (والخادم يجيب عنهما حيًّا من /v1).
+    from saadeed.adapters.api import app as api
+
+    data_dir = ROOT / "web" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    api.state.engine = eng
+    for name, fn in (("coverage", api.coverage), ("results", api.results)):
+        (data_dir / f"{name}.json").write_text(json.dumps(fn(), ensure_ascii=False), encoding="utf-8")
+
+
+@app.command()
+def serve(
+    host: str = typer.Option("127.0.0.1"),
+    port: int = typer.Option(8000),
+) -> None:
+    """يشغّل الواجهة البرمجية والواجهة: http://127.0.0.1:8000"""
+    import uvicorn
+
+    uvicorn.run("saadeed.adapters.api.app:app", host=host, port=port)
+
+
 def _register_eval() -> None:
     try:
         from saadeed.adapters.eval.cli import eval_app
