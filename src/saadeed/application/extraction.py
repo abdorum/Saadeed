@@ -7,6 +7,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -18,6 +19,10 @@ from saadeed.text.markers import Marked, scan
 from saadeed.text.normalize import find_span, normalize, normalize_with_map
 
 _TYPES = {t.value for t in ClaimType}
+# «التعميم» لا يُقبل إلا بلفظ إطلاق صريح (ERRORS.md E-007): حارس حتمي على حكم النموذج.
+_ABSOLUTE = re.compile(
+    r"(?:^|\s)(?:و|ف)?(?:كل|كله|كلهم|كلها|جميع|جميعا|جميعهم|كافه|قاطبه|دايما|ابدا|مطلقا|البته|احد|لا يوجد|لا يكاد|ليس هناك|لا تجد|لم يعد)(?:\s|$)"
+)
 _LEVELS = {lv.value for lv in ContentLevel}
 _QUOTE_TYPES = {ClaimType.QURAN_QUOTE, ClaimType.HADITH_QUOTE}
 
@@ -78,6 +83,10 @@ def extract_claims(
             continue
         level = _str(c.get("level")) or "B"
         claim_type = ClaimType(ctype)
+        if claim_type is ClaimType.GENERALIZATION and not _ABSOLUTE.search(
+            " " + normalize(text[span[0] : span[1]]) + " "
+        ):
+            continue  # وعظ أو حكمة عامة بلا لفظ إطلاق: ليس تعميمًا قابلًا للفحص
         if claim_type in _QUOTE_TYPES:
             level = "A"
         concl_span = None
