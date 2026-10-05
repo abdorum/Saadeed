@@ -92,7 +92,8 @@ def cached(
     if llm is None and mode != "replay":
         return None
     load_env()
-    d = cache_dir or Path(os.environ.get("SAADEED_CACHE_DIR", ROOT / ".cache" / "llm"))
+    # متغير فارغ في .env («SAADEED_CACHE_DIR=») يعني الافتراضي، لا جذر المستودع.
+    d = cache_dir or Path(os.environ.get("SAADEED_CACHE_DIR") or ROOT / ".cache" / "llm")
     if not d.is_absolute():
         d = ROOT / d
     model_id = llm.model_id if llm is not None else configured_model_id()

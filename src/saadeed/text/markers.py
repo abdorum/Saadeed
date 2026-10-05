@@ -16,7 +16,7 @@ import re
 from dataclasses import dataclass, field
 
 from saadeed.domain.quran_meta import SURA_ALIASES, SURA_NAMES
-from saadeed.text.normalize import normalize
+from saadeed.text.normalize import _is_dropped, normalize
 
 _DIG = "0-9٠-٩"
 
@@ -52,7 +52,7 @@ _TAKHRIJ = re.compile(
     + _BOOKS
     + r"(?:\s+و\s*"
     + _BOOKS
-    + r")*)|(متفق\s+عليه))"
+    + r")*)|(متفق\s+عليه|(?:رواه|أخرجه|اخرجه)\s+(?:الشيخان|الشيخين)))"
 )
 _REF = re.compile(
     r"^\s*[\[(]\s*(?:سورة\s+)?([^\]):：،0-9٠-٩]{1,20}?)\s*[:：،,\-]?\s*(?:الآية|آية|الاية|اية)?\s*(["
@@ -99,38 +99,71 @@ def _takhrij_after(text: str, pos: int) -> str | None:
     return (m.group(1) or m.group(2) or "").strip() or None
 
 
-def scan(text: str) -> list[Marked]:
-    """يكشف الآيات والأحاديث المعلَّمة في المسودة، بمواضعها."""
-    found: list[Marked] = []
-    taken: list[tuple[int, int]] = []
+def _skeleton(text: str) -> tuple[str, list[int]]:
+    """النص بلا تشكيل ولا تطويل ولا محارف خفية، مع خريطة لموضع كل حرف في الأصل.
 
-    def overlaps(s: int, e: int) -> bool:
+    أنماط العلامات مكتوبة بلا تشكيل، والخطب المنشورة كثيرًا ما تُشكَّل كاملة
+    («صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ»، «رَوَاهُ مُسْلِمٌ»). فالبحث يجري على الهيكل، والنص المعروض من الأصل.
+    """
+    out: list[str] = []
+    idx: list[int] = []
+    for i, ch in enumerate(text):
+        if _is_dropped(ch) and ch != "ء":
+            continue
+        out.append(ch)
+        idx.append(i)
+    idx.append(len(text))
+    return "".join(out), idx
+
+
+def _orig_span(idx: list[int], s: int, e: int) -> tuple[int, int]:
+    """موضع [s, e) في الهيكل ← موضعه في الأصل، بحركات الحرف الأخير."""
+    return idx[s], (idx[e - 1] + 1 if e > s else idx[s])
+
+
+def scan(text: str) -> list[Marked]:
+    """يكشف الآيات والأحاديث المعلَّمة في المسودة، بمواضعها في الأصل."""
+    sk, idx = _skeleton(text)
+    found: list[Marked] = []
+    quran_taken: list[tuple[int, int]] = []
+    hadith_taken: list[tuple[int, int]] = []
+
+    def overlaps(s: int, e: int, taken: list[tuple[int, int]]) -> bool:
         return any(s < te and ts < e for ts, te in taken)
 
+    def span(m: re.Match[str]) -> tuple[int, int, str]:
+        s, e = _orig_span(idx, m.start(1), m.end(1))
+        while e < len(text) and _is_dropped(text[e]) and not text[e].isspace():
+            e += 1
+        raw = text[s:e]
+        lead = len(raw) - len(raw.lstrip())
+        return s + lead, s + len(raw.rstrip()), raw.strip()
+
     for rx in (_QURAN_BRACKETS, _QURAN_INTRO):
-        for m in rx.finditer(text):
-            s, e = m.start(1), m.end(1)
-            if overlaps(s, e):
+        for m in rx.finditer(sk):
+            if overlaps(m.start(1), m.end(1), quran_taken):
                 continue
-            cited, parsed = _ref_after(text, m.end())
-            found.append(
-                Marked("quran", m.group(1).strip(), s, e, cited_ref=cited, ref_parsed=parsed)
-            )
-            taken.append((s, e))
+            s, e, body = span(m)
+            cited, parsed = _ref_after(sk, m.end())
+            found.append(Marked("quran", body, s, e, cited_ref=cited, ref_parsed=parsed))
+            quran_taken.append((m.start(1), m.end(1)))
 
     hadith_matches = sorted(
-        [*_HADITH_QUOTE.finditer(text), *_HADITH_DOUBLE_PAREN.finditer(text)],
+        [*_HADITH_QUOTE.finditer(sk), *_HADITH_DOUBLE_PAREN.finditer(sk)],
         key=lambda m: m.start(1),
     )
     for m in hadith_matches:
-        s, e = m.start(1), m.end(1)
-        if overlaps(s, e):
+        ss, se = m.start(1), m.end(1)
+        # الحديث قد يتضمن آية (آية الكرسي في حديث أبي هريرة): لا يُسقط لذلك، ويُسقط إن تداخل مع حديث آخر
+        # أو وقع بكامله داخل آية.
+        if overlaps(ss, se, hadith_taken) or any(ts <= ss and se <= te for ts, te in quran_taken):
             continue
-        before = text[max(0, m.start() - 40) : s]
+        before = sk[max(0, m.start() - 40) : ss]
         verbatim = not _MEANING.search(before)
-        book = _takhrij_after(text, m.end())
-        found.append(Marked("hadith", m.group(1).strip(), s, e, cited_book=book, verbatim=verbatim))
-        taken.append((s, e))
+        book = _takhrij_after(sk, m.end())
+        s, e, body = span(m)
+        found.append(Marked("hadith", body, s, e, cited_book=book, verbatim=verbatim))
+        hadith_taken.append((ss, se))
 
     found.sort(key=lambda x: x.start)
     return found
@@ -155,7 +188,7 @@ def canonical_books(cited: str | None) -> set[str]:
     if not cited:
         return set()
     n = normalize(cited)
-    if "متفق عليه" in n or "الصحيحين" in n or "الشيخين" in n:
+    if "متفق عليه" in n or "الصحيحين" in n or "الشيخين" in n or "الشيخان" in n:
         return {"bukhari", "muslim"}
     books: set[str] = set()
     for key, canon in _BOOK_CANON.items():

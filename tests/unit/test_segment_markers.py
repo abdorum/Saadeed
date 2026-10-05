@@ -52,3 +52,26 @@ def test_double_parentheses_hadith_and_comma_range():
     assert marks[0].text.startswith("لا يستقيم")
     assert marks[1].ref_parsed == (41, 34, 35)
     assert parse_ref("[المؤمنون: 1 - 3]") == (23, 1, 3)
+
+
+def test_scan_fully_vocalized_hadith():
+    # الخطب المنشورة تُشكَّل كاملة: الأنماط تعمل على الهيكل، والنص المعروض من الأصل بحركاته.
+    text = (
+        "فَقَالَ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِذَا رَأَى أَحَدُكُمُ الرُّؤْيَا يَكْرَهُهَا فَلْيَبْصُقْ عَنْ يَسَارِهِ ثَلَاثًا» "
+        "رَوَاهُ مُسْلِمٌ، وَقَالَ النَّبِيُّ ‌صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «وَلَا يُحَدِّثْ بِهَا أَحَدًا» رَوَاهُ الشَّيْخَانِ."
+    )
+    found = [m for m in scan(text) if m.kind == "hadith"]
+    assert len(found) == 2
+    assert found[0].text.startswith("إِذَا رَأَى") and found[0].text.endswith("ثَلَاثًا")
+    assert text[found[0].start : found[0].end] == found[0].text
+    assert found[0].cited_book == "مسلم"
+    assert canonical_books(found[1].cited_book) == {"bukhari", "muslim"}
+
+
+def test_scan_keeps_hadith_that_contains_a_verse():
+    text = (
+        "قَوْلُ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِذَا أَوَيْتَ إِلَى فِرَاشِكَ فَاقْرَأْ آيَةَ الْكُرْسِيِّ "
+        "﴿ اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ﴾ حَتَّى تَخْتِمَ الْآيَةَ» رَوَاهُ الْبُخَارِيُّ."
+    )
+    kinds = sorted(m.kind for m in scan(text))
+    assert kinds == ["hadith", "quran"]

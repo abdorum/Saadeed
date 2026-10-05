@@ -37,6 +37,20 @@ class ExtractionResult:
     """صنف كل جملة كما رآه النموذج (خريطة المسودة، v2.5). وصف لا يغيّر أي قاعدة."""
 
 
+def llm_error_ar(e: Exception) -> str:
+    """سبب التعذّر بعبارة للمستخدم، دون نص استجابة المزود (فيه معرّفات حسابه)."""
+    msg = str(e).lower()
+    if "413" in msg or "too large" in msg or "context" in msg:
+        return "المسودة أكبر من حدّ الطلب لدى مزود النموذج"
+    if "429" in msg or "rate" in msg or "quota" in msg or "exhausted" in msg:
+        return "تجاوزنا حدّ الاستخدام لدى مزود النموذج مؤقتًا؛ أعد المحاولة بعد دقيقة"
+    if "401" in msg or "403" in msg or "api key" in msg or "api_key" in msg or "مفتاح" in msg:
+        return "مفتاح مزود النموذج غير صالح أو غير مضبوط"
+    if "timeout" in msg or "timed out" in msg:
+        return "انتهت مهلة الاتصال بمزود النموذج"
+    return "تعذّر الاتصال بمزود النموذج"
+
+
 def render_sentences(sentences: list[Sentence]) -> str:
     return "\n".join(f"[{s.index}] {s.text}" for s in sentences)
 
@@ -69,7 +83,7 @@ def extract_claims(
             raw_map = resp.data.get("map")
         except LLMError as e:
             llm_failed = True
-            warnings.append(f"تعذّر استخراج الادعاءات غير المعلَّمة بالنموذج: {e}")
+            warnings.append(f"تعذّر استخراج الادعاءات غير المعلَّمة بالنموذج: {llm_error_ar(e)}")
     else:
         llm_failed = True
 

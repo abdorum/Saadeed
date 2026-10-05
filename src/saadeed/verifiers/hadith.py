@@ -35,6 +35,8 @@ MIN_QUERY_WORDS = 3
 MIN_EXACT_WORDS = 2
 """أقل عدد كلمات للمطابقة الحرفية («الدين النصيحة» كلمتان)."""
 BOOK_PRESENCE_MIN = 85
+BOOK_PRESENCE_STEMS = 0.7
+BOOK_PRESENCE_MIN_WORDS = 8
 """أدنى تشابه لعدّ الحديث موجودًا في الكتاب المنسوب إليه (الروايات تختلف يسيرًا: «بالنية/بالنيات»)."""
 TOP_K = 5
 
@@ -117,9 +119,15 @@ class HadithIndex:
         for i in self.exact_hits(q_norm):
             if self.docs[i].source_id == source_id:
                 return True
+        q_stems = set(stems(q_norm))
         for i, _ in self.ranked(q_norm, k=10, only=source_id):
             if fuzz.partial_ratio(q_norm, self.docs[i].norm) >= BOOK_PRESENCE_MIN:
                 return True
+            # رواية الكتاب الآخر بتقديم وتأخير (E-015): «متفق عليه» وألفاظ مسلم غير ألفاظ البخاري.
+            if len(q_stems) >= BOOK_PRESENCE_MIN_WORDS:
+                shared = len(q_stems & set(stems(self.docs[i].norm))) / len(q_stems)
+                if shared >= BOOK_PRESENCE_STEMS:
+                    return True
         return False
 
     def ranked(

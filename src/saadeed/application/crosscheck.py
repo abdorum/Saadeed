@@ -33,6 +33,7 @@ RETYPE_COVERAGE = 0.8
 REMAINDER_MIN = 3
 """أقل ما يبقى من كلام الكاتب بعد فصل الآية ليبقى ادعاءً مستقلًا."""
 
+_LEAD = '«“"(﴿['
 _TRAIL = "،,.؛;:!؟?»«\"'()﴿﴾[]{}"
 _SKIP = {ClaimType.QURAN_QUOTE, ClaimType.TAKHRIJ, ClaimType.HADITH_CONCLUSION}
 
@@ -48,9 +49,10 @@ def _tokens(text: str, span: Span) -> list[_Tok]:
     out: list[_Tok] = []
     for m in re.finditer(r"\S+", text[span.start : span.end]):
         raw = m.group()
+        lead = len(raw) - len(raw.lstrip(_LEAD))
         end = span.start + m.start() + len(raw.rstrip(_TRAIL))
         for part in normalize(raw).split():
-            out.append(_Tok(span.start + m.start(), end, part))
+            out.append(_Tok(span.start + m.start() + lead, end, part))
     return out
 
 

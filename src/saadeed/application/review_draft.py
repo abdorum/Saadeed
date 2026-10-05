@@ -17,7 +17,7 @@ from typing import Any
 from saadeed import __version__
 from saadeed.application.citation_guard import CitationGuard
 from saadeed.application.crosscheck import cross_check
-from saadeed.application.extraction import extract_claims, is_generalization
+from saadeed.application.extraction import extract_claims, is_generalization, llm_error_ar
 from saadeed.application.prompts import PromptSet
 from saadeed.application.suggestion_guard import safe_suggestion
 from saadeed.domain.enums import (
@@ -78,6 +78,7 @@ class ReviewConfig:
 class _Ctx:
     usage: list[LLMUsage] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    degraded: bool = False
     calls: int = 0
 
 
@@ -124,6 +125,7 @@ class ReviewDraft:
         ctx.warnings += ex.warnings
         not_checked: list[str] = []
         if ex.llm_failed:
+            ctx.degraded = self.llm is not None
             not_checked.append(
                 "الادعاءات غير المعلَّمة (أقوال، وأرقام، وإجماع، وتعميم، وإحالات): لم تُستخرج لأن النموذج غير متاح، وفُحصت الآيات والأحاديث المعلَّمة وحدها"
             )
@@ -343,7 +345,8 @@ class ReviewDraft:
         try:
             resp = self.llm.generate_json(system=system, user=user, max_tokens=3000)
         except LLMError as e:
-            ctx.warnings.append(f"تعذّر نداء الحَكَم: {e}")
+            ctx.degraded = True
+            ctx.warnings.append(f"تعذّر نداء الحَكَم: {llm_error_ar(e)}")
             return {i: {"_failed": True} for i in ids}
         ctx.usage.append(resp.usage)
         ctx.calls += 1
@@ -482,6 +485,7 @@ class ReviewDraft:
                 prompt_tokens=sum(u.prompt_tokens for u in ctx.usage),
                 completion_tokens=sum(u.completion_tokens for u in ctx.usage),
                 warnings=ctx.warnings,
+                degraded=ctx.degraded,
             ),
         )
 

@@ -161,7 +161,8 @@
     post(text, "full").then(function (r) {
       full = true;
       render(text, r, false);
-      setStatus("اكتملت المراجعة في " + (r.meta.duration_ms / 1000).toFixed(1) + " ثانية.");
+      if (r.meta.degraded) setStatus("المراجعة ناقصة: تعذّر نموذج الذكاء الاصطناعي، والمعروض نتائج المسار الحتمي وحده.", true);
+      else setStatus("اكتملت المراجعة في " + (r.meta.duration_ms / 1000).toFixed(1) + " ثانية.");
     }).catch(function (e) {
       full = true;
       setStatus(e.message + (current ? " · المعروض نتائج المسار الحتمي وحده." : ""), true);
@@ -285,6 +286,13 @@
       (LIVE ? '<div><button type="button" id="print">اطبع سجل المراجعة</button></div>' : "") + "</section>";
   }
 
+  function claimsAr(n) {
+    if (n === 1) return "ادعاء واحد";
+    if (n === 2) return "ادعاءان";
+    if (n >= 3 && n <= 10) return n + " ادعاءات";
+    return n + " ادعاءً";
+  }
+
   function render(text, rep, provisional) {
     current = { text: text, report: rep, provisional: provisional };
     var el = $("#report");
@@ -311,9 +319,12 @@
     if (!rep.findings.length) cards = '<p class="lede">لم يجد سديد ادعاءً قابلًا للفحص في هذا النص. وعدم التنبيه لا يعني الصحة.</p>';
 
     el.innerHTML =
-      '<div class="summary"><span class="total">خريطة الثغور: ' + rep.summary.total_claims + " ادعاءً <small>في " + rep.draft.word_count + " كلمة</small></span>" +
+      '<div class="summary"><span class="total">خريطة الثغور: ' + claimsAr(rep.summary.total_claims) + " <small>في " + rep.draft.word_count + " كلمة</small></span>" +
       '<span class="tally">' + chips + "</span>" +
-      (provisional ? '<span class="provisional">نتائج أولية من المسار الحتمي: الآيات والأحاديث. والتقرير الكامل في الطريق…</span>' : "") + "</div>" +
+      (provisional ? '<span class="provisional">نتائج أولية من المسار الحتمي: الآيات والأحاديث. والتقرير الكامل في الطريق…</span>' : "") + "</div>" 
+      (rep.meta.degraded ? '<div class="degraded" role="alert"><strong>المراجعة ناقصة:</strong> تعذّر نموذج الذكاء الاصطناعي' +
+        ((rep.meta.warnings || []).length ? " (" + esc(rep.meta.warnings[0].replace(/^[^:]*:\s*/, "")) + ")" : "") +
+        '. فُحصت الآيات والأحاديث المعلَّمة وحدها، ولم تُستخرج الأقوال والأرقام والإجماع والتعميم. أعد المحاولة بعد قليل.</div>' : "") +
       ribbonHTML(rep) +
       '<div class="folio"><div class="matn" id="matn"><span class="lbl">مسودتك. انقر الموضع المعلَّم لترى ملاحظته</span>' +
       matnHTML(text, rep) + '</div><div class="hawashi" id="hawashi">' + cards + "</div></div>" +

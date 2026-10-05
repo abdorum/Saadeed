@@ -222,6 +222,8 @@ class Meta(BaseModel):
     prompt_tokens: int = 0
     completion_tokens: int = 0
     warnings: list[str] = Field(default_factory=list)
+    degraded: bool = False
+    """تعذّر النموذج، ففُحص المعلَّم وحده: الواجهة تقول ذلك صراحة، ولا تعلن «اكتملت المراجعة»."""
 
 
 class ReviewReport(BaseModel):

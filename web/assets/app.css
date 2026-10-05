@@ -115,6 +115,7 @@ textarea {
 .b-refer { color: var(--refer); background: var(--refer-bg); }
 .b-idle { color: var(--idle); background: var(--idle-bg); }
 .provisional { font-size: var(--step--1); color: var(--warn); }
+.degraded { flex-basis: 100%; margin-top: .5rem; padding: .6rem .8rem; border-inline-start: 4px solid var(--warn); background: var(--warn-bg); color: var(--ink); font-size: var(--step--1); }
 
 /* شريط المسودة: كل جملة بطولها ولون صنفها */
 .ribbon-wrap { display: grid; gap: 6px; }
