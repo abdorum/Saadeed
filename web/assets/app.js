@@ -1,4 +1,4 @@
-/* سديد — منطق الواجهة. JavaScript صرف بلا مكتبات ولا خطوة بناء (ADR-0012، مع ملاحظة v2.5).
+/* سديد — منطق الواجهة. صفحة واحدة، JavaScript صرف بلا مكتبات ولا خطوة بناء (ADR-0012).
    - تستهلك الواجهة البرمجية نفسها: /v1/reviews، /v1/coverage، /v1/results.
    - «الفحص السريع» يُعرض فورًا (المسار الحتمي)، ثم يستبدل به التقرير الكامل حين يكتمل.
    - إن لم تتوفر الواجهة البرمجية (معاينة ثابتة) تعمل الأمثلة الجاهزة بتقاريرها المحفوظة (FR-02).
@@ -15,10 +15,10 @@
   var EMBED = window.SAADEED_DATA || null; // في المعاينة الثابتة تُضمَّن البيانات في الصفحة
 
   var BUCKETS = {
-    NEEDS_VERIFICATION: { ar: "يتطلب تحققًا", cls: "b-warn", icon: "!", rank: 0 },
-    REFER: { ar: "إحالة إلى مختص", cls: "b-refer", icon: "↗", rank: 1 },
-    NOT_CHECKED: { ar: "لم يُفحص", cls: "b-idle", icon: "…", rank: 2 },
-    SUPPORTED_BY_SOURCES: { ar: "تؤيده المصادر", cls: "b-ok", icon: "✓", rank: 3 }
+    NEEDS_VERIFICATION: { ar: "يتطلب تحققًا", cls: "warn", rank: 0 },
+    REFER: { ar: "إحالة إلى مختص", cls: "refer", rank: 1 },
+    NOT_CHECKED: { ar: "لم يُفحص", cls: "idle", rank: 2 },
+    SUPPORTED_BY_SOURCES: { ar: "تؤيده المصادر", cls: "ok", rank: 3 }
   };
   var SEV_RANK = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3, NONE: 4 };
   var ROLE_AR = {
@@ -44,7 +44,6 @@
 
   var LIVE = false;
   var current = null; // { text, report, provisional }
-  var colorMode = "buckets";
 
   function origin(o) {
     if (!o) return "—";
@@ -121,7 +120,7 @@
   function setStatus(msg, isErr, busy) {
     var s = $("#status");
     s.className = "status" + (isErr ? " err" : "");
-    s.innerHTML = (busy ? '<span class="pulse" aria-hidden="true"></span>' : "") + esc(msg);
+    s.innerHTML = (busy ? '<span class="dot" aria-hidden="true"></span>' : "") + esc(msg);
   }
   function updateCounter() {
     var n = words($("#draft").value);
@@ -177,17 +176,6 @@
   }
 
   function matnHTML(text, rep) {
-    if (colorMode === "kinds" && rep.draft_map && rep.draft_map.length) {
-      var out = "", pos = 0;
-      rep.draft_map.forEach(function (e) {
-        if (e.span.start < pos) return;
-        out += esc(text.slice(pos, e.span.start));
-        out += '<span class="seg" data-s="' + e.index + '" title="' + esc(e.kind_ar) + '" style="background:color-mix(in srgb, var(' +
-          KIND_VAR[e.kind] + ') 26%, transparent)">' + esc(text.slice(e.span.start, e.span.end)) + "</span>";
-        pos = e.span.end;
-      });
-      return out + esc(text.slice(pos));
-    }
     var fs = rep.findings;
     var pts = [0, text.length];
     fs.forEach(function (f) { pts.push(f.claim.span.start, f.claim.span.end); });
@@ -198,7 +186,7 @@
       var cov = fs.filter(function (f) { return f.claim.span.start <= a && f.claim.span.end >= b; });
       if (!cov.length) { html += esc(seg); continue; }
       cov.sort(byRisk);
-      html += '<mark class="hl ' + BUCKETS[cov[0].bucket].cls + '" tabindex="0" data-f="' +
+      html += '<mark class="hl b-' + BUCKETS[cov[0].bucket].cls + '" tabindex="0" data-f="' +
         cov.map(function (f) { return f.id; }).join(" ") + '" title="' + esc(BUCKETS[cov[0].bucket].ar) + '">' + esc(seg) + "</mark>";
     }
     return html;
@@ -220,10 +208,10 @@
   function diffHTML(ops) {
     if (!ops || !ops.some(function (o) { return o.op !== "equal"; })) return "";
     var d = ops.map(function (o) {
-      return o.op === "equal" ? esc(o.draft) : '<del class="w-x">' + (o.draft ? esc(o.draft) : "∅") + "</del>";
+      return o.op === "equal" ? esc(o.draft) : "<del>" + (o.draft ? esc(o.draft) : "∅") + "</del>";
     }).join(" ");
     var s = ops.map(function (o) {
-      return o.op === "equal" ? esc(o.source) : '<ins class="w-ok">' + (o.source ? esc(o.source) : "∅") + "</ins>";
+      return o.op === "equal" ? esc(o.source) : "<ins>" + (o.source ? esc(o.source) : "∅") + "</ins>";
     }).join(" ");
     return '<div class="diff" aria-label="الفرق كلمة بكلمة"><div class="row"><span>في مسودتك</span><span>' + d +
       '</span></div><div class="row"><span>في المصحف</span><span>' + s + "</span></div></div>";
@@ -249,15 +237,15 @@
     f.evidence.forEach(function (e) {
       if (e.role !== "LINK") how += "<dt>المطابقة</dt><dd>" + esc(e.match_reason) + "</dd>";
     });
-    return '<article class="card ' + b.cls + '" id="card-' + esc(f.id) + '" tabindex="-1">' +
-      '<header><span class="chip ' + b.cls + '">' + b.icon + " " + esc(b.ar) + '</span><span class="ctype">' + esc(L.claim_type) +
+    return '<article class="card c-' + b.cls + '" id="card-' + esc(f.id) + '" tabindex="-1">' +
+      '<header><span class="chip b-' + b.cls + '">' + esc(b.ar) + '</span><span class="ctype">' + esc(L.claim_type) +
       '</span><span class="rule" title="رقم القاعدة في جدول ميزان السداد">' + esc(f.rule_id) + "</span></header>" +
       '<blockquote class="t-draft" data-goto="' + esc(f.id) + '" title="اعرض موضعه في المسودة">' + esc(clip(f.claim.text, 280)) + "</blockquote>" +
       '<dl class="dims"><div><dt>حالة الدليل</dt><dd>' + esc(L.evidence_status) + '</dd></div><div><dt>أثر الخطأ</dt><dd class="sev-' +
       esc(f.severity) + '">' + esc(L.severity) + "</dd></div><div><dt>الإجراء</dt><dd>" + esc(L.action) + "</dd></div></dl>" +
       '<p class="t-saadeed"><span class="lbl">شرح سديد</span>' + esc(f.explanation) + "</p>" +
       (f.action !== "NONE" ? '<p class="next"><span class="lbl">الخطوة التالية</span>' + esc(f.next_step) + "</p>" : "") +
-      (f.suggestion ? '<div class="t-gen"><span class="lbl">اقتراح صياغة · مولَّد بالذكاء الاصطناعي، راجعه</span>' + esc(f.suggestion) + "</div>" : "") +
+      (f.suggestion ? '<div class="t-suggest"><span class="lbl">اقتراح صياغة (مولَّد، راجعه)</span>' + esc(f.suggestion) + "</div>" : "") +
       f.evidence.map(evidenceHTML).join("") +
       (f.notes && f.notes.length ? '<ul class="notes">' + f.notes.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ul>" : "") +
       '<details class="how"><summary>كيف عرف سديد؟</summary><dl>' + how + "</dl></details></article>";
@@ -270,18 +258,15 @@
     var spans = map.map(function (e) {
       present[e.kind] = e.kind_ar;
       var w = Math.max(1, e.span.end - e.span.start);
-      return '<span role="button" tabindex="0" data-s="' + e.index + '" title="' + esc(e.kind_ar) + (e.finding_ids.length ? " · فيها " + e.finding_ids.length + " ملاحظة" : "") +
+      return '<span title="' + esc(e.kind_ar) + (e.finding_ids.length ? " · فيها " + e.finding_ids.length + " ملاحظة" : "") +
         '" style="flex-grow:' + w + ";background:var(" + KIND_VAR[e.kind] + ')"></span>';
     }).join("");
     var legend = Object.keys(present).map(function (k) {
       return '<span><i style="background:var(' + KIND_VAR[k] + ')"></i>' + esc(present[k]) + "</span>";
     }).join("");
     var withF = map.filter(function (e) { return e.finding_ids.length; }).length;
-    return '<div class="ribbon-wrap"><div class="summary" style="border:0;padding:0"><strong>خريطة المسودة</strong>' +
-      '<span class="lede" style="margin:0">' + map.length + " جملة، في " + withF + " منها ادعاء مفحوص. التصنيف وصف لا حكم.</span>" +
-      '<span class="toggle" role="group" aria-label="تلوين المسودة"><button type="button" data-mode="buckets" aria-pressed="' + (colorMode === "buckets") +
-      '">لوّن بالثغور</button><button type="button" data-mode="kinds" aria-pressed="' + (colorMode === "kinds") + '">لوّن بالأصناف</button></span></div>' +
-      '<div class="ribbon" aria-label="شريط المسودة">' + spans + '</div><div class="legend">' + legend + "</div></div>";
+    return '<div class="ribbon-wrap"><span class="lbl">خريطة المسودة: ' + map.length + " جملة، في " + withF +
+      ' منها ادعاء مفحوص</span><div class="ribbon" aria-hidden="true">' + spans + '</div><div class="legend">' + legend + "</div></div>";
   }
 
   function auditHTML(rep) {
@@ -307,7 +292,7 @@
     var bb = rep.summary.by_bucket;
     var chips = ["NEEDS_VERIFICATION", "REFER", "NOT_CHECKED", "SUPPORTED_BY_SOURCES"].map(function (k) {
       var b = BUCKETS[k];
-      return '<span class="chip ' + b.cls + '"><b>' + (bb[k] || 0) + "</b> " + b.ar + "</span>";
+      return '<span class="chip b-' + b.cls + '"><b>' + (bb[k] || 0) + "</b> " + b.ar + "</span>";
     }).join("");
     var byId = {};
     rep.findings.forEach(function (f) { byId[f.id] = f; });
@@ -330,7 +315,7 @@
       '<span class="tally">' + chips + "</span>" +
       (provisional ? '<span class="provisional">نتائج أولية من المسار الحتمي: الآيات والأحاديث. والتقرير الكامل في الطريق…</span>' : "") + "</div>" +
       ribbonHTML(rep) +
-      '<div class="folio"><div class="matn" id="matn"><span class="cap">مسودتك' + (colorMode === "kinds" ? " ملوّنة بأصناف الجمل" : " ملوّنة بالأبواب. انقر الموضع لترى ملاحظته") + "</span>" +
+      '<div class="folio"><div class="matn" id="matn"><span class="lbl">مسودتك. انقر الموضع المعلَّم لترى ملاحظته</span>' +
       matnHTML(text, rep) + '</div><div class="hawashi" id="hawashi">' + cards + "</div></div>" +
       auditHTML(rep);
   }
@@ -351,7 +336,6 @@
     flash(card);
   }
   function gotoMark(id) {
-    if (colorMode !== "buckets") { colorMode = "buckets"; render(current.text, current.report, current.provisional); }
     var marks = document.querySelectorAll("#matn mark.hl");
     for (var i = 0; i < marks.length; i++) {
       if ((" " + marks[i].dataset.f + " ").indexOf(" " + id + " ") >= 0) {
@@ -368,20 +352,10 @@
     if (mark) { gotoCard(mark.dataset.f.split(" ")[0]); return; }
     var q = t.closest && t.closest(".t-draft");
     if (q) { gotoMark(q.dataset.goto); return; }
-    var tog = t.closest && t.closest(".toggle button");
-    if (tog && current) { colorMode = tog.dataset.mode; render(current.text, current.report, current.provisional); return; }
-    var rib = t.closest && t.closest(".ribbon span");
-    if (rib && current) {
-      colorMode = "kinds";
-      render(current.text, current.report, current.provisional);
-      var seg = document.querySelector('#matn .seg[data-s="' + rib.dataset.s + '"]');
-      if (seg) { seg.scrollIntoView({ behavior: "smooth", block: "center" }); flash(seg); }
-      return;
-    }
     if (t.id === "print") window.print();
   });
   document.addEventListener("keydown", function (ev) {
-    if ((ev.key === "Enter" || ev.key === " ") && ev.target.matches && ev.target.matches("mark.hl, .ribbon span")) {
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target.matches && ev.target.matches("mark.hl")) {
       ev.preventDefault();
       ev.target.click();
     }
@@ -395,19 +369,15 @@
       var s = counts[c.id];
       return "<tr><td>" + esc(c.name_ar) + "</td><td><strong>" + esc(c.role_ar || ROLE_AR[c.role]) + "</strong><br><small>" +
         esc(ROLE_MEANING[c.role] || "") + '</small></td><td class="num">' + (s ? s.count.toLocaleString("ar") : "—") +
-        "</td><td>" + esc(c.version) + "</td><td>" + esc(c.license) + "</td></tr>";
+        "</td><td>" + esc(c.license) + "</td></tr>";
     }).join("");
     $("#coverage-body").innerHTML =
-      '<div class="table-wrap"><table><thead><tr><th>المصدر</th><th>دوره: ما يجوز له أن يقرره</th><th class="num">العدد</th><th>الإصدار</th><th>الرخصة</th></tr></thead><tbody>' +
+      '<div class="table-wrap"><table><thead><tr><th>المصدر</th><th>دوره: ما يجوز له أن يقرره</th><th class="num">العدد</th><th>الرخصة</th></tr></thead><tbody>' +
       rows + "</tbody></table></div>" +
-      '<p class="lede">ملف المرجعية: <strong>' + esc(cov.manifest.id) + "</strong> · بصمة " + esc(cov.manifest.sha256.slice(0, 16)) +
-      ". وكل تقرير يحمل هذه البصمة نفسها.</p>" +
-      '<div class="callout"><h3>المصادر وصلات تُفصل وتُستبدل</h3><p>كل مصدر في سديد «وصلة» خلف منفذ ثابت في النواة، ومعرّفة في ملف المرجعية بسطور قليلة. ' +
-      "فصلُ مصدر أو تغييرُ دوره تعديلٌ في هذا الملف، لا في الكود. والتقرير التالي يعلن البصمة الجديدة.</p>" +
-      "<p><code>[[source]] id = \"tirmidhi\" · adapter = \"open_hadith\" · role = \"LOCATE\"</code></p>" +
-      "<p>ونص المصحف طابقناه آيةً آية بالموسوعة القرآنية، المسمّاة في الحزمة العلمية للمسابقة: 6228 من 6236 آية متطابقة بعد التطبيع، والفروق الثمانية معلنة.</p></div>" +
-      '<div class="callout"><h3>ما لا يفعله سديد</h3><ul class="policies">' +
-      cov.policies.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul></div>";
+      '<p class="lede">كل مصدر «وصلة» تُفصل أو تُستبدل من ملف المرجعية دون تعديل الكود. والملف الحالي: ' + esc(cov.manifest.id) +
+      "، وبصمته " + esc(cov.manifest.sha256.slice(0, 12)) + " في كل تقرير.</p>" +
+      '<h3 style="margin-top:12px">ما لا يفعله سديد</h3><ul class="plain">' +
+      cov.policies.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>";
   }
 
   /* ───────────── النتائج ───────────── */
@@ -425,45 +395,26 @@
     ].map(function (r) {
       return "<tr><td>" + r[0] + '</td><td class="num"><strong>' + r[1] + '</strong></td><td class="num">' + r[2] + "</td></tr>";
     }).join("");
-    var groups = Object.keys(S.by_group || {}).map(function (g) {
-      var s = S.by_group[g] || 0, b = (B.by_group || {})[g] || 0;
-      return '<div class="bar"><span>' + esc(g) + '</span><span class="tracks"><span class="t s"><i style="width:' + (s * 100) +
-        '%"></i></span><span class="t b"><i style="width:' + (b * 100) + '%"></i></span></span></div>';
-    }).join("");
     var mc = res.mcnemar ? "<p>أصاب سديد وحده في " + res.mcnemar.saadeed_only + " حالة، والنموذج العام وحده في " + res.mcnemar.b0_only +
       " (اختبار McNemar الدقيق: p = " + res.mcnemar.p + ").</p>" : "";
     $("#results-body").innerHTML =
+      '<p class="lede" style="margin:0 0 10px">قسنا سديد مقابل النموذج العام وحده بتعليمات جيدة، لأنه البديل الحقيقي للخطيب. والبروتوكول مسجّل قبل أي تشغيل.</p>' +
       '<div class="table-wrap"><table><thead><tr><th>المقياس</th><th class="num">سديد</th><th class="num">النموذج العام وحده</th></tr></thead><tbody>' +
       rows + "</tbody></table></div>" + mc +
-      '<div class="callout"><h3>الصحة بحسب نوع الادعاء</h3><div class="key"><span><i style="background:var(--rubric)"></i>سديد</span><span><i style="background:var(--ink-soft)"></i>النموذج العام</span></div><div class="bars" style="margin-top:10px">' +
-      groups + "</div></div>" +
-      '<div class="callout"><h3>حدود هذه الأرقام</h3><ul class="policies">' +
-      "<li>مجموعة التطوير (dev): " + res.n_cases + " حالة في " + res.carriers + " نصًا حاملًا. وأرقام العرض النهائية من مجموعة test المجمّدة.</li>" +
-      "<li>الحالات بعضها مولَّد آليًا من نص المصدر، وبعضها مصوغ بانتظار الاعتماد البشري.</li>" +
-      "<li>النموذج: " + esc(res.model) + ". وكل نداء مسجّل يُعاد دون مفتاح.</li>" +
-      "<li>«لم يُعثر عليه» لا تعني «لا يصح»: حدود سديد حدود مصادره.</li></ul></div>";
+      '<ul class="plain"><li>مجموعة التطوير: ' + res.n_cases + " حالة في " + res.carriers + " نصًا حاملًا. وأرقام العرض النهائية من مجموعة test المجمّدة.</li>" +
+      "<li>النموذج في هذا التقييم: " + esc(res.model) + "، وكل نداء مسجّل يُعاد دون مفتاح.</li>" +
+      "<li>«لم يُعثر عليه» لا تعني «لا يصح»: حدود سديد حدود مصادره.</li></ul>";
   }
 
-  /* ───────────── التنقل ───────────── */
-  var loaded = { coverage: false, results: false };
-  function route() {
-    var v = (location.hash || "#review").slice(1);
-    if (["review", "coverage", "results"].indexOf(v) < 0) v = "review";
-    ["review", "coverage", "results"].forEach(function (k) {
-      $("#view-" + k).hidden = k !== v;
-      var a = document.querySelector('nav.views a[data-view="' + k + '"]');
-      if (a) { if (k === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); }
+  /* ───────────── عن سديد: يُحمَّل عند الفتح ───────────── */
+  function lazy(detailsId, live, embedded, file, renderFn, bodyId) {
+    var d = $("#" + detailsId), done = false;
+    d.addEventListener("toggle", function () {
+      if (!d.open || done) return;
+      done = true;
+      (LIVE ? getJSON(live) : Promise.resolve(EMBED && EMBED[embedded]).then(function (x) { return x || getJSON(file); }))
+        .then(renderFn).catch(function () { $("#" + bodyId).innerHTML = '<p class="status err">تعذّر التحميل.</p>'; });
     });
-    if (v === "coverage" && !loaded.coverage) {
-      loaded.coverage = true;
-      (LIVE ? getJSON("v1/coverage") : Promise.resolve(EMBED && EMBED.coverage) .then(function (c) { return c || getJSON("data/coverage.json"); }))
-        .then(renderCoverage).catch(function () { $("#coverage-body").innerHTML = '<p class="status err">تعذّر تحميل التغطية.</p>'; });
-    }
-    if (v === "results" && !loaded.results) {
-      loaded.results = true;
-      (LIVE ? getJSON("v1/results") : Promise.resolve(EMBED && EMBED.results).then(function (r) { return r || getJSON("data/results.json"); }))
-        .then(renderResults).catch(function () { $("#results-body").innerHTML = '<p class="status err">تعذّر تحميل النتائج.</p>'; });
-    }
   }
 
   function start() {
@@ -473,15 +424,15 @@
       $("#example-note").hidden = true;
     });
     $("#draft").addEventListener("input", updateCounter);
-    window.addEventListener("hashchange", route);
+    lazy("about-results", "v1/results", "results", "data/results.json", renderResults, "results-body");
+    lazy("about-coverage", "v1/coverage", "coverage", "data/coverage.json", renderCoverage, "coverage-body");
     detectLive().then(function (live) {
       LIVE = live;
-      route();
       return loadExampleIndex();
     }).then(function (list) {
       renderExampleButtons(list);
       if (list.length) showExample(list[0].id);
-    }).catch(function () { route(); });
+    }).catch(function () {});
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);

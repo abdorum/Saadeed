@@ -61,7 +61,7 @@ uv run saadeed review samples/alukah_hifz_allisan.txt   # خطبة منشورة 
 uv run saadeed review samples/demo_khutbah.txt --provider none   # بلا نموذج: المسار الحتمي وحده
 ```
 
-- **مفتاح النموذج** في `.env`: `GROQ_API_KEY=…`، أو `SAADEED_LLM_PROVIDER=gemini` مع `GEMINI_API_KEY`.
+- **مفتاح النموذج** في `.env`: `GEMINI_API_KEY=…` (الافتراضي `gemini-3.5-flash-lite`)، أو `SAADEED_LLM_PROVIDER=groq` مع `GROQ_API_KEY`.
 - **وبلا مفتاح** تعمل المطابقة الحتمية للآيات والأحاديث المعلَّمة، ويقول التقرير بصراحة ما لم يُفحص.
 - **الواجهة البرمجية:** `POST /v1/reviews`، وتوثيقها التفاعلي على `/v1/docs`.
 

@@ -23,13 +23,13 @@ from saadeed.domain.ports import LLMError, LLMPort
 from saadeed.verifiers.hadith import HadithIndex, HadithVerifier
 from saadeed.verifiers.quran import QuranIndex, QuranVerifier
 
-DEFAULT_MODELS = {"groq": "openai/gpt-oss-120b", "gemini": "gemini-2.5-flash"}
+DEFAULT_MODELS = {"groq": "openai/gpt-oss-120b", "gemini": "gemini-3.5-flash-lite"}
 
 
 def build_llm(provider: str | None = None, model: str | None = None) -> LLMPort | None:
     """يختار محوّل النموذج من الإعداد. تبديل المزود = تغيير متغير بيئة."""
     load_env()
-    provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "groq")).lower()
+    provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "gemini")).lower()
     model = model or os.environ.get("SAADEED_LLM_MODEL") or DEFAULT_MODELS.get(provider)
     if provider == "none":
         return None
@@ -81,7 +81,7 @@ def build_engine(data_dir: Path = DATA_DIR, prompts_dir: Path = PROMPTS_DIR) -> 
 def configured_model_id(provider: str | None = None, model: str | None = None) -> str:
     """معرّف النموذج المضبوط في الإعداد، دون إنشاء اتصال (لوضع الإعادة بلا مفتاح)."""
     load_env()
-    provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "groq")).lower()
+    provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "gemini")).lower()
     model = model or os.environ.get("SAADEED_LLM_MODEL") or DEFAULT_MODELS.get(provider, "")
     return f"{provider}:{model}"
 

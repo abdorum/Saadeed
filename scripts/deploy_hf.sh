@@ -4,7 +4,8 @@
 # المطلوب في .env (لا يُرفع شيء منه إلى GitHub):
 #   HF_TOKEN=hf_...            رمز بصلاحية كتابة (huggingface.co/settings/tokens)
 #   HF_SPACE=user/saadeed      اسم المساحة
-#   GROQ_API_KEY=...           يُضاف سرًّا في المساحة، لا في الكود
+#   GEMINI_API_KEY=...         مفتاح النموذج الافتراضي (gemini-3.5-flash-lite)، يُضاف سرًّا في المساحة
+#   GROQ_API_KEY=...           (اختياري) بديل
 #
 # الاستعمال:  bash scripts/deploy_hf.sh
 set -euo pipefail
@@ -23,11 +24,15 @@ code=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "$AUTH" -H "Content-Typ
   -d "{\"type\":\"space\",\"name\":\"$NAME\",\"sdk\":\"docker\",\"private\":false$ORG_JSON}" "$API/repos/create")
 echo "   الحالة: $code (409 = موجودة مسبقًا)"
 
-if [ -n "${GROQ_API_KEY:-}" ]; then
-  echo "٢) إضافة مفتاح النموذج سرًّا في المساحة…"
-  curl -s -o /dev/null -w "   الحالة: %{http_code}\n" -X POST -H "$AUTH" -H "Content-Type: application/json" \
-    -d "{\"key\":\"GROQ_API_KEY\",\"value\":\"${GROQ_API_KEY}\"}" "$API/spaces/${HF_SPACE}/secrets"
-fi
+echo "٢) إضافة الإعداد والمفاتيح أسرارًا في المساحة…"
+put_secret() {
+  curl -s -o /dev/null -w "   $1: %{http_code}\n" -X POST -H "$AUTH" -H "Content-Type: application/json" \
+    -d "{\"key\":\"$1\",\"value\":\"$2\"}" "$API/spaces/${HF_SPACE}/secrets"
+}
+put_secret SAADEED_LLM_PROVIDER "${SAADEED_LLM_PROVIDER:-gemini}"
+put_secret SAADEED_LLM_MODEL "${SAADEED_LLM_MODEL:-gemini-3.5-flash-lite}"
+[ -n "${GEMINI_API_KEY:-}" ] && put_secret GEMINI_API_KEY "$GEMINI_API_KEY"
+[ -n "${GROQ_API_KEY:-}" ] && put_secret GROQ_API_KEY "$GROQ_API_KEY"
 
 echo "٣) تجهيز نسخة النشر من آخر commit…"
 TMP=$(mktemp -d)

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <title>سديد</title>
 <meta name="description" content="سديد: مراجِع ما قبل النشر للمسودات الدعوية العربية. يريك ما قد لا تراه في خطبتك أو مقالتك، بالدليل من المصدر.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,60 +14,43 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#review"><span class="name">سديد</span><span class="line">سديد لا يكتب عنك؛ سديد يريك ما قد لا تراه</span></a>
-    <nav class="views" aria-label="أقسام سديد">
-      <a href="#review" data-view="review">راجِع مسودة</a>
-      <a href="#coverage" data-view="coverage">ما يغطيه سديد</a>
-      <a href="#results" data-view="results">كيف نعرف أنه يعمل؟</a>
-    </nav>
+    <h1 class="brand"><span class="name">سديد</span><span class="line">سديد لا يكتب عنك؛ سديد يريك ما قد لا تراه</span></h1>
+    <p class="lede">ضع خطبتك أو مقالتك كاملة. يستخرج سديد كل ادعاء فيها، ويطابقه بالمصحف وكتب السنة الستة، ويرتّب ما وجد بثمن الخطأ. والحكم لك، والدليل أمامك.</p>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="view" id="view-review" aria-labelledby="h-review">
-    <h1 id="h-review" class="visually-plain">راجِع مسودتك قبل أن تنشرها</h1>
-    <p class="lede">ضع الخطبة أو المقالة كاملة. يستخرج سديد كل ادعاء فيها، ويطابقه بالمصحف وكتب السنة الستة، ويرتّب ما وجد بثمن الخطأ. والحكم لك، والدليل أمامك.</p>
-
-    <div class="intake" style="margin-top:18px">
-      <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة">
-        <span class="lbl">أمثلة جاهزة:</span>
-      </div>
-      <p class="example-note" id="example-note" hidden></p>
-      <label for="draft" class="lbl">نص المسودة (حتى 3000 كلمة)</label>
-      <textarea id="draft" placeholder="الصق هنا خطبتك أو مقالتك…"></textarea>
-      <div class="actions">
-        <button class="primary" id="run" type="button">راجِع المسودة</button>
-        <button id="clear" type="button">امسح</button>
-        <span class="counter" id="counter">0 كلمة</span>
-      </div>
-      <div class="status" id="status" role="status" aria-live="polite"></div>
+  <section class="intake" aria-label="المسودة">
+    <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة">
+      <span class="lbl">أمثلة جاهزة:</span>
     </div>
-
-    <div id="report" class="report" hidden></div>
+    <p class="example-note" id="example-note" hidden></p>
+    <label for="draft" class="lbl">نص المسودة (حتى 3000 كلمة)</label>
+    <textarea id="draft" placeholder="الصق هنا خطبتك أو مقالتك…"></textarea>
+    <div class="actions">
+      <button class="primary" id="run" type="button">راجِع المسودة</button>
+      <button id="clear" type="button">امسح</button>
+      <span class="counter" id="counter">0 كلمة</span>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
   </section>
 
-  <section class="view stack" id="view-coverage" aria-labelledby="h-coverage" hidden>
-    <div>
-      <h2 id="h-coverage">ما يغطيه سديد</h2>
-      <p class="lede">هذه الصفحة تُبنى من ملف المرجعية نفسه الذي فُحصت به كل مسودة. ولكل مصدر دور معلن يحدد ما يجوز له أن يقرره: «وُجد» لا تعني «صحّ».</p>
-    </div>
-    <div id="coverage-body"><p class="status">جارٍ التحميل…</p></div>
-  </section>
+  <section id="report" class="report" aria-label="تقرير المراجعة" hidden></section>
 
-  <section class="view stack" id="view-results" aria-labelledby="h-results" hidden>
-    <div>
-      <h2 id="h-results">كيف نعرف أن سديد يعمل؟</h2>
-      <p class="lede">قسنا سديد مقابل النموذج العام نفسه بتعليمات جيدة، لأنه البديل الحقيقي الذي يستعمله الخطيب. والبروتوكول مسجّل قبل أي تشغيل، والأرقام تُعاد من التسجيلات دون مفتاح.</p>
-    </div>
-    <div id="results-body"><p class="status">جارٍ التحميل…</p></div>
+  <section class="about" aria-label="عن سديد">
+    <details id="about-results">
+      <summary>كيف نعرف أن سديد يعمل؟</summary>
+      <div id="results-body"><p class="status">جارٍ التحميل…</p></div>
+    </details>
+    <details id="about-coverage">
+      <summary>ما يغطيه سديد، وما لا يفعله</summary>
+      <div id="coverage-body"><p class="status">جارٍ التحميل…</p></div>
+    </details>
   </section>
 </main>
 
 <footer class="disclosure">
-  <div class="wrap">
-    <span>سديد أداة مراجعة مدعومة بالذكاء الاصطناعي، وليست فتوى. وعدم التنبيه على شيء لا يعني صحته.</span>
-    <span>لا تُخزَّن المسودات. · <a href="v1/docs">الواجهة البرمجية</a></span>
-  </div>
+  <div class="wrap">سديد أداة مراجعة مدعومة بالذكاء الاصطناعي، وليست فتوى. وعدم التنبيه على شيء لا يعني صحته. ولا تُخزَّن المسودات.</div>
 </footer>
 
 <script src="assets/app.js"></script>
