@@ -1,6 +1,6 @@
 [project]
 name = "saadeed"
-version = "0.3.1"
+version = "0.3.2"
 description = "سديد: مراجِع ما قبل النشر للمسودات الدعوية العربية"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -11,11 +11,17 @@ dependencies = [
     "typer>=0.12",
     "httpx>=0.27",
     "rapidfuzz>=3.9",
+    # المزود الافتراضي والخادم من التثبيت الأساسي: «uv sync» وحده يكفي للتشغيل،
+    # ولا يحذفهما بصمت (E-018). والنواة لا تستوردهما، وimport-linter يفرض ذلك.
+    "google-genai>=1.0",
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
 ]
 
 [project.optional-dependencies]
-gemini = ["google-genai>=1.0"]
-api = ["fastapi>=0.115", "uvicorn>=0.30"]
+# أسماء قديمة تبقى صالحة في الأوامر المحفوظة، ولا تضيف شيئًا.
+gemini = []
+api = []
 
 [project.scripts]
 saadeed = "saadeed.adapters.cli.main:app"

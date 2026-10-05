@@ -12,7 +12,7 @@ RUN pip install "uv==0.12.1"
 WORKDIR /app
 COPY pyproject.toml uv.lock README.md ./
 COPY src ./src
-RUN uv sync --frozen --no-dev --extra api --extra gemini
+RUN uv sync --frozen --no-dev
 
 COPY prompts ./prompts
 COPY data/manifest.toml data/manifest.tanzil.toml data/known_weak.json ./data/

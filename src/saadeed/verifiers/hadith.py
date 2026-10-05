@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import math
+import re
 from collections import defaultdict
 from dataclasses import dataclass, field
 
@@ -39,6 +40,15 @@ BOOK_PRESENCE_STEMS = 0.7
 BOOK_PRESENCE_MIN_WORDS = 8
 """أدنى تشابه لعدّ الحديث موجودًا في الكتاب المنسوب إليه (الروايات تختلف يسيرًا: «بالنية/بالنيات»)."""
 TOP_K = 5
+
+_EMBEDDED_VERSE = re.compile(r"﴿[^﴾]*﴾")
+
+
+def without_embedded_verses(text: str) -> str:
+    """الآية المعلَّمة ﴿ ﴾ داخل الحديث تُفحص بالمصحف وحدها، وتُنزع قبل مطابقة الحديث بكتب السنة:
+    كتب الحديث كثيرًا ما تختصرها («فاقرأ آية الكرسي») فيبدو اللفظ مختلفًا وهو هو (E-021)."""
+    return re.sub(r"\s+", " ", _EMBEDDED_VERSE.sub(" ", text)).strip()
+
 
 BOOK_SHORT = {
     "bukhari": "البخاري",
@@ -192,6 +202,7 @@ class HadithVerifier:
     def verify_deterministic(
         self, text: str, presented_as_verbatim: bool, cited_book: str | None
     ) -> Outcome | HadithPending:
+        text = without_embedded_verses(text)
         kw = self.known_weak_match(text)
         if kw is not None:
             return self._known_weak_outcome(kw)
@@ -257,6 +268,7 @@ class HadithVerifier:
         judged_match: str | None,
         judged_key: str | None,
     ) -> Outcome:
+        text = without_embedded_verses(text)
         offered = {c.key: c for c in pending.candidates}
         if judged_match in ("VERBATIM", "PARAPHRASE") and judged_key in offered:
             c = offered[judged_key]
@@ -351,6 +363,12 @@ class HadithVerifier:
         notes = []
         if cited_known & {"bukhari", "muslim"}:
             notes.append(f"نُسب في المسودة إلى «{cited_book}»، ولم نجده فيه")
+        elif "other" in cited:
+            notes.append(
+                f"نسبته المسودة إلى «{cited_book}»، وهو خارج مصادر سديد؛ وهذا موضعه فيما نملك"
+            )
+        elif cited_known and not cited_known & found_books:
+            notes.append(f"نُسب في المسودة إلى «{cited_book}»، ووجدناه في غيره")
         if by_meaning:
             notes.append("وُجد بالمعنى لا باللفظ")
         return Outcome(Signal.HADITH_LOCATE_ONLY, ev, facts, Confidence.MEDIUM, notes)

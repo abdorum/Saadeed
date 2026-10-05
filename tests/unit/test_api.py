@@ -5,7 +5,8 @@ import pytest
 from tests.conftest import needs_data
 
 pytestmark = needs_data
-fastapi = pytest.importorskip("fastapi")
+# استيراد صريح لا importorskip: غياب fastapi عطل في التثبيت يجب أن يُفشل الاختبار (E-018).
+import fastapi  # noqa: E402,F401
 
 
 @pytest.fixture(scope="module")

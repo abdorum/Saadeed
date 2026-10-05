@@ -50,7 +50,7 @@ _BOOKS = (
 _TAKHRIJ = re.compile(
     r"^\s*[\(\[]?\s*(?:(?:رواه|أخرجه|اخرجه|رواها)\s+("
     + _BOOKS
-    + r"(?:\s+و\s*"
+    + r"(?:\s+في\s+(?:السنن\s+)?الكبرى)?(?:\s+و\s*"
     + _BOOKS
     + r")*)|(متفق\s+عليه|(?:رواه|أخرجه|اخرجه)\s+(?:الشيخان|الشيخين)))"
 )
@@ -119,6 +119,37 @@ def _skeleton(text: str) -> tuple[str, list[int]]:
 def _orig_span(idx: list[int], s: int, e: int) -> tuple[int, int]:
     """موضع [s, e) في الهيكل ← موضعه في الأصل، بحركات الحرف الأخير."""
     return idx[s], (idx[e - 1] + 1 if e > s else idx[s])
+
+
+_NARRATION = re.compile(
+    _PROPHET
+    + r"|(?:^|\s)(?:و|ف)?(?:حديث|رواية|روايه|رواه|اخرجه|أخرجه|متفق|يرفعه|مرفوعا)(?:\s|$|[:،])"
+)
+
+_PROPHET_RX = re.compile(_PROPHET)
+
+
+def takhrij_after(fragment: str) -> str | None:
+    """نسبة التخريج في أول النص بعد الاقتباس («» رواه ابن ماجه»)، على الهيكل بلا تشكيل."""
+    sk, _ = _skeleton(fragment)
+    return _takhrij_after(_CLOSERS.sub("", sk), 0)
+
+
+_CLOSERS = re.compile(r'^[»"”) ]+')
+
+
+def has_prophetic_context(text: str, start: int, end: int) -> bool:
+    """هل نُسب الاقتباس إلى النبي ﷺ أو قُدّم رواية؟ نافذة قبله (القائل) وبعده (التخريج).
+
+    والنافذة قبله لا تتجاوز جملته: «ﷺ» في آخر الفقرة السابقة لا تجعل ما بعدها حديثًا.
+    """
+    before, _ = _skeleton(text[max(0, start - 400) : start])
+    before = re.split(r"[.!؟?\n]", before[-120:])[-1]
+    after, _ = _skeleton(text[end : end + 200])
+    head, _ = _skeleton(text[start : min(end, start + 200)])
+    if _PROPHET_RX.search(head[:80]):
+        return True  # «وكان النبي ﷺ إذا حزبه أمر صلى»: النسبة في الادعاء نفسه
+    return bool(_NARRATION.search(before) or _takhrij_after(_CLOSERS.sub("", after), 0))
 
 
 def scan(text: str) -> list[Marked]:
@@ -194,6 +225,10 @@ def canonical_books(cited: str | None) -> set[str]:
     for key, canon in _BOOK_CANON.items():
         if normalize(key) in n:
             books.add(canon)
+    # «النسائي في الكبرى» غير «سنن النسائي» (المجتبى) الذي في مصادرنا: خارج التغطية.
+    if "nasai" in books and "الكبري" in n:
+        books.discard("nasai")
+        books.add("other")
     if not books and n:
         books.add("other")
     return books

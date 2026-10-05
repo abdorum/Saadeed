@@ -1,4 +1,4 @@
-"""الاستخراج: نداء النموذج الوحيد على المسودة كلها، ثم الدمج مع المرور الحتمي (FR-11–13).
+"""الاستخراج: نداء النموذج على المسودة (أو على أجزائها إن طالت)، ثم الدمج مع المرور الحتمي (FR-11–13).
 
 قواعد الأمان هنا:
 - كل ادعاء يعيده النموذج يجب أن يوجد نصه **حرفيًا** في المسودة (بعد التطبيع)، وإلا أُسقط.
@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import re
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -15,7 +16,7 @@ from saadeed.application.prompts import Prompt
 from saadeed.domain.enums import ClaimType, ContentLevel, SegmentKind
 from saadeed.domain.models import Claim, ClaimHints, Sentence, Span
 from saadeed.domain.ports import LLMError, LLMPort, LLMUsage
-from saadeed.text.markers import Marked, scan
+from saadeed.text.markers import Marked, has_prophetic_context, scan
 from saadeed.text.normalize import find_span, normalize, normalize_with_map
 
 _TYPES = {t.value for t in ClaimType}
@@ -35,6 +36,31 @@ class ExtractionResult:
     llm_failed: bool = False
     kinds: dict[int, SegmentKind] = field(default_factory=dict)
     """صنف كل جملة كما رآه النموذج (خريطة المسودة، v2.5). وصف لا يغيّر أي قاعدة."""
+    failed_parts: int = 0
+    """أجزاء المسودة الطويلة التي تعذّر استخراجها (والباقي استُخرج)."""
+
+
+CHUNK_WORDS = 300
+"""حجم الجزء حين تطول المسودة. النموذج الخفيف يُسقط ادعاءات حين يقرأ 1200 كلمة دفعة واحدة
+(E-019)، ويلتقطها حين يقرأ ثلاثمئة. والمسودة التي لا تزيد على CHUNK_MAX تبقى نداءً واحدًا."""
+CHUNK_MAX = 450
+MAX_PARALLEL = 6
+
+
+def chunk_sentences(sentences: list[Sentence]) -> list[list[Sentence]]:
+    """أجزاء متتالية من جمل كاملة. ترقيم الجمل عام، فالخريطة والمواضع لا تتأثر بالتقسيم."""
+    sizes = [len(s.text.split()) for s in sentences]
+    if sum(sizes) <= CHUNK_MAX:
+        return [sentences]
+    parts: list[list[Sentence]] = [[]]
+    words = 0
+    for s, n in zip(sentences, sizes, strict=True):
+        if parts[-1] and words + n > CHUNK_WORDS:
+            parts.append([])
+            words = 0
+        parts[-1].append(s)
+        words += n
+    return parts
 
 
 def llm_error_ar(e: Exception) -> str:
@@ -73,17 +99,39 @@ def extract_claims(
     raw: list[dict[str, Any]] = []
     raw_map: Any = None
     llm_failed = False
+    failed_parts = 0
+    parts = chunk_sentences(sentences)
     if llm is not None:
-        system, user = prompt.render(SENTENCES=render_sentences(sentences))
-        try:
-            resp = llm.generate_json(system=system, user=user, max_tokens=6000)
+
+        def call(part: list[Sentence]) -> Any:
+            system, user = prompt.render(SENTENCES=render_sentences(part))
+            try:
+                return llm.generate_json(system=system, user=user, max_tokens=6000)
+            except LLMError as e:
+                return e
+
+        # الأجزاء متوازية: زمن المسودة الطويلة قريب من زمن جزء واحد.
+        with ThreadPoolExecutor(max_workers=min(len(parts), MAX_PARALLEL)) as pool:
+            results = list(pool.map(call, parts))
+        raw_map = []
+        errors: list[LLMError] = []
+        for resp in results:
+            if isinstance(resp, LLMError):
+                errors.append(resp)
+                continue
             usage.append(resp.usage)
             claims = resp.data.get("claims", resp.data.get("items", []))
-            raw = [c for c in claims if isinstance(c, dict)] if isinstance(claims, list) else []
-            raw_map = resp.data.get("map")
-        except LLMError as e:
-            llm_failed = True
-            warnings.append(f"تعذّر استخراج الادعاءات غير المعلَّمة بالنموذج: {llm_error_ar(e)}")
+            raw += [c for c in claims if isinstance(c, dict)] if isinstance(claims, list) else []
+            part_map = resp.data.get("map")
+            if isinstance(part_map, list):
+                raw_map += part_map
+        if errors:
+            failed_parts = len(errors)
+            llm_failed = failed_parts == len(parts)
+            where = "" if llm_failed else f" في {failed_parts} من {len(parts)} أجزاء المسودة"
+            warnings.append(
+                f"تعذّر استخراج الادعاءات غير المعلَّمة بالنموذج{where}: {llm_error_ar(errors[0])}"
+            )
     else:
         llm_failed = True
 
@@ -129,6 +177,8 @@ def extract_claims(
                     or (_str(c.get("source")) if claim_type is ClaimType.HADITH_QUOTE else None),
                     source_mentioned=_str(c.get("source")),
                     speaker=_str(c.get("speaker")),
+                    attributed_to_prophet=claim_type is not ClaimType.HADITH_QUOTE
+                    or has_prophetic_context(text, span[0], span[1]),
                     rephrase=_str(c.get("rephrase"))
                     if claim_type in (ClaimType.GENERALIZATION, ClaimType.CONSENSUS_CLAIM)
                     else None,
@@ -142,7 +192,9 @@ def extract_claims(
     _link_conclusions(text, merged, sentences)
     for i, cl in enumerate(merged, start=1):
         cl.id = f"c{i}"
-    return ExtractionResult(merged, usage, warnings, llm_failed, _parse_map(raw_map, sent_starts))
+    return ExtractionResult(
+        merged, usage, warnings, llm_failed, _parse_map(raw_map, sent_starts), failed_parts
+    )
 
 
 _KINDS = {k.value for k in SegmentKind} - {SegmentKind.UNLABELED.value}
@@ -206,6 +258,7 @@ def _merge(text: str, llm_claims: list[Claim], marked: list[Marked]) -> list[Cla
                                     "cited_book": m.cited_book or cl.hints.cited_book,
                                     "presented_as_verbatim": m.verbatim
                                     and cl.hints.presented_as_verbatim,
+                                    "attributed_to_prophet": True,
                                 }
                             ),
                         }
@@ -219,7 +272,19 @@ def _merge(text: str, llm_claims: list[Claim], marked: list[Marked]) -> list[Cla
         if mi in used_marks:
             continue
         mspan = Span(start=m.start, end=m.end)
-        if any(o.span.overlaps(mspan) and o.type in _QUOTE_TYPES for o in out):
+
+        def nested_verse(o: Claim, m: Marked = m, mspan: Span = mspan) -> bool:
+            # آية معلَّمة ﴿ ﴾ داخل حديث: تُفحص بالمصحف ادعاءً مستقلًا، والحديث في كتب السنة (E-021).
+            return (
+                m.kind == "quran"
+                and o.type is ClaimType.HADITH_QUOTE
+                and o.span.start <= mspan.start
+                and mspan.end <= o.span.end
+            )
+
+        if any(
+            o.span.overlaps(mspan) and o.type in _QUOTE_TYPES and not nested_verse(o) for o in out
+        ):
             continue
         out.append(
             Claim(

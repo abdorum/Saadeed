@@ -899,22 +899,16 @@ wheels = [
 
 [[package]]
 name = "saadeed"
-version = "0.3.1"
+version = "0.3.2"
 source = { editable = "." }
 dependencies = [
+    { name = "fastapi" },
+    { name = "google-genai" },
     { name = "httpx" },
     { name = "pydantic" },
     { name = "rapidfuzz" },
     { name = "typer" },
-]
-
-[package.optional-dependencies]
-api = [
-    { name = "fastapi" },
     { name = "uvicorn" },
-]
-gemini = [
-    { name = "google-genai" },
 ]
 
 [package.dev-dependencies]
@@ -926,13 +920,13 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "fastapi", marker = "extra == 'api'", specifier = ">=0.115" },
-    { name = "google-genai", marker = "extra == 'gemini'", specifier = ">=1.0" },
+    { name = "fastapi", specifier = ">=0.115" },
+    { name = "google-genai", specifier = ">=1.0" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "pydantic", specifier = ">=2.7" },
     { name = "rapidfuzz", specifier = ">=3.9" },
     { name = "typer", specifier = ">=0.12" },
-    { name = "uvicorn", marker = "extra == 'api'", specifier = ">=0.30" },
+    { name = "uvicorn", specifier = ">=0.30" },
 ]
 provides-extras = ["gemini", "api"]
 

@@ -19,6 +19,7 @@ from saadeed.application.citation_guard import CitationGuard
 from saadeed.application.crosscheck import cross_check
 from saadeed.application.extraction import extract_claims, is_generalization, llm_error_ar
 from saadeed.application.prompts import PromptSet
+from saadeed.application.safety_net import safety_net
 from saadeed.application.suggestion_guard import safe_suggestion
 from saadeed.domain.enums import (
     ClaimType,
@@ -129,6 +130,11 @@ class ReviewDraft:
             not_checked.append(
                 "الادعاءات غير المعلَّمة (أقوال، وأرقام، وإجماع، وتعميم، وإحالات): لم تُستخرج لأن النموذج غير متاح، وفُحصت الآيات والأحاديث المعلَّمة وحدها"
             )
+        elif ex.failed_parts:
+            ctx.degraded = True
+            not_checked.append(
+                f"الادعاءات غير المعلَّمة في {ex.failed_parts} من أجزاء المسودة: تعذّر استخراجها، وفُحصت الآيات والأحاديث المعلَّمة فيها"
+            )
 
         claims = ex.claims
         if self.config.quran_mode == "deterministic":
@@ -136,8 +142,9 @@ class ReviewDraft:
                 text, claims, sentences, self.quran.index, is_generalization
             )
             ctx.warnings += cc_notes
-            for i, cl in enumerate(claims, start=1):
-                cl.id = f"c{i}"
+        claims = safety_net(text, claims, sentences, ex.kinds)
+        for i, cl in enumerate(claims, start=1):
+            cl.id = f"c{i}"
         if self.config.enable_overreach:
             # الاستنتاج المربوط بحديث يُفحص بالعلاقة (BR-19)، فلا يُكرَّر ادعاءً مستقلًا.
             concl = [
@@ -182,7 +189,7 @@ class ReviewDraft:
             else:
                 outcomes[cid] = self.hadith.resolve_with_judgment(
                     cl.text,
-                    cl.hints.presented_as_verbatim,
+                    _as_wording(cl),
                     cl.hints.cited_book,
                     pend,
                     j.get("match"),
@@ -244,9 +251,17 @@ class ReviewDraft:
                 return self.quran_llm_judge(cl)
             return self._quran(cl)
         if t in (ClaimType.HADITH_QUOTE, ClaimType.TAKHRIJ):
-            return self.hadith.verify_deterministic(
-                cl.text, cl.hints.presented_as_verbatim, cl.hints.cited_book
-            )
+            return self.hadith.verify_deterministic(cl.text, _as_wording(cl), cl.hints.cited_book)
+        if t is ClaimType.ATTRIBUTED_SAYING and cl.hints.presented_as_verbatim:
+            # قول منقول بنصه قد يكون أثرًا في كتب السنة (قول أبي سلمة في البخاري): يُبحث حرفيًا
+            # دون نموذج، فإن وُجد عُرض موضعه، وإلا سُئل عن مصدره كما كان.
+            probe = self.hadith.verify_deterministic(cl.text, False, cl.hints.cited_book)
+            if isinstance(probe, Outcome) and probe.signal in (
+                Signal.HADITH_AUTHENTIC_MATCH,
+                Signal.HADITH_LOCATE_ONLY,
+            ):
+                probe.notes.append("قول منقول بنصه، ووُجد في كتب السنة")
+                return probe
         if t in (ClaimType.ATTRIBUTED_SAYING, ClaimType.STATISTIC, ClaimType.HISTORICAL_EVENT):
             if cl.hints.source_mentioned:
                 return Outcome(
@@ -424,6 +439,11 @@ class ReviewDraft:
             "cited_book": cl.hints.cited_book,
         }
         facts.update(out.facts)
+        notes = list(out.notes)
+        if cl.type is ClaimType.HADITH_QUOTE and not cl.hints.attributed_to_prophet:
+            notes.append(
+                "لم تنسبه المسودة إلى النبي ﷺ ولا قدّمته رواية؛ فإن كان نقلًا عن عالم فاذكر قائله"
+            )
         return Finding(
             id=cl.id,
             claim=cl,
@@ -437,7 +457,7 @@ class ReviewDraft:
             explanation=explanation_for(rule.rule_id, facts),
             next_step=next_step_for(rule.rule_id, facts),
             confidence=out.confidence,
-            notes=out.notes,
+            notes=notes,
         )
 
     def _report(
@@ -494,6 +514,11 @@ _EVIDENCE_KIND = {
     ClaimType.QURAN_QUOTE: SegmentKind.QURAN,
     ClaimType.HADITH_QUOTE: SegmentKind.HADITH,
 }
+
+
+def _as_wording(cl: Claim) -> bool:
+    """يُعدّ «مقدَّمًا بلفظه» ما نُسب إلى النبي ﷺ بتنصيص. والاقتباس بلا نسبة ليس لفظ حديث (E-020)."""
+    return cl.hints.presented_as_verbatim and cl.hints.attributed_to_prophet
 
 
 def build_map(

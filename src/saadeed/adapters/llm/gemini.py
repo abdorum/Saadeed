@@ -1,6 +1,6 @@
 """محوّل Gemini (google-genai). يُفعَّل بـ SAADEED_LLM_PROVIDER=gemini.
 
-يتطلب: `uv sync --extra gemini` ومتغير GEMINI_API_KEY.
+يتطلب: متغير GEMINI_API_KEY (المكتبة من التثبيت الأساسي).
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ class GeminiLLM:
         try:
             from google import genai  # استيراد متأخر: النواة لا تعرف المزود
         except ImportError as e:  # pragma: no cover
-            raise LLMError("ثبّت المزود: uv sync --extra gemini") from e
+            raise LLMError("ثبّت المزود: uv sync") from e
         self._genai = genai
         self._client = genai.Client(api_key=api_key)
         self._model = model

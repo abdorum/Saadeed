@@ -54,7 +54,7 @@ uv run saadeed eval run --split dev --systems saadeed,B0 --replay
 ## جرّبه
 
 ```bash
-uv sync --extra api            # Python 3.12
+uv sync                        # Python 3.12
 uv run saadeed data build      # تنزيل المصادر وبناء الفهارس (مرة واحدة)
 uv run saadeed serve           # الواجهة والواجهة البرمجية: http://127.0.0.1:8000
 uv run saadeed review samples/alukah_hifz_allisan.txt   # خطبة منشورة حقيقية
