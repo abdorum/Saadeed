@@ -107,6 +107,33 @@ def run_cmd(
     typer.echo(f"\nحُفظ: {jp}\n      {mp}")
 
 
+@eval_app.command("extend-bank")
+def extend_bank_cmd() -> None:
+    """يضيف فئتي v2.5 (Q8، Q9) في نصوص حاملة جديدة، ولا يمس حالات v1 ونصوصها (البروتوكول §١٢ بند 9)."""
+    from saadeed.adapters.eval.bank import build_carriers, load_bank, save_bank, split_cases
+    from saadeed.adapters.eval.generators import quran_v25_cases
+    from saadeed.adapters.eval.runner import BANK_DIR
+    from saadeed.adapters.factory import build_engine
+
+    cases, carriers = load_bank(BANK_DIR)
+    new_cats = {"Q8", "Q9"}
+    old_ids = {c.case_id for c in cases if c.category in new_cats}
+    cases = [c for c in cases if c.category not in new_cats]
+    carriers = [k for k in carriers if not set(k.case_ids) & old_ids]
+    new = quran_v25_cases(build_engine())
+    split_cases(new)
+    added = build_carriers(new)
+    for n, k in enumerate(added, start=1):
+        cid = f"{k.split}-v25-{n:02d}"
+        for c in new:
+            if c.carrier_id == k.carrier_id:
+                c.carrier_id = cid
+        k.carrier_id = cid
+    save_bank(BANK_DIR, cases + new, carriers + added)
+    by = Counter((c.category, c.split) for c in new)
+    typer.echo(f"أُضيفت {len(new)} حالة في {len(added)} نصوص حاملة: {dict(sorted(by.items()))}")
+
+
 @eval_app.command("freeze")
 def freeze_cmd() -> None:
     """يحسب بصمة SHA-256 لمجموعة test (البروتوكول §١١)."""

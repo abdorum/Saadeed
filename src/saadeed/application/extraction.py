@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from saadeed.application.prompts import Prompt
-from saadeed.domain.enums import ClaimType, ContentLevel
+from saadeed.domain.enums import ClaimType, ContentLevel, SegmentKind
 from saadeed.domain.models import Claim, ClaimHints, Sentence, Span
 from saadeed.domain.ports import LLMError, LLMPort, LLMUsage
 from saadeed.text.markers import Marked, scan
@@ -33,6 +33,8 @@ class ExtractionResult:
     usage: list[LLMUsage] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     llm_failed: bool = False
+    kinds: dict[int, SegmentKind] = field(default_factory=dict)
+    """صنف كل جملة كما رآه النموذج (خريطة المسودة، v2.5). وصف لا يغيّر أي قاعدة."""
 
 
 def render_sentences(sentences: list[Sentence]) -> str:
@@ -55,6 +57,7 @@ def extract_claims(
     warnings: list[str] = []
     usage: list[LLMUsage] = []
     raw: list[dict[str, Any]] = []
+    raw_map: Any = None
     llm_failed = False
     if llm is not None:
         system, user = prompt.render(SENTENCES=render_sentences(sentences))
@@ -63,6 +66,7 @@ def extract_claims(
             usage.append(resp.usage)
             claims = resp.data.get("claims", resp.data.get("items", []))
             raw = [c for c in claims if isinstance(c, dict)] if isinstance(claims, list) else []
+            raw_map = resp.data.get("map")
         except LLMError as e:
             llm_failed = True
             warnings.append(f"تعذّر استخراج الادعاءات غير المعلَّمة بالنموذج: {e}")
@@ -83,8 +87,8 @@ def extract_claims(
             continue
         level = _str(c.get("level")) or "B"
         claim_type = ClaimType(ctype)
-        if claim_type is ClaimType.GENERALIZATION and not _ABSOLUTE.search(
-            " " + normalize(text[span[0] : span[1]]) + " "
+        if claim_type is ClaimType.GENERALIZATION and not is_generalization(
+            text[span[0] : span[1]]
         ):
             continue  # وعظ أو حكمة عامة بلا لفظ إطلاق: ليس تعميمًا قابلًا للفحص
         if claim_type in _QUOTE_TYPES:
@@ -109,6 +113,9 @@ def extract_claims(
                     or (_str(c.get("source")) if claim_type is ClaimType.HADITH_QUOTE else None),
                     source_mentioned=_str(c.get("source")),
                     speaker=_str(c.get("speaker")),
+                    rephrase=_str(c.get("rephrase"))
+                    if claim_type in (ClaimType.GENERALIZATION, ClaimType.CONSENSUS_CLAIM)
+                    else None,
                 ),
                 linked_conclusion=concl_span,
                 origin="llm",
@@ -119,7 +126,42 @@ def extract_claims(
     _link_conclusions(text, merged, sentences)
     for i, cl in enumerate(merged, start=1):
         cl.id = f"c{i}"
-    return ExtractionResult(merged, usage, warnings, llm_failed)
+    return ExtractionResult(merged, usage, warnings, llm_failed, _parse_map(raw_map, sent_starts))
+
+
+_KINDS = {k.value for k in SegmentKind} - {SegmentKind.UNLABELED.value}
+# النموذج قد يخلط أسماء الأصناف بأنواع الادعاءات؛ نقبلها بمقابلها بدل إهمالها.
+_KIND_ALIASES = {
+    "QURAN_QUOTE": "QURAN",
+    "HADITH_QUOTE": "HADITH",
+    "TAKHRIJ": "HADITH",
+    "ATTRIBUTED_SAYING": "SCHOLAR",
+    "STATISTIC": "FACT",
+    "HISTORICAL_EVENT": "STORY",
+    "CONSENSUS_CLAIM": "RULING",
+    "GENERALIZATION": "FACT",
+    "GROUP_JUDGMENT": "RULING",
+    "PERSONAL_CASE": "RULING",
+    "HADITH_CONCLUSION": "EXHORTATION",
+}
+
+
+def _parse_map(raw: Any, sent_starts: dict[int, int]) -> dict[int, SegmentKind]:
+    """`[[0, "QURAN"], …]` أو `[{"s": 0, "kind": "QURAN"}, …]`. وما لا يُفهم يُهمل بصمت."""
+    out: dict[int, SegmentKind] = {}
+    if not isinstance(raw, list):
+        return out
+    for item in raw:
+        if isinstance(item, list | tuple) and len(item) == 2:
+            idx, kind = item
+        elif isinstance(item, dict):
+            idx, kind = item.get("s"), item.get("kind")
+        else:
+            continue
+        kind = _KIND_ALIASES.get(str(kind), str(kind))
+        if isinstance(idx, int) and idx in sent_starts and kind in _KINDS:
+            out[idx] = SegmentKind(kind)
+    return out
 
 
 def _merge(text: str, llm_claims: list[Claim], marked: list[Marked]) -> list[Claim]:
@@ -241,6 +283,11 @@ def _link_conclusions(text: str, claims: list[Claim], sentences: list[Sentence])
             (s.span.end for s in sentences if s.span.start <= start < s.span.end), window_end
         )
         claims[i] = cl.model_copy(update={"linked_conclusion": Span(start=start, end=stop)})
+
+
+def is_generalization(fragment: str) -> bool:
+    """حارس التعميم (E-007): لفظ إطلاق صريح، وإلا فهو وعظ أو حكمة عامة."""
+    return bool(_ABSOLUTE.search(" " + normalize(fragment) + " "))
 
 
 def same_text(a: str, b: str) -> bool:

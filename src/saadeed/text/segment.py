@@ -1,6 +1,8 @@
 """تقطيع المسودة إلى جمل بمواضعها (FR-10).
 
-لا يُقطع داخل الأقواس القرآنية ﴿﴾ ولا علامات التنصيص «»، حتى لا تنقسم آية أو حديث.
+لا يُقطع داخل الأقواس القرآنية ﴿﴾ ولا علامات التنصيص «» ولا الأقواس المزدوجة (( ))، حتى لا تنقسم آية أو حديث.
+والفاصلة المنقوطة «؛» تقطع الجملة أيضًا (v2.5): الخطب العربية تطيل الفقرة بلا نقطة، فتصير «الجملة» فقرة كاملة،
+وخريطة المسودة تحتاج وحدة أدق.
 """
 
 from __future__ import annotations
@@ -9,7 +11,7 @@ from saadeed.domain.models import Sentence, Span
 
 _OPEN = {"﴿": "﴾", "«": "»", "“": "”"}
 _CLOSE = {v: k for k, v in _OPEN.items()}
-_ENDERS = set(".!؟?…\n")
+_ENDERS = set(".!؟?…؛\n")
 
 
 def split_sentences(text: str) -> list[Sentence]:
@@ -30,6 +32,13 @@ def split_sentences(text: str) -> list[Sentence]:
         start = end
 
     for i, ch in enumerate(text):
+        two = text[i : i + 2]
+        if two == "((" and (i == 0 or text[i - 1] != "("):
+            depth.append("))")
+            continue
+        if two == "))" and depth and depth[-1] == "))":
+            depth.pop()
+            continue
         if ch in _OPEN:
             depth.append(_OPEN[ch])
         elif ch in _CLOSE and depth and depth[-1] == ch:

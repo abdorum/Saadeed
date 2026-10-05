@@ -12,7 +12,7 @@ from enum import StrEnum
 
 from saadeed.domain.enums import Action, EvidenceStatus, Reason, Severity
 
-POLICY_VERSION = "BR-2026.10.04-v2"
+POLICY_VERSION = "BR-2026.10.05-v2.5"
 
 
 class Signal(StrEnum):
@@ -38,6 +38,9 @@ class Signal(StrEnum):
     FATWA_REQUIRED = "FATWA_REQUIRED"  # BR-18
     CONCLUSION_EXCEEDS = "CONCLUSION_EXCEEDS"  # BR-19
     SYSTEM_UNAVAILABLE = "SYSTEM_UNAVAILABLE"  # BR-20
+    QURAN_MERGED = "QURAN_MERGED"  # BR-21
+    QURAN_AS_HADITH = "QURAN_AS_HADITH"  # BR-22
+    HADITH_NOT_FOUND_WITH_SIGNS = "HADITH_NOT_FOUND_WITH_SIGNS"  # BR-23
 
 
 @dataclass(frozen=True)
@@ -99,6 +102,16 @@ RULES: dict[Signal, Rule] = {
     ),
     Signal.SYSTEM_UNAVAILABLE: Rule(
         "BR-20", _S.NOT_CHECKED, _R.SYSTEM_UNAVAILABLE, _V.NONE, _A.NONE
+    ),
+    # v2.5 (ADR-0014): الفحص المتقاطع وقرائن المتن.
+    Signal.QURAN_MERGED: Rule(
+        "BR-21", _S.PARTIALLY_SUPPORTED, _R.MERGED_AYAT, _V.HIGH, _A.CORRECT_FROM_SOURCE
+    ),
+    Signal.QURAN_AS_HADITH: Rule(
+        "BR-22", _S.PARTIALLY_SUPPORTED, _R.QURAN_AS_HADITH, _V.HIGH, _A.CORRECT_FROM_SOURCE
+    ),
+    Signal.HADITH_NOT_FOUND_WITH_SIGNS: Rule(
+        "BR-23", _S.NOT_FOUND, _R.NOT_FOUND, _V.CRITICAL, _A.VERIFY
     ),
 }
 

@@ -84,6 +84,8 @@ class Reason(StrEnum):
     FATWA_REQUIRED = "FATWA_REQUIRED"
     EXCEEDS_TEXT = "EXCEEDS_TEXT"
     SYSTEM_UNAVAILABLE = "SYSTEM_UNAVAILABLE"
+    MERGED_AYAT = "MERGED_AYAT"
+    QURAN_AS_HADITH = "QURAN_AS_HADITH"
 
 
 class ClaimType(_Labeled):
@@ -101,6 +103,23 @@ class ClaimType(_Labeled):
     RULING = "RULING"
     PERSONAL_CASE = "PERSONAL_CASE"
     HADITH_CONCLUSION = "HADITH_CONCLUSION"
+
+
+class SegmentKind(_Labeled):
+    """صنف الجملة في «خريطة المسودة» (v2.5، ADR-0014): وصف لا حكم، ولا يغيّر أي قاعدة."""
+
+    QURAN = "QURAN"
+    HADITH = "HADITH"
+    ATHAR = "ATHAR"
+    SCHOLAR = "SCHOLAR"
+    DUA = "DUA"
+    POETRY = "POETRY"
+    STORY = "STORY"
+    RULING = "RULING"
+    FACT = "FACT"
+    EXHORTATION = "EXHORTATION"
+    OTHER = "OTHER"
+    UNLABELED = "UNLABELED"
 
 
 class ContentLevel(StrEnum):
@@ -196,6 +215,18 @@ _LABEL_PAIRS: list[tuple[StrEnum, str]] = [
     (ClaimType.RULING, "حكم فقهي أو عقدي تفصيلي"),
     (ClaimType.PERSONAL_CASE, "حالة شخصية"),
     (ClaimType.HADITH_CONCLUSION, "استنتاج مبني على حديث"),
+    (SegmentKind.QURAN, "آية"),
+    (SegmentKind.HADITH, "حديث"),
+    (SegmentKind.ATHAR, "أثر عن صحابي أو تابعي"),
+    (SegmentKind.SCHOLAR, "قول عالم أو حكيم"),
+    (SegmentKind.DUA, "دعاء"),
+    (SegmentKind.POETRY, "شعر"),
+    (SegmentKind.STORY, "قصة أو سيرة أو تاريخ"),
+    (SegmentKind.RULING, "حكم أو فتوى"),
+    (SegmentKind.FACT, "معلومة أو رقم"),
+    (SegmentKind.EXHORTATION, "وعظ وتذكير"),
+    (SegmentKind.OTHER, "افتتاح أو انتقال أو ختام"),
+    (SegmentKind.UNLABELED, "لم تُصنَّف"),
     (OverreachType.DROPPED_CONDITION, "إطلاق المقيَّد"),
     (OverreachType.ADDITION, "الزيادة على النص"),
     (OverreachType.OVERGENERALIZED, "تعميم الخاص"),

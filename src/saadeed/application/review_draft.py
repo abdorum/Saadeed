@@ -16,26 +16,35 @@ from typing import Any
 
 from saadeed import __version__
 from saadeed.application.citation_guard import CitationGuard
-from saadeed.application.extraction import extract_claims
+from saadeed.application.crosscheck import cross_check
+from saadeed.application.extraction import extract_claims, is_generalization
 from saadeed.application.prompts import PromptSet
+from saadeed.application.suggestion_guard import safe_suggestion
 from saadeed.domain.enums import (
     ClaimType,
     Confidence,
     ContentLevel,
+    MatchType,
     OverreachType,
     Relation,
+    SegmentKind,
     Severity,
+    SourceRole,
     TrackBucket,
 )
 from saadeed.domain.models import (
     Claim,
     Coverage,
     DraftInfo,
+    Evidence,
     Finding,
     ManifestStamp,
+    MapEntry,
     Meta,
     RelationResult,
     ReviewReport,
+    Sentence,
+    SourceRef,
     Span,
     Summary,
 )
@@ -120,6 +129,13 @@ class ReviewDraft:
             )
 
         claims = ex.claims
+        if self.config.quran_mode == "deterministic":
+            claims, cc_notes = cross_check(
+                text, claims, sentences, self.quran.index, is_generalization
+            )
+            ctx.warnings += cc_notes
+            for i, cl in enumerate(claims, start=1):
+                cl.id = f"c{i}"
         if self.config.enable_overreach:
             # الاستنتاج المربوط بحديث يُفحص بالعلاقة (BR-19)، فلا يُكرَّر ادعاءً مستقلًا.
             concl = [
@@ -181,22 +197,52 @@ class ReviewDraft:
                 f"حارس الإسناد أسقط {len(self.guard.dropped)} شاهدًا غير موجود في المخزن"
             )
             self.guard.dropped.clear()
-        return self._report(text, wc, findings, not_checked, ctx, t0)
+        findings = self._suggestions(findings, ctx)
+        draft_map = build_map(sentences, findings, ex.kinds)
+        return self._report(text, wc, findings, not_checked, ctx, t0, draft_map)
+
+    def _suggestions(self, findings: list[Finding], ctx: _Ctx) -> list[Finding]:
+        """اقتراح الصياغة المولَّد للتعميم والإجماع، بعد حارس الاقتراح (ADR-0014)."""
+        out: list[Finding] = []
+        rejected = 0
+        for f in findings:
+            raw = f.claim.hints.rephrase
+            if raw and f.rule_id in ("BR-14", "BR-15"):
+                sug = safe_suggestion(raw, f.claim.text, self.quran.index, self.hadith.index)
+                if sug:
+                    f = f.model_copy(update={"suggestion": sug})
+                else:
+                    rejected += 1
+            out.append(f)
+        if rejected:
+            ctx.warnings.append(f"حارس الاقتراح أسقط {rejected} اقتراح صياغة مولَّدًا")
+        return out
 
     # ─────────────────────────────── التوجيه ───────────────────────────────
     def _route(self, cl: Claim) -> Outcome | HadithPending:
         t = cl.type
         if t is ClaimType.GROUP_JUDGMENT:
             return Outcome(Signal.GROUP_JUDGMENT, confidence=Confidence.MEDIUM)
-        if t not in (ClaimType.QURAN_QUOTE, ClaimType.HADITH_QUOTE, ClaimType.TAKHRIJ):
+        # المستوى (ج/د) يحيل الأحكام والأقوال والوقائع، لا التعميم اللفظي ولا الرقم (E-009).
+        if t not in (
+            ClaimType.QURAN_QUOTE,
+            ClaimType.HADITH_QUOTE,
+            ClaimType.TAKHRIJ,
+            ClaimType.GENERALIZATION,
+            ClaimType.STATISTIC,
+        ):
             if t is ClaimType.PERSONAL_CASE or cl.level is ContentLevel.D:
                 return Outcome(Signal.FATWA_REQUIRED, confidence=Confidence.MEDIUM)
             if t is ClaimType.RULING or cl.level is ContentLevel.C:
-                return Outcome(Signal.SPECIALIST_REQUIRED, confidence=Confidence.MEDIUM)
+                return Outcome(
+                    Signal.SPECIALIST_REQUIRED,
+                    evidence=[self._fiqh_link(cl.text)],
+                    confidence=Confidence.MEDIUM,
+                )
         if t is ClaimType.QURAN_QUOTE:
             if self.config.quran_mode == "llm" and self.quran_llm_judge is not None:
                 return self.quran_llm_judge(cl)
-            return self.quran.verify(cl.text, cl.hints.cited_ref)
+            return self._quran(cl)
         if t in (ClaimType.HADITH_QUOTE, ClaimType.TAKHRIJ):
             return self.hadith.verify_deterministic(
                 cl.text, cl.hints.presented_as_verbatim, cl.hints.cited_book
@@ -209,10 +255,61 @@ class ReviewDraft:
                 )
             return Outcome(Signal.SOURCING_NO_SOURCE, confidence=Confidence.HIGH)
         if t is ClaimType.CONSENSUS_CLAIM:
-            return Outcome(Signal.CONSENSUS, confidence=Confidence.HIGH)
+            return Outcome(
+                Signal.CONSENSUS, evidence=[self._fiqh_link(cl.text)], confidence=Confidence.HIGH
+            )
         if t is ClaimType.GENERALIZATION:
             return Outcome(Signal.GENERALIZATION, confidence=Confidence.MEDIUM)
         return Outcome(Signal.SOURCING_NO_SOURCE, confidence=Confidence.LOW)
+
+    def _fiqh_link(self, text: str) -> Evidence:
+        """رابط بحث في الموسوعة الفقهية بالدرر (دور LINK): يبدأ منه الكاتب التوثيق."""
+        return Evidence(
+            ref=SourceRef(
+                source_id="dorar_fiqh",
+                item_id="search",
+                citation="بحث في الموسوعة الفقهية (الدرر السنية)",
+                url=self.hadith.linker.fiqh_search_url(text),
+            ),
+            role=SourceRole.LINK,
+            text="",
+            match_type=MatchType.NONE,
+            match_reason="رابط بحث يفتحه الإنسان، لا استدعاء آلي",
+        )
+
+    def _quran(self, cl: Claim) -> Outcome:
+        """الآية، مع أثر الفحص المتقاطع: آية قُدّمت حديثًا (BR-22)، وحديث قُدّم آية (BR-04 + شاهده)."""
+        out = self.quran.verify(cl.text, cl.hints.cited_ref)
+        if cl.hints.presented_as is ClaimType.HADITH_QUOTE:
+            if out.signal in (Signal.QURAN_MATCH, Signal.QURAN_WRONG_REFERENCE):
+                return Outcome(
+                    Signal.QURAN_AS_HADITH, out.evidence, out.facts, Confidence.HIGH, out.notes
+                )
+            out.notes.append("والمسودة تنسبه إلى النبي ﷺ، وأكثره من القرآن")
+            return out
+        if out.signal is Signal.QURAN_NOT_IN_MUSHAF:
+            probe = self.hadith.verify_deterministic(cl.text, True, None)
+            if isinstance(probe, Outcome) and probe.signal is Signal.HADITH_KNOWN_WEAK:
+                out.facts["found_elsewhere"] = (
+                    " وهو مدرج في قائمة سديد لـ«المشتهر الذي لا يصح» حديثًا، فلا يُنسب إلى القرآن ولا إلى النبي ﷺ إلا ببيان حاله."
+                )
+                out.evidence = [*out.evidence, *probe.evidence[:1]]
+            elif (
+                isinstance(probe, Outcome)
+                and probe.evidence
+                and probe.signal
+                in (
+                    Signal.HADITH_AUTHENTIC_MATCH,
+                    Signal.HADITH_LOCATE_ONLY,
+                    Signal.HADITH_MISATTRIBUTED,
+                )
+            ):
+                first = probe.evidence[0]
+                out.facts["found_elsewhere"] = (
+                    f" وقد وجدنا نصه حديثًا في {first.ref.citation}، فلعله حديث لا آية."
+                )
+                out.evidence = [*out.evidence, first]
+        return out
 
     # ─────────────────────────────── الحَكَم ───────────────────────────────
     def _judge(
@@ -350,6 +447,7 @@ class ReviewDraft:
         not_checked: list[str],
         ctx: _Ctx,
         t0: float,
+        draft_map: list[MapEntry] | None = None,
     ) -> ReviewReport:
         by_bucket = {b.value: 0 for b in TrackBucket}
         by_sev = {s.value: 0 for s in Severity if s is not Severity.NONE}
@@ -373,6 +471,7 @@ class ReviewDraft:
             ),
             top_risks=[f.id for f in risky],
             findings=findings,
+            draft_map=draft_map or [],
             coverage=self.coverage,
             meta=Meta(
                 saadeed_version=__version__,
@@ -387,6 +486,39 @@ class ReviewDraft:
                 warnings=ctx.warnings,
             ),
         )
+
+
+_EVIDENCE_KIND = {
+    ClaimType.QURAN_QUOTE: SegmentKind.QURAN,
+    ClaimType.HADITH_QUOTE: SegmentKind.HADITH,
+}
+
+
+def build_map(
+    sentences: list[Sentence], findings: list[Finding], kinds: dict[int, SegmentKind]
+) -> list[MapEntry]:
+    """خريطة المسودة: صنف كل جملة. ما ثبت بالفحص (آية أو حديث) يتقدم على تصنيف النموذج."""
+    out: list[MapEntry] = []
+    for s in sentences:
+        inside = [f for f in findings if f.claim.span.overlaps(s.span)]
+        kind, source = kinds.get(s.index), "llm"
+        for f in inside:
+            ek = _EVIDENCE_KIND.get(f.claim.type)
+            if ek is not None and f.claim.span.overlaps(s.span):
+                kind, source = ek, "evidence"
+                break
+        if kind is None:
+            kind, source = SegmentKind.UNLABELED, "none"
+        out.append(
+            MapEntry(
+                index=s.index,
+                span=s.span,
+                kind=kind,
+                finding_ids=[f.id for f in inside],
+                kind_source=source,
+            )
+        )
+    return out
 
 
 def _snippet(passage: str, quote: str, width: int = SNIPPET_WORDS) -> str:

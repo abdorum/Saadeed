@@ -6,7 +6,7 @@
 #          LOCATE (مصدر موضع، دون حكم) · LINK (رابط فقط)
 
 [manifest]
-id = "saadeed-2026.10-v1"
+id = "saadeed-2026.10-v2"
 description = "المرجعية الواحدة للتحدي: ما سمّته الحزمة العلمية، بأدوار معلنة"
 reviewed_by = "محمد عبدالرحمن"
 reviewed_on = "2026-10-04"
@@ -19,6 +19,11 @@ name_ar = "المصحف (مصحف المدينة، رواية حفص عن عاص
 files = ["raw/tanzil/quran-simple.txt", "raw/tanzil/quran-uthmani.txt"]
 version = "Tanzil 1.1"
 license = "CC BY 3.0 — نسخ حرفي دون تعديل، مع ذكر tanzil.net"
+# مطابقة بالمصدر المسمّى في الحزمة العلمية (quranpedia.net، «مصحف حفص» الموافق لطبعة مجمع الملك فهد)،
+# نسخة 2026-10-05: 6228 من 6236 آية متطابقة بعد التطبيع. والفروق الثمانية: 3 فصل ووصل («بعد ما/بعدما»)،
+# و3 إملائية («الزنى/الزنا»، «يا ويلتى/يا ويلتا»، «يا حسرتى/يا حسرتا»)، و2 بسملة في أول التين والقدر
+# كانت خللًا في محوّلنا وأُصلح. التفصيل: docs/research/quran-text-check.md
+verified_against = "quranpedia.net mushafs-1 (2026-10-05): 6228/6236"
 
 [[source]]
 id = "bukhari"
@@ -82,6 +87,15 @@ name_ar = "قائمة المشتهر الذي لا يصح (سديد)"
 files = ["known_weak.json"]
 version = "مسودة 2026-10-04"
 license = "CC BY 4.0 (سديد) — والأحكام منقولة بنسبتها"
+
+[[source]]
+id = "dorar_fiqh"
+adapter = "dorar_link"
+role = "LINK"
+name_ar = "الموسوعة الفقهية في الدرر السنية (رابط بحث لادعاءات الإجماع والأحكام)"
+files = []
+version = "—"
+license = "رابط فقط، لا استدعاء آلي"
 
 [[source]]
 id = "dorar"

@@ -224,3 +224,56 @@ def hadith_cases(engine: Engine, per_cat: int = 8) -> list[TestCase]:
         if made == per_cat:
             break
     return out
+
+
+def quran_v25_cases(engine: Engine, per_cat: int = 8) -> list[TestCase]:
+    """Q8 (آية نُسبت حديثًا) وQ9 (آيتان مدموجتان) — البروتوكول §١٢ بند 9.
+
+    ببذرة مستقلة (70 + 25) حتى لا تتأثر حالات v1. ونختار مقاطع نصها فريد في المصحف،
+    ولا يوجد حرفيًا في كتب الحديث (فلا تكون آية رواها النبي ﷺ في حديث)."""
+    from saadeed.text.align import rasm_key
+
+    rng = random.Random(SEED + 25)
+    repo = engine.sources.quran
+    idx = engine.quran.index
+    hadith = engine.hadith.index
+
+    def unique_ayah(a) -> str | None:
+        """آية كاملة قصيرة (طبيعية في الخطبة)، نصها فريد في المصحف وليس في كتب الحديث."""
+        norm = normalize(a.text_simple)
+        keys = [rasm_key(w) for w in norm.split()]
+        if len(idx.occurrences(keys)) != 1 or hadith.exact_hits(norm):
+            return None
+        return strip_diacritics(a.text_simple)
+
+    q8_pool = [a for a in repo.all_ayat() if 5 <= len(a.text_simple.split()) <= 12]
+    q9_pool = [a for a in repo.all_ayat() if 4 <= len(a.text_simple.split()) <= 8]
+    rng.shuffle(q8_pool)
+    rng.shuffle(q9_pool)
+    out: list[TestCase] = []
+    i = 0
+    for a in q8_pool:  # Q8
+        if i >= per_cat:
+            break
+        t = unique_ayah(a)
+        if t is None:
+            continue
+        i += 1
+        s = f"قال رسول الله صلى الله عليه وسلم: «{t}»."
+        out.append(_case("Q8", i, s, t, ref=f"{a.sura}:{a.aya}"))
+    i = 0
+    it = iter(q9_pool)
+    for a in it:  # Q9
+        if i >= per_cat:
+            break
+        b = next(it, None)
+        if b is None or b.sura == a.sura:
+            continue
+        t1, t2 = unique_ayah(a), unique_ayah(b)
+        if t1 is None or t2 is None:
+            continue
+        i += 1
+        merged = f"{t1} {t2}"
+        s = f"قال الله تعالى: ﴿{merged}﴾."
+        out.append(_case("Q9", i, s, merged, ref=f"{a.sura}:{a.aya}+{b.sura}:{b.aya}"))
+    return out

@@ -21,7 +21,9 @@ from saadeed.domain.models import Evidence, SourceRef, Span
 from saadeed.domain.policy import Signal
 from saadeed.domain.ports import KnownWeak, KnownWeakRepo, Passage, ReferenceLinker, TextSourcePort
 from saadeed.text.markers import canonical_books
+from saadeed.text.matn_signs import matn_signs
 from saadeed.text.normalize import find_span, normalize
+from saadeed.text.stem import light_stem, stems
 from saadeed.verifiers.base import Outcome
 
 KNOWN_WEAK_MIN = 88
@@ -53,6 +55,7 @@ class _Doc:
     item_id: str
     norm: str
     tokens: set[str]
+    stems: set[str]
 
 
 @dataclass
@@ -78,19 +81,25 @@ class HadithIndex:
         self.sources = {s.info.id: s for s in sources}
         self.docs: list[_Doc] = []
         inv: dict[str, list[int]] = defaultdict(list)
+        stem_inv: dict[str, list[int]] = defaultdict(list)
         for src in sources:
             role = src.info.role
             for p in src.all_passages():
                 norm = p.text_norm if p.text_norm is not None else normalize(p.text_plain)
                 toks = set(norm.split())
+                sts = {light_stem(t) for t in toks}
                 idx = len(self.docs)
-                self.docs.append(_Doc(src.info.id, role, p.item_id, norm, toks))
+                self.docs.append(_Doc(src.info.id, role, p.item_id, norm, toks, sts))
                 for t in toks:
                     inv[t].append(idx)
+                for t in sts:
+                    stem_inv[t].append(idx)
         self.inv = dict(inv)
+        self.stem_inv = dict(stem_inv)
         self.pos = {(d.source_id, d.item_id): i for i, d in enumerate(self.docs)}
         n = len(self.docs) or 1
         self.idf = {t: math.log(n / len(ids)) for t, ids in self.inv.items()}
+        self.stem_idf = {t: math.log(n / len(ids)) for t, ids in self.stem_inv.items()}
 
     def exact_hits(self, q_norm: str) -> list[int]:
         """مواضع الاقتباس حرفيًا (بعد التطبيع) في كل الكتب."""
@@ -116,14 +125,14 @@ class HadithIndex:
     def ranked(
         self, q_norm: str, k: int = TOP_K, only: str | None = None
     ) -> list[tuple[int, float]]:
-        """استرجاع معجمي: مجموع IDF للكلمات المشتركة، مع تصحيح بسيط لطول الحديث."""
-        toks = set(q_norm.split())
+        """استرجاع معجمي على الجذوع الخفيفة (E-004): مجموع IDF للجذوع المشتركة، مع تصحيح لطول الحديث."""
+        toks = stems(q_norm)
         scores: dict[int, float] = defaultdict(float)
         for t in toks:
-            w = self.idf.get(t)
+            w = self.stem_idf.get(t)
             if w is None:
                 continue
-            for i in self.inv[t]:
+            for i in self.stem_inv[t]:
                 if only is None or self.docs[i].source_id == only:
                     scores[i] += w
         ranked = sorted(
@@ -256,11 +265,19 @@ class HadithVerifier:
         notes = []
         if judged_key and judged_key not in offered:
             notes.append("أُسقط معرّف أعاده النموذج لأنه ليس من المرشحين المعروضين (حارس الإسناد)")
+        return self.not_found(text, notes)
+
+    def not_found(self, text: str, notes: list[str] | None = None) -> Outcome:
+        """«لم يُعثر عليه»، وتُرفع خطورته إن كان في متنه قرينة (BR-23). القرينة لا تحكم بالوضع."""
+        signs = matn_signs(text)
         return Outcome(
-            Signal.HADITH_NOT_FOUND,
-            facts={"search_url": self.linker.hadith_search_url(text)},
+            Signal.HADITH_NOT_FOUND_WITH_SIGNS if signs else Signal.HADITH_NOT_FOUND,
+            facts={
+                "search_url": self.linker.hadith_search_url(text),
+                "matn_sign": "، ".join(signs),
+            },
             confidence=Confidence.MEDIUM,
-            notes=notes,
+            notes=list(notes or []),
             evidence=[self._dorar_evidence(text)],
         )
 
@@ -349,7 +366,30 @@ class HadithVerifier:
             "draft_note": "" if kw.verified else " (تنبيه: هذا البند في القائمة لم يُعتمد بعد)",
         }
         notes = [] if kw.verified else ["بند قائمة المشتهر بانتظار الاعتماد"]
-        return Outcome(Signal.HADITH_KNOWN_WEAK, [ev], facts, Confidence.HIGH, notes)
+        evidence = [ev]
+        alt = kw.alternative
+        idx = self._doc_index(alt.source_id, alt.item_id) if alt else None
+        if idx is not None:
+            anchor = alt.anchor or ""  # type: ignore[union-attr]
+            # «في معناه» لا «بلفظه»: نوع المطابقة PARAPHRASE، والتظليل بالعبارة المرجعية وحدها.
+            alt_ev = self._evidence(idx, anchor, MatchType.PARAPHRASE)
+            span = find_span(alt_ev.text, anchor) if anchor else None
+            alt_ev = alt_ev.model_copy(
+                update={
+                    "match_reason": "البديل في معناه (من قائمة المشتهر، ونصه من المخزن)",
+                    "highlight": [Span(start=span[0], end=span[1])] if span else [],
+                }
+            )
+            evidence.append(alt_ev)
+            if alt_ev.role is SourceRole.AUTHENTIC:
+                facts["alternative_note"] = (
+                    f" وفي معناه ما ثبت في {alt_ev.ref.citation}، وهو معروض بجانبه."
+                )
+            else:
+                facts["alternative_note"] = (
+                    f" ويُروى في معناه في {alt_ev.ref.citation}، وهو معروض بجانبه، والحكم عليه خارج ما يملكه سديد."
+                )
+        return Outcome(Signal.HADITH_KNOWN_WEAK, evidence, facts, Confidence.HIGH, notes)
 
     def _passage(self, idx: int) -> Passage:
         d = self.index.docs[idx]
@@ -375,7 +415,7 @@ class HadithVerifier:
                 source_id=d.source_id,
                 item_id=d.item_id,
                 citation=f"{src.info.name_ar}، رقم {p.number} (بترقيم مجموعة البيانات)",
-                url=self.linker.hadith_search_url(quote),
+                url=self.linker.hadith_search_url(quote or p.text_plain),
             ),
             role=d.role,
             text=p.text_display,

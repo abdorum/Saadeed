@@ -92,6 +92,15 @@ class TextSourcePort(Protocol):
     def get(self, item_id: str) -> Passage | None: ...
 
 
+class StoreRef(BaseModel):
+    """إشارة إلى نص في المخزن بمعرّفه. النص نفسه يُجلب من المخزن دائمًا."""
+
+    source_id: str
+    item_id: str
+    anchor: str | None = None
+    """عبارة من نص المخزن لتظليل موضع الشاهد فقط، ولا تُعرض من هذا الحقل."""
+
+
 class KnownWeak(BaseModel):
     """حديث من «المشتهر الذي لا يصح»: حكمه منقول بلفظ مصدره (يعتمده محمد)."""
 
@@ -103,6 +112,8 @@ class KnownWeak(BaseModel):
     url: str | None = None
     verified: bool = False
     note: str | None = None
+    alternative: StoreRef | None = None
+    """حديث في المخزن يؤدي المعنى بلفظ ثابت أو مروي (v2.5): «ما الذي أقوله بدلًا منه؟»."""
 
 
 class KnownWeakRepo(Protocol):
@@ -116,3 +127,5 @@ class KnownWeakRepo(Protocol):
 
 class ReferenceLinker(Protocol):
     def hadith_search_url(self, text: str) -> str: ...
+
+    def fiqh_search_url(self, text: str) -> str: ...

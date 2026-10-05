@@ -41,6 +41,10 @@ EXPECTED = {
     Signal.FATWA_REQUIRED: ("BR-18", "OUT_OF_SCOPE", "HIGH", "REFER"),
     Signal.CONCLUSION_EXCEEDS: ("BR-19", "EXCEEDS_SOURCE", "MEDIUM", "REPHRASE"),
     Signal.SYSTEM_UNAVAILABLE: ("BR-20", "NOT_CHECKED", "NONE", "NONE"),
+    # v2.5 (ADR-0014)
+    Signal.QURAN_MERGED: ("BR-21", "PARTIALLY_SUPPORTED", "HIGH", "CORRECT_FROM_SOURCE"),
+    Signal.QURAN_AS_HADITH: ("BR-22", "PARTIALLY_SUPPORTED", "HIGH", "CORRECT_FROM_SOURCE"),
+    Signal.HADITH_NOT_FOUND_WITH_SIGNS: ("BR-23", "NOT_FOUND", "CRITICAL", "VERIFY"),
 }
 
 
@@ -54,7 +58,7 @@ def test_every_rule_matches_requirements_table(signal):
 
 def test_rule_ids_unique_and_complete():
     ids = [r.rule_id for r in RULES.values()]
-    assert len(ids) == len(set(ids)) == 20
+    assert len(ids) == len(set(ids)) == 23
 
 
 def test_policy_is_deterministic():

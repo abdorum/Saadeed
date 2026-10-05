@@ -40,3 +40,10 @@ class DorarLinker:
         words = text.split()
         snippet = " ".join(words[:8])
         return f"https://dorar.net/hadith/search?q={quote(snippet)}"
+
+    def fiqh_search_url(self, text: str) -> str:
+        """بحث مقيَّد بالموسوعة الفقهية في الدرر (v2.5). رابط يفتحه الإنسان، لا استدعاء آلي."""
+        from urllib.parse import quote
+
+        snippet = " ".join(text.split()[:10])
+        return f"https://www.google.com/search?q={quote('site:dorar.net/feqhia ' + snippet)}"

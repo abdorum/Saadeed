@@ -11,6 +11,7 @@ from pathlib import Path
 from saadeed.domain.enums import SourceRole
 from saadeed.domain.ports import Ayah, SourceInfo
 from saadeed.domain.quran_meta import AYA_COUNTS, sura_name
+from saadeed.text.normalize import normalize
 
 _BASMALA_WORDS = 4
 
@@ -29,7 +30,8 @@ def _strip_basmala(sura: int, aya: int, text: str) -> str:
     if aya != 1 or sura in (1, 9):
         return text
     words = text.split()
-    if len(words) > _BASMALA_WORDS and words[0].startswith("بِسْمِ"):
+    # بالتطبيع لا بالحروف: في التين والقدر تأتي «بِّسْمِ» بشدة (كشفته المطابقة بالموسوعة القرآنية، v2.5).
+    if len(words) > _BASMALA_WORDS and normalize(" ".join(words[:2])) == "بسم الله":
         return " ".join(words[_BASMALA_WORDS:])
     return text
 

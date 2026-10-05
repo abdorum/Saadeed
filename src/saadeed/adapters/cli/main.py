@@ -25,8 +25,17 @@ def render_text(report: ReviewReport, draft: str) -> str:
         f"✅ تؤيده المصادر: {s.by_bucket['SUPPORTED_BY_SOURCES']}   "
         f"⚠️ يتطلب تحققًا: {s.by_bucket['NEEDS_VERIFICATION']}   "
         f"🔵 إحالة: {s.by_bucket['REFER']}   ⏸️ لم يُفحص: {s.by_bucket['NOT_CHECKED']}",
-        "",
     ]
+    if report.draft_map:
+        counts: dict[str, int] = {}
+        for e in report.draft_map:
+            counts[e.kind_ar] = counts.get(e.kind_ar, 0) + 1
+        with_findings = sum(1 for e in report.draft_map if e.finding_ids)
+        lines.append(
+            f"🗺️ خريطة المسودة ({len(report.draft_map)} جملة، في {with_findings} منها ادعاء مفحوص): "
+            + " · ".join(f"{k} {v}" for k, v in sorted(counts.items(), key=lambda kv: -kv[1]))
+        )
+    lines.append("")
     by_id = {f.id: f for f in report.findings}
     order = report.top_risks + [f.id for f in report.findings if f.id not in report.top_risks]
     for fid in order:
@@ -61,6 +70,8 @@ def render_text(report: ReviewReport, draft: str) -> str:
             changes = [d for d in ev.diff if d.op != "equal"]
             for d in changes[:4]:
                 lines.append(f"      ↔ المسودة «{d.draft}» | المصحف «{d.source}»")
+        if f.suggestion:
+            lines.append(f"   ✍️ اقتراح صياغة (مولَّد، راجعه): {f.suggestion}")
         for n in f.notes:
             lines.append(f"   ملاحظة: {n}")
         lines.append("")

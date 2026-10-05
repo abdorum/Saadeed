@@ -42,6 +42,28 @@ class _Word:
     aya: int
 
 
+@dataclass(frozen=True)
+class Run:
+    """مقطع من الاقتباس (`q_start:q_end` بالكلمات) يطابق المصحف حرفيًا في `g_start:g_end`."""
+
+    q_start: int
+    q_end: int
+    g_start: int
+    g_end: int
+
+    @property
+    def length(self) -> int:
+        return self.q_end - self.q_start
+
+
+MERGE_MIN_RUN = 3
+"""أقصر مقطع يُعدّ جزءًا من آية مدموجة."""
+MERGE_MIN_COVERAGE = 0.85
+"""نسبة كلمات الاقتباس التي يجب أن تغطيها المقاطع القرآنية لنقول: آيتان مدموجتان."""
+MERGE_MIN_GAP = 4
+"""أقل مسافة (بالكلمات) بين موضعي المقطعين في المصحف ليُعدّا موضعين مختلفين."""
+
+
 def _pair_words(text: str) -> list[tuple[str, str]]:
     """كلمات العرض مع مقابلها المطبَّع. وتُحذف الكلمات التي هي علامات وقف فقط."""
     pairs: list[tuple[str, str]] = []
@@ -105,6 +127,71 @@ class QuranIndex:
                 best = (lo, al)
         return best
 
+    def occurrences(self, keys: list[str]) -> list[int]:
+        """مواضع تسلسل كلمات (بمفاتيح الرسم) في المصحف حرفيًا. ثلاث كلمات فأكثر."""
+        if len(keys) < 3:
+            return []
+        n = len(keys)
+        return [
+            p
+            for p in self._tri.get((keys[0], keys[1], keys[2]), ())
+            if self._keys[p : p + n] == keys
+        ]
+
+    def runs(self, q_norm: list[str], min_len: int) -> list[Run]:
+        """أكبر تغطية للاقتباس بمقاطع قرآنية حرفية لا يقل كل منها عن `min_len` كلمة.
+
+        برمجة ديناميكية حتمية: لكل موضع أطول مقطع يبدأ منه، ثم أفضل تقسيم يغطي أكثر الكلمات.
+        تكشف الآية داخل جملة، والآيتين المدموجتين في اقتباس واحد (الفحص المتقاطع، ADR-0014).
+        """
+        keys = [rasm_key(w) for w in q_norm]
+        n = len(keys)
+        if n < min_len or min_len < 3:
+            return []
+        longest = [0] * n
+        for j in range(n - 2):
+            cands = list(self._tri.get((keys[j], keys[j + 1], keys[j + 2]), ()))
+            length = 3 if cands else 0
+            while cands and j + length < n:
+                nxt = [
+                    p
+                    for p in cands
+                    if p + length < len(self._keys) and self._keys[p + length] == keys[j + length]
+                ]
+                if not nxt:
+                    break
+                cands = nxt
+                length += 1
+            longest[j] = length
+        best = [0] * (n + 1)
+        back: list[tuple[int, int] | None] = [None] * (n + 1)
+        for i in range(1, n + 1):
+            best[i], back[i] = best[i - 1], None
+            for j in range(0, i - min_len + 1):
+                if longest[j] >= i - j and best[j] + (i - j) > best[i]:
+                    best[i], back[i] = best[j] + (i - j), (j, i)
+        segs: list[tuple[int, int]] = []
+        i = n
+        while i > 0:
+            if back[i] is None:
+                i -= 1
+            else:
+                j, _ = back[i]
+                segs.append((j, i))
+                i = j
+        segs.reverse()
+        out: list[Run] = []
+        prev_end: int | None = None
+        for j, i in segs:
+            occ = self.occurrences(keys[j:i])
+            if not occ:
+                continue
+            # نفضّل الموضع الملاصق للمقطع السابق، ثم الأسبق في المصحف (حتمي).
+            g = next((p for p in occ if prev_end is not None and 0 <= p - prev_end <= 3), occ[0])
+            out.append(Run(j, i, g, g + (i - j)))
+            prev_end = g + (i - j)
+        return out
+
     def ayat_between(self, g_start: int, g_end: int) -> list[tuple[int, int]]:
         seen: list[tuple[int, int]] = []
         for w in self.words[g_start:g_end]:
@@ -133,11 +220,17 @@ class QuranVerifier:
 
         found = self.index.best_alignment(q, q_disp)
         if found is None:
-            return Outcome(Signal.QURAN_NOT_IN_MUSHAF, confidence=Confidence.HIGH)
+            return self._merged(q) or Outcome(
+                Signal.QURAN_NOT_IN_MUSHAF, confidence=Confidence.HIGH
+            )
         lo, al = found
         g_start, g_end = lo + al.src_start, lo + al.src_end
         al.ops = relax_rasm(al.ops, q, self.index._norms[g_start:g_end])
         exact = all(o.op == "equal" for o in al.ops) and (g_end - g_start) == len(q)
+        if not exact:
+            merged = self._merged(q)
+            if merged is not None:
+                return merged
         if not exact and (al.score < MISMATCH_MIN_SCORE or al.matched < MISMATCH_MIN_MATCHED):
             return Outcome(Signal.QURAN_NOT_IN_MUSHAF, confidence=Confidence.HIGH)
 
@@ -172,6 +265,34 @@ class QuranVerifier:
             return Outcome(Signal.QURAN_WRONG_REFERENCE, [evidence], facts, Confidence.HIGH)
         return Outcome(Signal.QURAN_MATCH, [evidence], facts, Confidence.HIGH, notes_rasm)
 
+    def _merged(self, q: list[str]) -> Outcome | None:
+        """آيتان (أو أكثر) من موضعين مختلفين قُدّمتا اقتباسًا واحدًا (BR-21)."""
+        runs = self.index.runs(q, MERGE_MIN_RUN)
+        if len(runs) < 2 or sum(r.length for r in runs) < MERGE_MIN_COVERAGE * len(q):
+            return None
+        apart = any(
+            not (0 <= b.g_start - a.g_end < MERGE_MIN_GAP)
+            for a, b in zip(runs, runs[1:], strict=False)
+        )
+        if not apart:
+            return None
+        evidence = [
+            self._evidence(
+                self.index.ayat_between(r.g_start, r.g_end), r.g_start, r.g_end, None, True
+            )
+            for r in runs
+        ]
+        parts = "، و".join(
+            f"«{' '.join(w.disp for w in self.index.words[r.g_start : r.g_end])}» ({e.ref.citation})"
+            for r, e in zip(runs, evidence, strict=True)
+        )
+        return Outcome(
+            Signal.QURAN_MERGED,
+            evidence,
+            {"citation": evidence[0].ref.citation, "parts": parts, "parts_count": len(runs)},
+            Confidence.HIGH,
+        )
+
     def _exact_occurrence_matching_ref(
         self, q: list[str], cited_ref: str
     ) -> tuple[int, int] | None:
@@ -205,7 +326,12 @@ class QuranVerifier:
         return any(s == sura and a <= ay <= b for s, ay in ayat)
 
     def _evidence(
-        self, ayat: list[tuple[int, int]], g_start: int, g_end: int, al: Alignment, exact: bool
+        self,
+        ayat: list[tuple[int, int]],
+        g_start: int,
+        g_end: int,
+        al: Alignment | None,
+        exact: bool,
     ) -> Evidence:
         first, last = ayat[0], ayat[-1]
         sura = first[0]
@@ -231,7 +357,7 @@ class QuranVerifier:
             text=text,
             match_type=mt,
             match_reason=reason,
-            diff=al.ops if not exact else [],
+            diff=al.ops if (al is not None and not exact) else [],
             highlight=[Span(start=0, end=len(text))] if whole else [],
         )
 

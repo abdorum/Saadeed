@@ -21,6 +21,9 @@ EXPECTED: dict[str, tuple[str, str | None, str]] = {
     "Q5": ("CONTRADICTED", "TEXT_MISMATCH", "CORRECT_FROM_SOURCE"),
     "Q6": ("PARTIALLY_SUPPORTED", "WRONG_REFERENCE", "CORRECT_FROM_SOURCE"),
     "Q7": ("CONTRADICTED", "NOT_QURAN", "RECONSIDER"),
+    # v2.5 (البروتوكول §١٢ بند 9): في نصوص حاملة جديدة لا تمس القديمة.
+    "Q8": ("PARTIALLY_SUPPORTED", "QURAN_AS_HADITH", "CORRECT_FROM_SOURCE"),
+    "Q9": ("PARTIALLY_SUPPORTED", "MERGED_AYAT", "CORRECT_FROM_SOURCE"),
     "H1": ("SUPPORTED", None, "NONE"),
     "H2": ("SUPPORTED", None, "NONE"),
     "H3": ("PARTIALLY_SUPPORTED", "PARAPHRASED_AS_WORDING", "CORRECT_FROM_SOURCE"),
@@ -43,7 +46,7 @@ EXPECTED: dict[str, tuple[str, str | None, str]] = {
 }
 
 GROUP_OF = {
-    **{c: "آيات" for c in ("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7")},
+    **{c: "آيات" for c in ("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9")},
     **{c: "أحاديث" for c in ("H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8a", "H8b", "H9", "H10")},
     "O1": "أقوال منسوبة",
     "O2": "أرقام وإحصاءات",

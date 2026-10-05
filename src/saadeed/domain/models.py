@@ -17,13 +17,14 @@ from saadeed.domain.enums import (
     OverreachType,
     Reason,
     Relation,
+    SegmentKind,
     Severity,
     SourceRole,
     TrackBucket,
     bucket_for,
 )
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 
 
 class Span(BaseModel):
@@ -64,6 +65,10 @@ class ClaimHints(BaseModel):
     """مصدر يذكره الكاتب لقول أو رقم: «في زاد المعاد»."""
     speaker: str | None = None
     """القائل المنسوب إليه: «ابن القيم»."""
+    rephrase: str | None = None
+    """صياغة مقترحة أعادها النموذج (للتعميم والإجماع). **خام**: لا تُعرض إلا بعد حارس الاقتراح."""
+    presented_as: ClaimType | None = None
+    """النوع الذي قدّمه به الكاتب إن خالف ما وجده الفحص المتقاطع: آية قُدّمت حديثًا (v2.5)."""
 
 
 class Claim(BaseModel):
@@ -78,7 +83,7 @@ class Claim(BaseModel):
     linked_conclusion: Span | None = None
     """موضع الاستنتاج الذي يبنيه الكاتب على هذا الحديث (ADR-0011)."""
     origin: str = "llm"
-    """من أين جاء: llm (الاستخراج) أو marker (المرور الحتمي) أو both."""
+    """من أين جاء: llm (الاستخراج) أو marker (المرور الحتمي) أو both أو crosscheck (الفحص المتقاطع)."""
 
 
 class SourceRef(BaseModel):
@@ -136,6 +141,9 @@ class Finding(BaseModel):
     next_step: str = ""
     confidence: Confidence = Confidence.MEDIUM
     notes: list[str] = Field(default_factory=list)
+    suggestion: str | None = None
+    """«اقتراح صياغة (مولَّد)»: يكتبه النموذج للتعميم والإجماع فقط، بعد حارس الاقتراح (ADR-0014).
+    ليس شرحًا ولا خطوة تالية، ولا يحوي نصًا شرعيًا، ويُوسم في الواجهة بأنه مولَّد."""
 
     @computed_field  # type: ignore[prop-decorator]
     @property
@@ -153,6 +161,22 @@ class Finding(BaseModel):
             "bucket": self.bucket.label_ar,
             "claim_type": self.claim.type.label_ar,
         }
+
+
+class MapEntry(BaseModel):
+    """جملة في «خريطة المسودة»: صنفها، والملاحظات التي فيها (v2.5)."""
+
+    index: int
+    span: Span
+    kind: SegmentKind
+    finding_ids: list[str] = Field(default_factory=list)
+    kind_source: str = "llm"
+    """llm (تصنيف النموذج) أو evidence (من الملاحظة نفسها: آية أو حديث) أو none."""
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def kind_ar(self) -> str:
+        return self.kind.label_ar
 
 
 class DraftInfo(BaseModel):
@@ -201,12 +225,14 @@ class Meta(BaseModel):
 
 
 class ReviewReport(BaseModel):
-    """تقرير المراجعة (Report 1.0)."""
+    """تقرير المراجعة (Report 1.1: أضيفت خريطة المسودة واقتراح الصياغة)."""
 
     schema_version: str = SCHEMA_VERSION
     draft: DraftInfo
     summary: Summary
     top_risks: list[str]
     findings: list[Finding]
+    draft_map: list[MapEntry] = Field(default_factory=list)
+    """خريطة المسودة: كل جملة بصنفها وملاحظاتها، لتُرى المسودة كلها لا الثغور وحدها."""
     coverage: Coverage
     meta: Meta
