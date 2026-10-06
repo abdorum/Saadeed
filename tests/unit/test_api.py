@@ -78,3 +78,8 @@ def test_llm_check_never_echoes_the_key(client, monkeypatch):
     r = client.post("/v1/llm/check", json={"provider": "gemini", "api_key": secret})
     assert r.status_code == 200 and secret not in r.text
     assert r.json() == {"ok": False, "reason": "مفتاح مزود النموذج غير صالح أو غير مضبوط"}
+
+
+def test_page_is_never_served_stale(client):
+    r = client.get("/")
+    assert r.status_code == 200 and r.headers.get("cache-control") == "no-cache"

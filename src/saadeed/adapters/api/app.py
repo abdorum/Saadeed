@@ -285,5 +285,16 @@ def llm_check(choice: LLMChoice, request: Request) -> dict[str, Any]:
     return {"ok": True, "model": llm.model_id}
 
 
+@app.middleware("http")
+async def no_stale_pages(request: Request, call_next):
+    """الصفحة نفسها تُطلب طازجة دائمًا، فلا يرى الزائر نسخة قديمة بعد النشر.
+    والأصول (css/js) تحمل رقم إصدار في رابطها، فتُحفظ بأمان."""
+    response = await call_next(request)
+    path = request.url.path
+    if not path.startswith("/v1") and (path.endswith("/") or path.endswith(".html")):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 if WEB_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="web")

@@ -7,7 +7,7 @@
 #   GEMINI_API_KEY=...         مفتاح النموذج الافتراضي (gemini-3.5-flash-lite)، يُضاف سرًّا في المساحة
 #   GROQ_API_KEY=...           (اختياري) بديل
 #
-# الاستعمال:  bash scripts/deploy_hf.sh
+# الاستعمال:  bash deploy/deploy_hf.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 set -a; [ -f .env ] && . ./.env; set +a

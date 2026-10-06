@@ -1,6 +1,6 @@
 /* سديد — «المتن والحاشية». فاتح دائمًا، من اليمين إلى اليسار.
    الهوية ثلاثة ألوان: لازوردي، وذهبي للزخرفة وحدها، ورَقّ. وألوان الحالة دلالية فقط.
-   الخطوط: Aref Ruqaa للشعار وحده، وNoto Naskh لكل الواجهة، وAmiri Quran لنص المصحف وحده. */
+   الخطوط: Aref Ruqaa للشعار وحده، وIBM Plex Sans Arabic لكل الواجهة والنص، وAmiri Quran لنص المصحف وحده. */
 :root {
   color-scheme: light;
   /* الهوية */
@@ -38,9 +38,9 @@
   --k-other: transparent;
   --k-unlabeled: transparent;
 
-  --naskh: "Noto Naskh Arabic", "Amiri", "Traditional Arabic", "Times New Roman", serif;
+  --text: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
   --quran: "Amiri Quran", "Amiri", "Traditional Arabic", serif;
-  --ruqaa: "Aref Ruqaa", "Noto Naskh Arabic", serif;
+  --ruqaa: "Aref Ruqaa", "IBM Plex Sans Arabic", serif;
   --r: 8px;
 }
 
@@ -48,7 +48,7 @@
 html, body { background: var(--parchment); }
 body {
   margin: 0;
-  font-family: var(--naskh);
+  font-family: var(--text);
   font-size: 17px;
   line-height: 1.8;
   color: var(--ink);
@@ -134,7 +134,7 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .paper textarea {
   display: block; width: 100%; min-height: 360px;
   border: 0; background: transparent; resize: vertical;
-  font-family: var(--naskh); font-size: 20px; line-height: 2.1;
+  font-family: var(--text); font-size: 20px; line-height: 2.1;
   padding: 36px 44px 20px; border-radius: 3px;
 }
 .paper textarea::placeholder { color: var(--ink-3); }
@@ -231,7 +231,7 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .n {
   display: inline-flex; align-items: center; justify-content: center;
   min-width: 21px; height: 21px; padding: 0 5px; margin-inline-start: 3px;
-  border: 0; border-radius: 999px; font-family: var(--naskh); font-size: 12.5px; font-weight: 700; line-height: 1;
+  border: 0; border-radius: 999px; font-family: var(--text); font-size: 12.5px; font-weight: 700; line-height: 1;
   color: #FFF; vertical-align: super; cursor: pointer;
 }
 .n.s-crit { background: var(--crit); } .n.s-attn { background: var(--attn); }

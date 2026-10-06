@@ -86,7 +86,23 @@ uv run saadeed review samples/demo_khutbah.txt --provider none   # بلا نمو
 | **ولا يفعل أبدًا:** الحكم، والأثر، والإجراء، ونص الشرح | **جدول قواعد حتمي وقوالب**، يراجعها مختص |
 
 - **المعمارية سداسية** (منافذ ومحوّلات)، وحدودها مفروضة بأداة `import-linter`. و**النتيجة نفسها في كل مرة:** القواعد حتمية، ونداءات النموذج مسجّلة.
-- **التفصيل:** [المعمارية](docs/planning/04-architecture.md)، و[المتطلبات وجدول ميزان السداد](docs/planning/03-requirements.md)، و[دليل التوسعة](EXTENDING.md).
+- **التفصيل:** [المعمارية](docs/planning/04-architecture.md)، و[المتطلبات وجدول ميزان السداد](docs/planning/03-requirements.md)، و[دليل التوسعة](docs/EXTENDING.md).
+
+## خريطة المستودع
+
+```
+Saadeed/
+├── src/saadeed/        الكود: النواة (domain، application، text، verifiers) والمحوّلات (adapters: api، cli، llm، sources، eval)
+├── web/                الواجهة: index.html و assets/، والأمثلة الثلاثة بتقاريرها المحفوظة (examples/)
+├── prompts/            تعليمات النموذج بإصداراتها (القديمة باقية لإعادة التقييمات السابقة)
+├── data/               ملف المرجعية (manifest.toml)، وقائمة المشتهر، والمصادر المثبّتة (vendor/)
+├── eval/               بنك الحالات، والتقارير، وتسجيلات النماذج للإعادة دون مفتاح، وسجل الأخطاء ERRORS.md
+├── tests/              اختبارات الوحدة والعقود
+├── samples/            مسودات للتجربة من سطر الأوامر
+├── deploy/             النشر: خدمة systemd، وسكربت Hugging Face (والـ Dockerfile في الجذر)
+├── scripts/            أدوات مساعدة (المعاينة الثابتة)
+└── docs/               وثائق التخطيط المنشورة، ودليل التوسعة
+```
 
 ## المصادر وحوكمتها
 

@@ -25,6 +25,7 @@ build/
 # ── النشر المحدود (قرار محمد، 4 أكتوبر 2026) ──
 # من الوثائق لا يُرفع إلا الأربع أدناه + README. والبقية محلية فقط.
 /docs/*
+!/docs/EXTENDING.md
 !/docs/planning/
 /docs/planning/*
 !/docs/planning/01-vision.md
