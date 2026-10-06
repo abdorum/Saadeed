@@ -56,6 +56,10 @@ def _tokens(text: str, span: Span) -> list[_Tok]:
     return out
 
 
+def _split_vocatives(toks: list[_Tok], index: QuranIndex) -> list[_Tok]:
+    return [_Tok(t.start, t.end, part) for t in toks for part in index.split_vocative(t.norm)]
+
+
 def _run_span(toks: list[_Tok], r: Run) -> Span:
     return Span(start=toks[r.q_start].start, end=toks[r.q_end - 1].end)
 
@@ -86,6 +90,7 @@ def cross_check(
             out.append(cl)
             continue
         toks = _tokens(text, cl.span)
+        toks = _split_vocatives(toks, index)
         runs = index.runs([t.norm for t in toks], IN_CLAIM_MIN)
         if not runs:
             out.append(cl)
@@ -127,7 +132,7 @@ def cross_check(
 
     taken = [c.span for c in out if c.type in (ClaimType.QURAN_QUOTE, ClaimType.HADITH_QUOTE)]
     for s in sentences:
-        toks = _tokens(text, s.span)
+        toks = _split_vocatives(_tokens(text, s.span), index)
         for r in index.runs([t.norm for t in toks], FREE_SCAN_MIN):
             span = _run_span(toks, r)
             if any(span.overlaps(t) for t in taken):

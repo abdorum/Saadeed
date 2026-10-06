@@ -123,7 +123,7 @@ def _orig_span(idx: list[int], s: int, e: int) -> tuple[int, int]:
 
 _NARRATION = re.compile(
     _PROPHET
-    + r"|(?:^|\s)(?:و|ف)?(?:حديث|رواية|روايه|رواه|اخرجه|أخرجه|متفق|يرفعه|مرفوعا)(?:\s|$|[:،])"
+    + r"|(?:^|\s)(?:و|ف|في\s)?(?:ال)?(?:حديث|رواية|روايه|رواه|اخرجه|أخرجه|متفق|يرفعه|مرفوعا|روي|يروى)(?:\s|$|[:،])"
 )
 
 _PROPHET_RX = re.compile(_PROPHET)
@@ -176,6 +176,16 @@ def scan(text: str) -> list[Marked]:
             if overlaps(m.start(1), m.end(1), quran_taken):
                 continue
             s, e, body = span(m)
+            if rx is _QURAN_INTRO:
+                # «قال الله تعالى: (…)» بلا ﴿ ﴾ قد يكون حديثًا قدسيًا (E-026): القرينة «الحديث القدسي»
+                # قبله، أو تخريج بعده («(رواه الترمذي)»). فيُفحص في كتب السنة لا في المصحف.
+                book = _takhrij_after(_CLOSERS.sub("", sk[m.end() : m.end() + 60]), 0)
+                lead_in = re.split(r"[.!؟?\n]", sk[max(0, m.start() - 150) : m.start()])[-1]
+                if "قدسي" in lead_in or book:
+                    lead = len(body) - len(body.lstrip("( "))
+                    found.append(Marked("hadith", body[lead:], s + lead, e, cited_book=book))
+                    hadith_taken.append((m.start(1), m.end(1)))
+                    continue
             cited, parsed = _ref_after(sk, m.end())
             found.append(Marked("quran", body, s, e, cited_ref=cited, ref_parsed=parsed))
             quran_taken.append((m.start(1), m.end(1)))
@@ -222,6 +232,9 @@ def canonical_books(cited: str | None) -> set[str]:
     n = normalize(cited)
     if "متفق عليه" in n or "الصحيحين" in n or "الشيخين" in n or "الشيخان" in n:
         return {"bukhari", "muslim"}
+    # شرح الكتاب ليس الكتاب: «عون المعبود شرح سنن أبي داود»، «شرح النووي على مسلم» (E-027).
+    if re.search(r"(?:^|\s)(?:شرح|بشرح|عون|فتح|تحفه|تحفة|حاشيه|حاشية|فيض|مرقاه|مرقاة)(?:\s|$)", n):
+        return {"other"}
     books: set[str] = set()
     for key, canon in _BOOK_CANON.items():
         if normalize(key) in n:

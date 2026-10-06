@@ -17,6 +17,7 @@ import re
 from saadeed.domain.enums import ClaimType, ContentLevel, SegmentKind
 from saadeed.domain.models import Claim, ClaimHints, Sentence, Span
 from saadeed.text.markers import has_prophetic_context, takhrij_after
+from saadeed.text.normalize import strip_diacritics
 
 QUOTE_MIN_WORDS = 6
 """أقصر اقتباس يُعدّ قولًا يُسأل عن قائله. ما دونه عبارة («فمغثه مغثًا شديدًا») لا قول."""
@@ -31,7 +32,8 @@ _QUOTE = re.compile(r"«([^«»]{2,1500})»")
 _VERSE = re.compile(r"﴿[^﴾]*﴾")
 # ذكرُ مصدرٍ بعد القول أو في جملته: «ذكره ابن القيم في زاد المعاد»، «(الفوائد، ص 12)».
 _SOURCE_CUE = re.compile(
-    r"(?:ذكره|ذكرها|نقله|قاله|أورده|اورده|رواه|أخرجه|اخرجه|في\s+كتابه|في\s+كتاب|انظر|يُنظر|ينظر)\s+[^\n.،؛]{2,60}"
+    r"(?:^|\s)(?:ذكره|ذكرها|نقله|قاله|أورده|اورده|رواه|أخرجه|اخرجه|في\s+كتابه|في\s+كتاب|انظر|يُنظر|ينظر|"
+    r"وفي\s+الصحيحين|في\s+الصحيحين|في\s+صحيح)\s*[^\n.،؛]{2,60}"
 )
 
 
@@ -55,7 +57,10 @@ def _covered(span: Span, claims: list[Claim]) -> bool:
 
 
 def _source_in(fragment: str) -> str | None:
-    m = _SOURCE_CUE.search(fragment)
+    # البحث على النص بلا تشكيل: «وَفي الصَّحِيحَينِ» هي «وفي الصحيحين».
+    # ولا يتجاوز جملته: «…». الرابعة: ولا يذكرها لأحد — ليس مصدرًا للقول السابق.
+    frag = re.split(r"[.!؟?\n]", strip_diacritics(fragment))[0]
+    m = _SOURCE_CUE.search(frag)
     return m.group(0).strip() if m else None
 
 

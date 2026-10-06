@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import re
 import time
 
 from saadeed.adapters.llm.groq import parse_json_content
@@ -55,13 +56,21 @@ class GeminiLLM:
             except LLMError:
                 raise
             except Exception as e:  # أخطاء المزود متنوعة؛ نعيد المحاولة ثم نعلن الفشل الآمن
-                last = str(e)[:300]
+                last = str(e)[:600]
                 if not _transient(e):
                     # مفتاح غير صالح أو طلب مرفوض: الإعادة لا تغيّر شيئًا، والمستخدم ينتظر (E-022).
                     raise LLMError(f"فشل Gemini: {last}") from e
                 if attempt + 1 < self._retries:
-                    time.sleep(min(2 ** (attempt + 1), 8))
+                    # حد المعدل يُخبر بموعد الإعادة («retryDelay: 23s»): ننتظره بسقف، وإلا تصاعديًا.
+                    time.sleep(_retry_delay(last) or min(2 ** (attempt + 1), 8))
         raise LLMError(f"فشل Gemini: {last}")
+
+
+def _retry_delay(msg: str) -> float | None:
+    m = re.search(
+        r"retry(?:Delay)?['\"]?\s*[:=]?\s*['\"]?(\d+(?:\.\d+)?)s", msg, re.I
+    ) or re.search(r"retry in (\d+(?:\.\d+)?)", msg, re.I)
+    return min(float(m.group(1)) + 1, 30.0) if m else None
 
 
 def _transient(e: Exception) -> bool:

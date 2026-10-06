@@ -126,19 +126,23 @@ class HadithIndex:
 
     def book_contains(self, source_id: str, q_norm: str) -> bool:
         """هل في هذا الكتاب حديث يحمل الاقتباس، ولو بفروق رواية يسيرة؟"""
+        return self.book_hit(source_id, q_norm) is not None
+
+    def book_hit(self, source_id: str, q_norm: str) -> int | None:
+        """موضع الحديث الذي يحمل الاقتباس في هذا الكتاب، أو None."""
         for i in self.exact_hits(q_norm):
             if self.docs[i].source_id == source_id:
-                return True
+                return i
         q_stems = set(stems(q_norm))
         for i, _ in self.ranked(q_norm, k=10, only=source_id):
             if fuzz.partial_ratio(q_norm, self.docs[i].norm) >= BOOK_PRESENCE_MIN:
-                return True
+                return i
             # رواية الكتاب الآخر بتقديم وتأخير (E-015): «متفق عليه» وألفاظ مسلم غير ألفاظ البخاري.
             if len(q_stems) >= BOOK_PRESENCE_MIN_WORDS:
                 shared = len(q_stems & set(stems(self.docs[i].norm))) / len(q_stems)
                 if shared >= BOOK_PRESENCE_STEMS:
-                    return True
-        return False
+                    return i
+        return None
 
     def ranked(
         self, q_norm: str, k: int = TOP_K, only: str | None = None
@@ -336,6 +340,16 @@ class HadithVerifier:
             return sorted(idxs, key=lambda i: self.index.docs[i].source_id not in cited)
 
         authentic, locate = cited_first(authentic), cited_first(locate)
+        if not authentic:
+            # نسبه الكاتب إلى أحد الصحيحين، والمرشح المختار من غيره: نبحث في الكتاب المنسوب إليه نفسه
+            # قبل أن نقول «لم نجده فيه» (E-024: «وجاء في صحيح مسلم: نهى عن بيع فضل الماء»).
+            q_cited = normalize(text)
+            for b in sorted(cited_known & {"bukhari", "muslim"}):
+                i = self.index.book_hit(b, q_cited)
+                if i is not None:
+                    authentic = [i]
+                    found_books.add(b)
+                    break
         if authentic:
             ev = evidence_for(authentic + locate)
             facts = {"citation": ev[0].ref.citation, "citation_book": self._books_ar(found_books)}

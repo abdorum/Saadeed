@@ -12,6 +12,7 @@
 
 from __future__ import annotations
 
+import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 
@@ -76,6 +77,9 @@ def _pair_words(text: str) -> list[tuple[str, str]]:
     return pairs
 
 
+_ASSIMILATED = re.compile(r"((?:و|ف)?)ال(و|ن)")
+
+
 class QuranIndex:
     """فهرس المصحف: تسلسل كلمات واحد، وفهارس n-gram عليه."""
 
@@ -89,6 +93,7 @@ class QuranIndex:
                 self.words.append(_Word(norm, disp, ay.sura, ay.aya))
             self.ayah_ranges[(ay.sura, ay.aya)] = (start, len(self.words))
         self._norms = [w.norm for w in self.words]
+        self._vocab = set(self._norms)
         self._keys = [rasm_key(n) for n in self._norms]
         self._tri: dict[tuple[str, str, str], list[int]] = defaultdict(list)
         self._bi: dict[tuple[str, str], list[int]] = defaultdict(list)
@@ -97,6 +102,24 @@ class QuranIndex:
             self._bi[(k[i], k[i + 1])].append(i)
             if i + 2 < len(k):
                 self._tri[(k[i], k[i + 1], k[i + 2])].append(i)
+
+    def split_vocative(self, norm: str) -> list[str]:
+        """«ياعبادي» ← «يا عبادي» (E-025): حرف النداء يُكتب موصولًا كثيرًا، والمصحف هنا يفصله.
+        ومثله «وألّو» ← «وأن لو» برسم المصحف.
+
+        لا يُفصل إلا ما ليس كلمة في المصحف وبقيته كلمة فيه، فـ«ياتي» (يأتي) و«ياكل» تبقيان.
+        """
+        if norm in self._vocab:
+            return [norm]
+        if len(norm) > 4 and norm.startswith("يا") and norm[2:] in self._vocab:
+            return ["يا", norm[2:]]
+        # رسم المصحف يدغم «أن» في «لو» و«لن» («وَأَلَّوِ اسْتَقَامُوا»، «أَلَّن نَجْعَلَ»)، والنص المبسّط يفصلهما.
+        m = _ASSIMILATED.fullmatch(norm)
+        if m:
+            parts = [f"{m.group(1)}ان", f"ل{m.group(2)}"]
+            if all(x in self._vocab for x in parts):
+                return parts
+        return [norm]
 
     def anchors(self, q_norm: list[str]) -> list[int]:
         q = [rasm_key(w) for w in q_norm]
@@ -207,7 +230,9 @@ class QuranVerifier:
         self.index = index or QuranIndex(repo)
 
     def verify(self, quote: str, cited_ref: str | None = None) -> Outcome:
-        q_pairs = _pair_words(quote)
+        q_pairs = [
+            (part, disp) for n, disp in _pair_words(quote) for part in self.index.split_vocative(n)
+        ]
         q = [n for n, _ in q_pairs]
         q_disp = [d for _, d in q_pairs]
         if len(q) < MIN_WORDS:

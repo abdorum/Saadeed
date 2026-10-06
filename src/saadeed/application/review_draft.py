@@ -52,6 +52,8 @@ from saadeed.domain.models import (
 from saadeed.domain.policy import POLICY_VERSION, Signal, apply
 from saadeed.domain.ports import LLMError, LLMPort, LLMUsage
 from saadeed.domain.templates import explanation_for, next_step_for
+from saadeed.text.footnotes import Footnotes, find_footnotes, strip_ref
+from saadeed.text.markers import canonical_books, parse_ref
 from saadeed.text.normalize import find_span, normalize
 from saadeed.text.segment import split_sentences, word_count
 from saadeed.verifiers.base import Outcome
@@ -119,7 +121,9 @@ class ReviewDraft:
         ctx = _Ctx()
         if wc < 30:
             ctx.warnings.append("النص قصير. سديد صُمّم للمسودة الكاملة، وقد فُحص ما فيه.")
-        sentences = split_sentences(text)
+        # الحواشي مصادر الكاتب لا ادعاءاته: لا تُقرأ ادعاءات، وتُلحق بما أشار إليها (E-023).
+        notes = find_footnotes(text)
+        sentences = [s for s in split_sentences(text) if not notes.in_zone(s.span.start)]
         ex = extract_claims(text, sentences, self.llm, self.prompts.extract)
         ctx.usage += ex.usage
         ctx.calls += len(ex.usage)
@@ -143,6 +147,7 @@ class ReviewDraft:
             )
             ctx.warnings += cc_notes
         claims = safety_net(text, claims, sentences, ex.kinds)
+        claims = _with_footnotes(text, claims, notes)
         for i, cl in enumerate(claims, start=1):
             cl.id = f"c{i}"
         if self.config.enable_overreach:
@@ -514,6 +519,36 @@ _EVIDENCE_KIND = {
     ClaimType.QURAN_QUOTE: SegmentKind.QURAN,
     ClaimType.HADITH_QUOTE: SegmentKind.HADITH,
 }
+
+
+def _with_footnotes(text: str, claims: list[Claim], notes: Footnotes) -> list[Claim]:
+    """يُسقط ما وقع في قسم الحواشي، ويُلحق بكل ادعاء حاشيته: تخريجًا للحديث، ومصدرًا للقول."""
+    out: list[Claim] = []
+    for cl in claims:
+        if notes.in_zone(cl.span.start):
+            continue
+        hints = cl.hints.model_copy(update={"cited_book": strip_ref(cl.hints.cited_book)})
+        note = notes.ref_after(text, cl.span.end)
+        if note:
+            if cl.type in (ClaimType.HADITH_QUOTE, ClaimType.TAKHRIJ):
+                hints.cited_book = hints.cited_book or note
+            elif cl.type is not ClaimType.QURAN_QUOTE and parse_ref(note) is None:
+                # حاشية هي إحالة آية («[الأعراف: 31]») ليست مصدرًا لقول الكاتب.
+                hints.source_mentioned = hints.source_mentioned or note
+        update: dict[str, object] = {"hints": hints}
+        books = canonical_books(hints.source_mentioned)
+        if (
+            cl.type in (ClaimType.ATTRIBUTED_SAYING, ClaimType.HISTORICAL_EVENT)
+            and books
+            and "other" not in books
+        ):
+            # المصدر المذكور من الكتب الستة («أخرجه البخاري (4563)»): يُفحص فيها، لا «خارج التغطية» (E-027).
+            hints.cited_book = hints.source_mentioned
+            hints.attributed_to_prophet = False
+            update["type"] = ClaimType.HADITH_QUOTE
+            update["level"] = ContentLevel.A
+        out.append(cl.model_copy(update=update))
+    return out
 
 
 def _as_wording(cl: Claim) -> bool:
