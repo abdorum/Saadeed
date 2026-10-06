@@ -82,7 +82,7 @@ a { color: var(--lapis); text-underline-offset: 4px; }
   text-decoration: none;
   padding-bottom: 2px;
 }
-.tagline { color: #C9D2E0; font-size: 15px; padding-inline-start: 18px; border-inline-start: 1px solid rgba(220, 195, 134, .4); }
+.tagline { font-family: var(--quran); color: #E6E9EF; font-size: 21px; line-height: 2; padding-inline-start: 18px; border-inline-start: 1px solid rgba(220, 195, 134, .4); }
 .top nav { margin-inline-start: auto; display: flex; gap: 4px; }
 .top nav a {
   color: #E6E9EF; text-decoration: none; font-size: 16px;
@@ -177,9 +177,10 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 /* ───────── الصفحة: حاشية | متن | حاشية ───────── */
 .folio {
   display: grid;
-  grid-template-columns: minmax(0, 680px) 340px;
-  gap: 30px;
-  justify-content: center;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 26px;
+  max-width: 1240px;
+  margin: 0 auto;
   align-items: start;
 }
 .margin { position: relative; }
@@ -189,7 +190,7 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .col-label b::before { content: "◆"; color: var(--gold); font-size: 10px; }
 .col-notes .margin { border-inline-start: 1px dashed var(--line); padding-inline-start: 14px; min-height: 120px; }
 .margin-empty { color: var(--ink-3); font-size: 14.5px; margin: 0; }
-.sheet { padding: 40px 54px 50px; position: relative; }
+.sheet { padding: 30px 40px 38px; position: relative; }
 .sheet-head {
   display: flex; justify-content: space-between; gap: 12px;
   color: var(--ink-3); font-size: 14px;
@@ -367,3 +368,4 @@ ul.plain { margin: 8px 0; padding-inline-start: 20px; }
   *, *::before { transition: none !important; animation: none !important; }
 }
 .col-notes .margin.placed .note { inset-inline-start: 14px; }
+.tagline small { font-family: var(--text); font-size: 13px; color: #C9D2E0; }
