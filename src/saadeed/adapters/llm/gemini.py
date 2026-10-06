@@ -12,7 +12,7 @@ from saadeed.domain.ports import LLMError, LLMResponse, LLMUsage
 
 
 class GeminiLLM:
-    def __init__(self, api_key: str, model: str = "gemini-2.5-flash", max_retries: int = 5) -> None:
+    def __init__(self, api_key: str, model: str = "gemini-2.5-flash", max_retries: int = 4) -> None:
         if not api_key:
             raise LLMError("GEMINI_API_KEY غير موجود في البيئة أو .env")
         try:
@@ -56,5 +56,19 @@ class GeminiLLM:
                 raise
             except Exception as e:  # أخطاء المزود متنوعة؛ نعيد المحاولة ثم نعلن الفشل الآمن
                 last = str(e)[:300]
-                time.sleep(min(2 ** (attempt + 1), 30))
+                if not _transient(e):
+                    # مفتاح غير صالح أو طلب مرفوض: الإعادة لا تغيّر شيئًا، والمستخدم ينتظر (E-022).
+                    raise LLMError(f"فشل Gemini: {last}") from e
+                if attempt + 1 < self._retries:
+                    time.sleep(min(2 ** (attempt + 1), 8))
         raise LLMError(f"فشل Gemini: {last}")
+
+
+def _transient(e: Exception) -> bool:
+    """يُعاد ما قد يزول: حد المعدل (429)، وأعطال الخادم (5xx)، وانقطاع الاتصال والمهلة."""
+    code = getattr(e, "code", None) or getattr(e, "status_code", None)
+    if isinstance(code, int):
+        return code == 429 or code >= 500
+    msg = str(e).lower()
+    permanent = ("api key", "api_key", "permission", "invalid_argument", "not found")
+    return not any(k in msg for k in permanent)

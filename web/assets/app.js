@@ -161,12 +161,21 @@
     post(text, "full").then(function (r) {
       full = true;
       render(text, r, false);
-      if (r.meta.degraded) setStatus("المراجعة ناقصة: تعذّر نموذج الذكاء الاصطناعي، والمعروض نتائج المسار الحتمي وحده.", true);
+      if (r.meta.degraded) setStatus("المراجعة ناقصة: " + degradedWhat(r) + ".", true);
       else setStatus("اكتملت المراجعة في " + (r.meta.duration_ms / 1000).toFixed(1) + " ثانية.");
     }).catch(function (e) {
       full = true;
       setStatus(e.message + (current ? " · المعروض نتائج المسار الحتمي وحده." : ""), true);
     }).then(function () { btn.disabled = false; });
+  }
+
+  /* ما لم يُفحص بسبب تعذّر النموذج، كما يصفه الخادم (كليًا أو في بعض أجزاء المسودة الطويلة). */
+  function degradedWhat(rep) {
+    var nc = (rep.summary.not_checked || []).filter(function (t) { return /الادعاءات غير المعلَّمة/.test(t); });
+    var why = (rep.meta.warnings || []).filter(function (w) { return /^تعذّر/.test(w); })[0];
+    why = why ? " (" + why.replace(/^[^:]*:\s*/, "") + ")" : "";
+    return "تعذّر نموذج الذكاء الاصطناعي" + why + "؛ " +
+      (nc.length ? nc[0] : "والمعروض نتائج المسار الحتمي وحده");
   }
 
   /* ───────────── التقرير ───────────── */
@@ -322,9 +331,8 @@
       '<div class="summary"><span class="total">خريطة الثغور: ' + claimsAr(rep.summary.total_claims) + " <small>في " + rep.draft.word_count + " كلمة</small></span>" +
       '<span class="tally">' + chips + "</span>" +
       (provisional ? '<span class="provisional">نتائج أولية من المسار الحتمي: الآيات والأحاديث. والتقرير الكامل في الطريق…</span>' : "") + "</div>" +
-      (rep.meta.degraded ? '<div class="degraded" role="alert"><strong>المراجعة ناقصة:</strong> تعذّر نموذج الذكاء الاصطناعي' +
-        ((rep.meta.warnings || []).length ? " (" + esc(rep.meta.warnings[0].replace(/^[^:]*:\s*/, "")) + ")" : "") +
-        '. فُحصت الآيات والأحاديث المعلَّمة وحدها، ولم تُستخرج الأقوال والأرقام والإجماع والتعميم. أعد المحاولة بعد قليل.</div>' : "") +
+      (rep.meta.degraded ? '<div class="degraded" role="alert"><strong>المراجعة ناقصة:</strong> ' + esc(degradedWhat(rep)) +
+        '. أعد المحاولة بعد قليل لاستكمال الفحص.</div>' : "") +
       ribbonHTML(rep) +
       '<div class="folio"><div class="matn" id="matn"><span class="lbl">مسودتك. انقر الموضع المعلَّم لترى ملاحظته</span>' +
       matnHTML(text, rep) + '</div><div class="hawashi" id="hawashi">' + cards + "</div></div>" +
