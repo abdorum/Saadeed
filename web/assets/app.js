@@ -220,7 +220,9 @@
     }).catch(function () { /* الفحص السريع تمهيد؛ التقرير الكامل هو المرجع */ });
     var body = { text: text, mode: "full" };
     if (choice) body.llm = choice;
-    var full = postJSON(API + "v1/reviews", body);
+    var full = Promise.race([postJSON(API + "v1/reviews", body), new Promise(function (_, rej) {
+      setTimeout(function () { rej(new Error("تأخر رد نموذج الذكاء الاصطناعي أكثر من دقيقتين.")); }, 120000);
+    })]);
     quickDone.then(function () {
       if (run !== RUN) return;
       if (CURRENT && CURRENT.provisional) {
@@ -375,7 +377,7 @@
       var cov = F.filter(function (f) { return f.claim.span.start <= a && f.claim.span.end >= b; });
       if (cov.length) {
         var p = cov.slice().sort(function (x, y) {
-          return RANK[x._st] - RANK[y._st] || (x.claim.span.end - x.claim.span.start) - (y.claim.span.end - y.claim.span.start);
+          return (x.claim.span.end - x.claim.span.start) - (y.claim.span.end - y.claim.span.start) || RANK[x._st] - RANK[y._st];
         })[0];
         out += '<mark class="c s-' + p._st + '" data-id="' + p.id + '" data-ids="' +
           cov.map(function (f) { return f.id; }).join(" ") + '">' + piece + "</mark>";
@@ -416,7 +418,8 @@
           body = '<div class="ayah">﴿' + esc(String(e.text).replace(/\s*\(\d+\)\s*$/, "")) + "﴾</div>";
         }
       } else if (e.text && e.role !== "LINK") {
-        body = '<div class="hadith-text">' + esc(e.text) + "</div>";
+        body = '<div class="hadith-text">' + esc(e.text) + "</div>" +
+          (String(e.text).length > 220 ? '<button type="button" class="expand" aria-expanded="false">اعرض النص كاملًا ▾</button>' : "");
       }
       return '<div class="src">' + head + body + "</div>";
     }).join("");
@@ -433,10 +436,10 @@
       (ok ? "" : '<div class="act">' + esc(L.action || "") + "</div>") +
       '<dl class="more">' +
       (ok && cite ? "<div><dt>العبارة</dt><dd>«" + esc(f.claim.text) + "»</dd></div>" : "") +
-      "<div><dt>لماذا ظهرت هذه الملاحظة</dt><dd>" + esc(f.explanation) + "</dd></div>" +
+      "<div><dt class=\"t-why\">ملاحظة سديد</dt><dd class=\"why\">" + esc(f.explanation) + "</dd></div>" +
       ((f.notes || []).length ? "<div><dt>تنبيه</dt><dd>" + f.notes.map(esc).join("<br>") + "</dd></div>" : "") +
-      "<div><dt>المصدر</dt><dd>" + sourceHTML(f) + "</dd></div>" +
-      (ok ? "" : '<div><dt>ما العمل: ' + esc(L.action || "") + '</dt><dd class="next">' + esc(f.next_step) + "</dd></div>") +
+      "<div><dt class=\"t-src\">المصدر</dt><dd>" + sourceHTML(f) + "</dd></div>" +
+      (ok ? "" : '<div><dt class="t-act">الإجراء الموصى به: ' + esc(L.action || "") + '</dt><dd class="next">' + esc(f.next_step) + "</dd></div>") +
       (f.suggestion ? '<div class="sugg"><dt>اقتراح صياغة (مولَّد)، راجعه قبل اعتماده</dt><dd>' + esc(f.suggestion) + "</dd></div>" : "") +
       '<div><button type="button" class="close">إغلاق</button> · <button type="button" class="close goto">موضعها في النص</button></div>' +
       "</dl></div>";
@@ -461,7 +464,7 @@
   /* ═════════════ الفحص الحي: يمرّ سديد على الفقرات واحدة واحدة ═════════════ */
   function sweep(run) {
     var segs = $$("#matn .seg");
-    var step = REDUCE ? 0 : Math.max(110, Math.min(380, 3000 / Math.max(1, segs.length)));
+    var step = REDUCE ? 0 : Math.max(240, Math.min(650, 6000 / Math.max(1, segs.length)));
     return new Promise(function (resolve) {
       var i = 0;
       (function next() {
@@ -482,7 +485,10 @@
     $$("#matn .seg").forEach(function (s) { s.classList.remove("scan"); kindOn(s); });
     $("#matn").classList.remove("reading");
     $("#folio").classList.remove("reading");
-    if (CURRENT && !CURRENT.provisional) renderSummary(CURRENT.report, false);
+    if (CURRENT) {
+      renderSummary(CURRENT.report, false);
+      if (CURRENT.provisional) $("#sum-h").textContent = "نتائج أولية: " + summaryTitle(CURRENT.report);
+    }
     place();
   }
 
@@ -563,6 +569,16 @@
     var note = t.closest(".note");
     if (t.closest(".goto") && note) { showInMatn(note.dataset.id); hot(note.dataset.id, true); return; }
     if (t.closest(".close") && note) { closeNote(note); return; }
+    var ex = t.closest(".expand");
+    if (ex) {
+      var box = ex.previousElementSibling, on = !box.classList.contains("full");
+      box.classList.toggle("full", on);
+      ex.textContent = on ? "اطوِ النص ▴" : "اعرض النص كاملًا ▾";
+      ex.setAttribute("aria-expanded", String(on));
+      place();
+      return;
+    }
+    if (note && note.classList.contains("open") && t.closest(".note-h")) { closeNote(note); return; }
     var mark = t.closest(".n, .c");
     if (mark && !mark.closest(".note")) { openNote(mark.dataset.id, "matn"); return; }
     if (note && !note.classList.contains("open")) openNote(note.dataset.id, "note");

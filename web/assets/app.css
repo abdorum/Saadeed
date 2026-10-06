@@ -18,11 +18,11 @@
   --line-2: #E9DFC8;
   --wash: #F5EFE0;
   /* الحالات: دلالية لا هوية */
-  --crit: #9A3A2B;  --crit-bg: #F4DFD6;
-  --attn: #95600F;  --attn-bg: #F5E5C6;
-  --refer: #485E86; --refer-bg: #E1E6F0;
-  --idle: #776F61;  --idle-bg: #ECE5D6;
-  --ok: #3E6A4B;    --ok-bg: #E1EBDC;
+  --crit: #9A3A2B;  --crit-bg: #F4DFD6;  --crit-hl: #EFC7BA;
+  --attn: #95600F;  --attn-bg: #F5E5C6;  --attn-hl: #F0D49C;
+  --refer: #485E86; --refer-bg: #E1E6F0; --refer-hl: #CCD6EA;
+  --idle: #776F61;  --idle-bg: #ECE5D6;  --idle-hl: #E0D6C1;
+  --ok: #3E6A4B;    --ok-bg: #E1EBDC;    --ok-hl: #CBE0C3;
   /* أنواع المتن: شريط على حافة الورقة */
   --k-quran: rgba(176, 106, 92, .10);
   --k-hadith: rgba(194, 154, 69, .14);
@@ -202,11 +202,12 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 
 /* أنواع الفقرات: شريط رفيع على حافة الورقة، وومضة هادئة أثناء القراءة */
 .seg { border-radius: 3px; transition: background-color .45s ease, color .3s ease; }
-.seg.kinded { background-color: var(--stripe, transparent); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.seg { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .seg.k-OTHER, .seg.k-EXHORTATION, .seg.k-DUA, .seg.k-STORY { color: #3F382D; }
-.seg.scan { background: #EFE6CF; }
-.seg.k-QURAN.scan { background: #F3DED6; }
-.seg.k-HADITH.scan { background: #F3E6C4; }
+.seg.scan { background: #E8DCBE; }
+.seg.k-QURAN.scan { background: #EDCDC2; }
+.seg.k-HADITH.scan { background: #EED9A6; }
+.seg.k-SCHOLAR.scan, .seg.k-FACT.scan, .seg.k-ATHAR.scan, .seg.k-RULING.scan { background: #DCDFE6; }
 .matn.reading .seg { color: var(--ink-3); }
 .matn.reading .seg.read { color: var(--ink); }
 .matn.reading .n { display: none; }
@@ -222,10 +223,13 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .c.s-attn { text-decoration-color: var(--attn); text-decoration-style: dashed; }
 .c.s-refer { text-decoration-color: var(--refer); text-decoration-style: dashed; }
 .c.s-idle { text-decoration-color: var(--idle); text-decoration-style: dotted; }
-.c.s-ok { text-decoration-color: #97B8A0; text-decoration-style: dotted; }
-.c.hot.s-crit { background: var(--crit-bg); } .c.hot.s-attn { background: var(--attn-bg); }
-.c.hot.s-refer { background: var(--refer-bg); } .c.hot.s-idle { background: var(--idle-bg); }
-.c.hot.s-ok { background: var(--ok-bg); }
+.c.s-ok { text-decoration-color: var(--ok); text-decoration-style: dotted; }
+.c { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.c.s-crit { background: var(--crit-bg); } .c.s-attn { background: var(--attn-bg); }
+.c.s-refer { background: var(--refer-bg); } .c.s-idle { background: var(--idle-bg); } .c.s-ok { background: var(--ok-bg); }
+.c.hot.s-crit { background: var(--crit-hl); } .c.hot.s-attn { background: var(--attn-hl); }
+.c.hot.s-refer { background: var(--refer-hl); } .c.hot.s-idle { background: var(--idle-hl); } .c.hot.s-ok { background: var(--ok-hl); }
+.matn.reading .c { background: none; }
 
 /* رقم الحاشية: دائرة صغيرة كعلامة الهامش */
 .n {
@@ -269,10 +273,15 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .note.open .act { display: none; }
 .note .more { display: none; }
 .note.open .more { display: grid; gap: 12px; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--line-2); }
-.more dt { font-size: 13.5px; font-weight: 700; color: var(--ink-3); }
+.more dt { font-size: 13.5px; font-weight: 700; color: var(--ink-3); margin-bottom: 3px; }
+.more .why { border-radius: 6px; padding: 8px 12px; border-inline-start: 3px solid; }
+.s-crit .why { background: var(--crit-bg); border-color: var(--crit); } .s-attn .why { background: var(--attn-bg); border-color: var(--attn); }
+.s-refer .why { background: var(--refer-bg); border-color: var(--refer); } .s-idle .why { background: var(--idle-bg); border-color: var(--idle); }
+.s-ok .why { background: var(--ok-bg); border-color: var(--ok); }
+.more dt.t-why { color: var(--ink-2); } .more dt.t-src { color: var(--lapis); } .more dt.t-act { color: #7A5A12; }
 .more dd { margin: 0; }
-.more .next { background: var(--wash); border-radius: 6px; padding: 8px 12px; }
-.src { background: #FFFDF7; border: 1px solid var(--line-2); border-radius: 6px; padding: 8px 12px; }
+.more .next { background: #F6EAC9; border: 1px solid #E5CF94; border-inline-start: 3px solid var(--gold); border-radius: 6px; padding: 8px 12px; color: #4B3A12; }
+.src { background: #EDF1F7; border: 1px solid #CDD7E6; border-inline-start: 3px solid var(--lapis); border-radius: 6px; padding: 8px 12px; }
 .src + .src { margin-top: 8px; }
 .src .cite { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; color: var(--ink-2); }
 .src .cite a { white-space: nowrap; }
@@ -281,7 +290,10 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .ayah ins { text-decoration: none; background: var(--ok-bg); color: #23472F; border-radius: 3px; padding: 0 3px; }
 .draftline { font-size: 14.5px; color: var(--ink-2); margin-top: 4px; }
 .draftline del { text-decoration: none; background: var(--crit-bg); color: var(--crit); border-radius: 3px; padding: 0 3px; }
-.hadith-text { font-size: 15px; color: var(--ink-2); margin-top: 4px; max-height: 8.6em; overflow: hidden; position: relative; }
+.hadith-text { font-size: 15px; color: var(--ink); margin-top: 4px; max-height: 8.6em; overflow: hidden; }
+.hadith-text.full { max-height: none; }
+.expand { background: none; border: 0; padding: 2px 0 0; color: var(--lapis); font-size: 14px; font-weight: 600; }
+.note-h { cursor: pointer; }
 .sugg { border: 1.5px dashed var(--line); border-radius: 6px; padding: 8px 12px; }
 .sugg dt { color: var(--ink-3); }
 .close { background: none; border: 0; padding: 0; color: var(--ink-3); font-size: 14px; justify-self: start; }
