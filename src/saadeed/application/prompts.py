@@ -40,11 +40,18 @@ def load_prompt(path: Path) -> Prompt:
     )
 
 
+def _optional(path: Path) -> Prompt | None:
+    return load_prompt(path) if path.exists() else None
+
+
 @dataclass(frozen=True)
 class PromptSet:
     extract: Prompt
     judge: Prompt
     baseline: Prompt
+    sayings: Prompt | None = None
+    rulings: Prompt | None = None
+    gate: Prompt | None = None
 
     @classmethod
     def load(cls, prompts_dir: Path) -> PromptSet:
@@ -52,7 +59,11 @@ class PromptSet:
             extract=load_prompt(prompts_dir / "extract_v4.md"),
             judge=load_prompt(prompts_dir / "judge_hadiths_v2.md"),
             baseline=load_prompt(prompts_dir / "baseline_v1.md"),
+            sayings=_optional(prompts_dir / "judge_sayings_v1.md"),
+            rulings=_optional(prompts_dir / "extract_rulings_v1.md"),
+            gate=_optional(prompts_dir / "gate_generalization_v1.md"),
         )
 
     def versions(self) -> dict[str, str]:
-        return {p.id: p.version for p in (self.extract, self.judge)}
+        ps = (self.extract, self.judge, self.sayings, self.rulings, self.gate)
+        return {p.id: p.version for p in ps if p}

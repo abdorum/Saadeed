@@ -135,3 +135,28 @@ class ReferenceLinker(Protocol):
     def hadith_search_url(self, text: str) -> str: ...
 
     def fiqh_search_url(self, text: str) -> str: ...
+
+
+class LibraryHit(BaseModel):
+    """موضع مرشح لقول منسوب، من مكتبة كتب (وصلة حية). النص من المكتبة نفسها لا من النموذج."""
+
+    item_id: str
+    book_name: str
+    author_name: str
+    vol: str = ""
+    page: str = ""
+    url: str | None = None
+    text: str = ""
+
+
+class LibraryPort(Protocol):
+    """مكتبة كتب العلماء يُبحث فيها وقت المراجعة (tafsir، فقه، عقيدة…)، بلا تنزيل كامل."""
+
+    source_id: str
+    name_ar: str
+
+    def search(self, quote: str, speaker: str | None = None) -> list[LibraryHit]: ...
+
+    def same_author(self, speaker: str | None, author: str) -> bool: ...
+
+    def get(self, item_id: str) -> Passage | None: ...

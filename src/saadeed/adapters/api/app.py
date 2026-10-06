@@ -35,7 +35,7 @@ from saadeed.domain.ports import LLMError, LLMPort, LLMResponse
 
 WEB_DIR = Path(os.environ.get("SAADEED_WEB_DIR", ROOT / "web"))
 RESULTS_FILE = Path(
-    os.environ.get("SAADEED_RESULTS", ROOT / "eval" / "reports" / "dev_v4c_saadeed-B0.json")
+    os.environ.get("SAADEED_RESULTS", ROOT / "eval" / "reports" / "dev_v5_gemini.json")
 )
 CORS_ORIGIN_REGEX = os.environ.get(
     "SAADEED_CORS_ORIGIN_REGEX", r"https://([a-z0-9-]+\.)*hf\.space|https://huggingface\.co"
@@ -269,7 +269,9 @@ def review(req: ReviewRequest, request: Request) -> JSONResponse:
         raise HTTPException(429, "طلبات كثيرة في دقيقة واحدة. انتظر قليلًا ثم أعد المحاولة.")
     eng = _engine()
     llm = _choice_llm(req.llm) if req.mode == "full" else None
-    reviewer = eng.reviewer(llm, ReviewConfig(enable_overreach=req.overreach))
+    reviewer = eng.reviewer(
+        llm, ReviewConfig(enable_overreach=req.overreach), live=req.mode == "full"
+    )
     try:
         report = reviewer.review(req.text)
     except DraftError as e:

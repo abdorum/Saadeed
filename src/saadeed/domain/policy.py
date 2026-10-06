@@ -12,7 +12,7 @@ from enum import StrEnum
 
 from saadeed.domain.enums import Action, EvidenceStatus, Reason, Severity
 
-POLICY_VERSION = "BR-2026.10.05-v2.5"
+POLICY_VERSION = "BR-2026.10.06-v2.6"
 
 
 class Signal(StrEnum):
@@ -41,6 +41,10 @@ class Signal(StrEnum):
     QURAN_MERGED = "QURAN_MERGED"  # BR-21
     QURAN_AS_HADITH = "QURAN_AS_HADITH"  # BR-22
     HADITH_NOT_FOUND_WITH_SIGNS = "HADITH_NOT_FOUND_WITH_SIGNS"  # BR-23
+    SAYING_FOUND = "SAYING_FOUND"  # BR-24
+    SAYING_FOUND_PARAPHRASE = "SAYING_FOUND_PARAPHRASE"  # BR-25
+    SAYING_OTHER_AUTHOR = "SAYING_OTHER_AUTHOR"  # BR-26
+    SAYING_NOT_FOUND = "SAYING_NOT_FOUND"  # BR-27
 
 
 @dataclass(frozen=True)
@@ -113,6 +117,15 @@ RULES: dict[Signal, Rule] = {
     Signal.HADITH_NOT_FOUND_WITH_SIGNS: Rule(
         "BR-23", _S.NOT_FOUND, _R.NOT_FOUND, _V.CRITICAL, _A.VERIFY
     ),
+    # v2.6: الأقوال المنسوبة إلى العلماء تُطابق بمكتبة كتبهم (وصلة حية، تراث).
+    Signal.SAYING_FOUND: Rule("BR-24", _S.SUPPORTED, None, _V.NONE, _A.NONE),
+    Signal.SAYING_FOUND_PARAPHRASE: Rule(
+        "BR-25", _S.PARTIALLY_SUPPORTED, _R.PARAPHRASED_AS_WORDING, _V.LOW, _A.CORRECT_FROM_SOURCE
+    ),
+    Signal.SAYING_OTHER_AUTHOR: Rule(
+        "BR-26", _S.PARTIALLY_SUPPORTED, _R.MISATTRIBUTED, _V.MEDIUM, _A.CORRECT_FROM_SOURCE
+    ),
+    Signal.SAYING_NOT_FOUND: Rule("BR-27", _S.NOT_FOUND, _R.NOT_FOUND, _V.MEDIUM, _A.VERIFY),
 }
 
 # التركيبة غير المغطاة (المتطلبات §٥.٢ بند 4): خارج نطاق الفحص + متوسط + تحقّق.

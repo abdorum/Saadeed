@@ -429,6 +429,7 @@
       '<div class="note-h"><span class="n s-' + f._st + '" aria-hidden="true">' + f._n + '</span><span class="state">' +
       esc(stateLabel(f)) + '</span><span class="kind">' + esc(L.claim_type || "") + "</span></div>" +
       '<div class="q">' + (ok && cite ? esc(cite) : "«" + esc(f.claim.text) + "»") + "</div>" +
+      (f.hadith_ruling ? '<div class="ruling"><b>الحكم:</b> ' + esc(f.hadith_ruling) + "</div>" : "") +
       (ok ? "" : '<div class="act">' + esc(L.action || "") + "</div>") +
       '<dl class="more">' +
       (ok && cite ? "<div><dt>العبارة</dt><dd>«" + esc(f.claim.text) + "»</dd></div>" : "") +

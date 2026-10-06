@@ -38,7 +38,7 @@ echo "٣) تجهيز نسخة النشر من آخر commit…"
 TMP=$(mktemp -d)
 git archive HEAD Dockerfile .dockerignore pyproject.toml uv.lock LICENSE src prompts web \
   data/manifest.toml data/manifest.tanzil.toml data/known_weak.json data/vendor data/SOURCES.md \
-  eval/reports/dev_v4c_saadeed-B0.json | tar -x -C "$TMP"
+  eval/reports/dev_v5_gemini.json | tar -x -C "$TMP"
 {
   printf -- '---\ntitle: سديد\nemoji: 📖\ncolorFrom: green\ncolorTo: red\nsdk: docker\napp_port: 7860\npinned: false\nlicense: mit\nshort_description: مراجِع ما قبل النشر للمسودات الدعوية العربية\n---\n\n'
   cat README.md

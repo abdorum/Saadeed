@@ -1,1 +1,81 @@
-{"split": "dev", "n_cases": 91, "carriers": 16, "model": "groq:openai/gpt-oss-120b", "prompt_versions": {"extract": "v4", "judge_hadiths": "v2"}, "generated_at": "2026-10-05T09:08:59+00:00", "systems": {"saadeed": {"detection": 0.9667, "detection_ci": [0.9167, 1.0], "false_alarm": 0.0323, "false_alarm_ci": [0.0, 0.0968], "precision": 0.9831, "critical_missed": 0, "critical_total": 24, "fabricated_citations": 0, "false_accusation_H8": 0, "mandatory_referral": 0.75, "extraction_recall": 0.8242, "by_group": {"آيات": 1.0, "أحاديث": 0.9333, "أرقام وإحصاءات": 1.0, "أقوال منسوبة": 1.0, "أمثلة الحزمة": 1.0, "إجماع وتعميم": 1.0, "إحالات": 0.8333, "جمل سليمة": 1.0}, "latency_p50_ms": 48, "tokens": 56518}, "B0": {"detection": 0.8333, "detection_ci": [0.7333, 0.9167], "false_alarm": 0.4194, "false_alarm_ci": [0.2581, 0.5806], "precision": 0.7937, "critical_missed": 2, "critical_total": 24, "fabricated_citations": 6, "false_accusation_H8": 2, "mandatory_referral": 0.75, "extraction_recall": 0.7473, "by_group": {"آيات": 0.697, "أحاديث": 0.7, "أرقام وإحصاءات": 1.0, "أقوال منسوبة": 1.0, "أمثلة الحزمة": 0.5, "إجماع وتعميم": 0.5, "إحالات": 0.8333, "جمل سليمة": 1.0}, "latency_p50_ms": 5, "tokens": 25063}}, "mcnemar": {"saadeed_only": 21, "b0_only": 1, "p": 1.1e-05}, "source_file": "dev_v4c_saadeed-B0.json"}
+{
+ "split": "dev",
+ "n_cases": 91,
+ "carriers": 16,
+ "model": "gemini:gemini-3.5-flash-lite",
+ "prompt_versions": {
+  "extract": "v4",
+  "judge_hadiths": "v2"
+ },
+ "generated_at": "2026-10-06T05:10:56+00:00",
+ "systems": {
+  "saadeed": {
+   "detection": 0.9667,
+   "detection_ci": [
+    0.9167,
+    1.0
+   ],
+   "false_alarm": 0.0323,
+   "false_alarm_ci": [
+    0.0,
+    0.0968
+   ],
+   "precision": 0.9831,
+   "critical_missed": 0,
+   "critical_total": 24,
+   "fabricated_citations": 0,
+   "false_accusation_H8": 0,
+   "mandatory_referral": 1.0,
+   "extraction_recall": 0.8242,
+   "by_group": {
+    "آيات": 1.0,
+    "أحاديث": 0.9,
+    "أرقام وإحصاءات": 1.0,
+    "أقوال منسوبة": 1.0,
+    "أمثلة الحزمة": 1.0,
+    "إجماع وتعميم": 1.0,
+    "إحالات": 1.0,
+    "جمل سليمة": 1.0
+   },
+   "latency_p50_ms": 2540,
+   "tokens": 48590
+  },
+  "B0": {
+   "detection": 0.8333,
+   "detection_ci": [
+    0.7333,
+    0.9167
+   ],
+   "false_alarm": 0.1613,
+   "false_alarm_ci": [
+    0.0323,
+    0.3226
+   ],
+   "precision": 0.9091,
+   "critical_missed": 2,
+   "critical_total": 24,
+   "fabricated_citations": 5,
+   "false_accusation_H8": 1,
+   "mandatory_referral": 1.0,
+   "extraction_recall": 0.7692,
+   "by_group": {
+    "آيات": 0.8485,
+    "أحاديث": 0.7333,
+    "أرقام وإحصاءات": 1.0,
+    "أقوال منسوبة": 0.5,
+    "أمثلة الحزمة": 1.0,
+    "إجماع وتعميم": 0.75,
+    "إحالات": 1.0,
+    "جمل سليمة": 1.0
+   },
+   "latency_p50_ms": 2400,
+   "tokens": 20417
+  }
+ },
+ "mcnemar": {
+  "saadeed_only": 15,
+  "b0_only": 3,
+  "p": 0.007538
+ },
+ "source_file": "dev_v5_gemini.json"
+}

@@ -35,10 +35,17 @@ class DorarLinker:
     """رابط بحث في الدرر السنية. لا استدعاء آلي (Q-02)."""
 
     def hadith_search_url(self, text: str) -> str:
+        """بحث الدرر: بلا تشكيل ولا علامات ولا صيغ الصلاة، وست كلمات من المتن.
+        (بالتشكيل والعلامات كان البحث لا يعيد شيئًا.)"""
+        import re
         from urllib.parse import quote
 
-        words = text.split()
-        snippet = " ".join(words[:8])
+        from saadeed.text.normalize import strip_diacritics
+
+        plain = strip_diacritics(text)
+        plain = re.sub(r"صلى الله عليه وسلم|ﷺ|رضي الله عنهما?|عليه السلام", " ", plain)
+        words = [w for w in re.sub(r"[^\w\s]", " ", plain).split() if not w.isdigit()]
+        snippet = " ".join(words[:6])
         return f"https://dorar.net/hadith/search?q={quote(snippet)}"
 
     def fiqh_search_url(self, text: str) -> str:

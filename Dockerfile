@@ -18,7 +18,7 @@ COPY prompts ./prompts
 COPY data/manifest.toml data/manifest.tanzil.toml data/known_weak.json ./data/
 COPY data/vendor ./data/vendor
 COPY web ./web
-COPY eval/reports/dev_v4c_saadeed-B0.json ./eval/reports/dev_v4c_saadeed-B0.json
+COPY eval/reports/dev_v5_gemini.json ./eval/reports/dev_v5_gemini.json
 
 # المصحف والكتب الستة: تنزيل وبناء، ثم حذف الخام الكبير (يبقى المعالَج وحده).
 RUN uv run --no-sync saadeed data build && \

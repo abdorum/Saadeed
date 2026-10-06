@@ -61,9 +61,20 @@ class Engine:
     prompts: PromptSet
 
     def reviewer(
-        self, llm: LLMPort | None, config: ReviewConfig | None = None, quran_llm_judge=None
+        self,
+        llm: LLMPort | None,
+        config: ReviewConfig | None = None,
+        quran_llm_judge=None,
+        live: bool = False,
     ) -> ReviewDraft:
-        texts = {s.info.id: s for s in self.sources.hadith_sources}
+        """`live`: وصلات حية وقت المراجعة (مكتبة تراث للأقوال المنسوبة). التقييم يعمل بدونها."""
+        texts: dict = {s.info.id: s for s in self.sources.hadith_sources}
+        library = None
+        if live and os.environ.get("SAADEED_LIBRARY", "turath") != "off":
+            from saadeed.adapters.sources.turath import TurathLibrary
+
+            library = TurathLibrary()
+            texts[library.source_id] = library
         guard = CitationGuard(self.sources.quran, texts, self.sources.known_weak)
         return ReviewDraft(
             llm=llm,
@@ -75,6 +86,7 @@ class Engine:
             manifest=self.sources.manifest.stamp,
             config=config,
             quran_llm_judge=quran_llm_judge,
+            library=library,
         )
 
 

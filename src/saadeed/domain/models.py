@@ -143,6 +143,9 @@ class Finding(BaseModel):
     next_step: str = ""
     confidence: Confidence = Confidence.MEDIUM
     notes: list[str] = Field(default_factory=list)
+    hadith_ruling: str | None = None
+    """حكم الحديث كما هو منقول بنسبته: «في صحيح البخاري»، أو «صححه الألباني» من موضع في مكتبة تراث.
+    سديد لا يحكم؛ ينقل حكم من حكم، ويذكر أين وجده."""
     suggestion: str | None = None
     """«اقتراح صياغة (مولَّد)»: يكتبه النموذج للتعميم والإجماع فقط، بعد حارس الاقتراح (ADR-0014).
     ليس شرحًا ولا خطوة تالية، ولا يحوي نصًا شرعيًا، ويُوسم في الواجهة بأنه مولَّد."""

@@ -45,6 +45,11 @@ EXPECTED = {
     Signal.QURAN_MERGED: ("BR-21", "PARTIALLY_SUPPORTED", "HIGH", "CORRECT_FROM_SOURCE"),
     Signal.QURAN_AS_HADITH: ("BR-22", "PARTIALLY_SUPPORTED", "HIGH", "CORRECT_FROM_SOURCE"),
     Signal.HADITH_NOT_FOUND_WITH_SIGNS: ("BR-23", "NOT_FOUND", "CRITICAL", "VERIFY"),
+    # v2.6: الأقوال المنسوبة تُطابق بمكتبة كتب العلماء (وصلة حية).
+    Signal.SAYING_FOUND: ("BR-24", "SUPPORTED", "NONE", "NONE"),
+    Signal.SAYING_FOUND_PARAPHRASE: ("BR-25", "PARTIALLY_SUPPORTED", "LOW", "CORRECT_FROM_SOURCE"),
+    Signal.SAYING_OTHER_AUTHOR: ("BR-26", "PARTIALLY_SUPPORTED", "MEDIUM", "CORRECT_FROM_SOURCE"),
+    Signal.SAYING_NOT_FOUND: ("BR-27", "NOT_FOUND", "MEDIUM", "VERIFY"),
 }
 
 
@@ -58,7 +63,7 @@ def test_every_rule_matches_requirements_table(signal):
 
 def test_rule_ids_unique_and_complete():
     ids = [r.rule_id for r in RULES.values()]
-    assert len(ids) == len(set(ids)) == 23
+    assert len(ids) == len(set(ids)) == 27
 
 
 def test_policy_is_deterministic():

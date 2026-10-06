@@ -109,7 +109,7 @@ def review(
         if provider != "none"
         else None
     )
-    reviewer = engine.reviewer(llm, ReviewConfig(enable_overreach=overreach))
+    reviewer = engine.reviewer(llm, ReviewConfig(enable_overreach=overreach), live=True)
     try:
         report = reviewer.review(text)
     except DraftError as e:

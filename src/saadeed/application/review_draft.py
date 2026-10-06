@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -18,6 +19,7 @@ from saadeed import __version__
 from saadeed.application.citation_guard import CitationGuard
 from saadeed.application.crosscheck import cross_check
 from saadeed.application.extraction import extract_claims, is_generalization, llm_error_ar
+from saadeed.application.library_check import check_rulings, check_sayings, gate_generalizations
 from saadeed.application.prompts import PromptSet
 from saadeed.application.safety_net import safety_net
 from saadeed.application.suggestion_guard import safe_suggestion
@@ -50,7 +52,7 @@ from saadeed.domain.models import (
     Summary,
 )
 from saadeed.domain.policy import POLICY_VERSION, Signal, apply
-from saadeed.domain.ports import LLMError, LLMPort, LLMUsage
+from saadeed.domain.ports import LibraryPort, LLMError, LLMPort, LLMUsage
 from saadeed.domain.templates import explanation_for, next_step_for
 from saadeed.text.footnotes import Footnotes, find_footnotes, strip_ref
 from saadeed.text.markers import canonical_books, parse_ref
@@ -97,6 +99,7 @@ class ReviewDraft:
         manifest: ManifestStamp,
         config: ReviewConfig | None = None,
         quran_llm_judge: Any = None,
+        library: LibraryPort | None = None,
     ) -> None:
         self.llm = llm
         self.quran = quran
@@ -107,6 +110,7 @@ class ReviewDraft:
         self.manifest = manifest
         self.config = config or ReviewConfig()
         self.quran_llm_judge = quran_llm_judge
+        self.library = library
 
     # ─────────────────────────────── المدخل ───────────────────────────────
     def review(self, text: str) -> ReviewReport:
@@ -148,6 +152,7 @@ class ReviewDraft:
             ctx.warnings += cc_notes
         claims = safety_net(text, claims, sentences, ex.kinds)
         claims = _with_footnotes(text, claims, notes)
+        claims = _drop_noise(text, claims)
         for i, cl in enumerate(claims, start=1):
             cl.id = f"c{i}"
         if self.config.enable_overreach:
@@ -201,6 +206,30 @@ class ReviewDraft:
                     j.get("candidate"),
                 )
 
+        if self.library is not None:
+            # ثلاث خطوات مستقلة بالتوازي: الأقوال بالمكتبة، وأحكام الأحاديث، وبوابة التعميم.
+            with ThreadPoolExecutor(max_workers=3) as pool:
+                f_say = pool.submit(
+                    check_sayings, claims, outcomes, self.library, self.llm, self.prompts.sayings
+                )
+                f_rul = pool.submit(
+                    check_rulings, claims, outcomes, self.library, self.llm, self.prompts.rulings
+                )
+                f_gate = pool.submit(
+                    gate_generalizations, text, claims, outcomes, self.llm, self.prompts.gate
+                )
+                upd, usage, warns = f_say.result()
+                upd2, usage2 = f_rul.result()
+                gen, usage3 = f_gate.result()
+            outcomes.update(upd)
+            outcomes.update(upd2)
+            for u in (usage, usage2, usage3):
+                ctx.usage += u
+                ctx.calls += len(u)
+            ctx.warnings += warns
+            claims = [c for c in claims if c.id not in gen]
+
+        claims = _drop_echoes(claims, outcomes)
         findings = [self._finding(cl, outcomes[cl.id]) for cl in claims]
         findings += self._overreach_findings(text, relation_needed, outcomes, judged, len(claims))
         findings = self.guard.guard(findings)
@@ -463,6 +492,7 @@ class ReviewDraft:
             next_step=next_step_for(rule.rule_id, facts),
             confidence=out.confidence,
             notes=notes,
+            hadith_ruling=_ruling(out),
         )
 
     def _report(
@@ -548,6 +578,80 @@ def _with_footnotes(text: str, claims: list[Claim], notes: Footnotes) -> list[Cl
             update["type"] = ClaimType.HADITH_QUOTE
             update["level"] = ContentLevel.A
         out.append(cl.model_copy(update=update))
+    return out
+
+
+_SAHIH = {"bukhari": "صحيح البخاري", "muslim": "صحيح مسلم"}
+
+
+def _ruling(out: Outcome) -> str | None:
+    """الحكم المنقول: من الصحيحين بدورهما (احتجاج)، أو من موضع حكم في المكتبة."""
+    if out.facts.get("ruling"):
+        return str(out.facts["ruling"])
+    if out.signal in (Signal.HADITH_AUTHENTIC_MATCH, Signal.HADITH_PARAPHRASE_DECLARED):
+        books = [_SAHIH[e.ref.source_id] for e in out.evidence if e.ref.source_id in _SAHIH]
+        if books:
+            return f"صحيح: في {books[0]}، وأحاديثه متلقاة بالقبول عند أهل العلم"
+    return None
+
+
+def _bracketed(text: str, cl: Claim) -> bool:
+    """هل الاقتباس بين قوسي المصحف ﴿﴾ في المسودة نفسها؟"""
+    before = text[max(0, cl.span.start - 3) : cl.span.start]
+    after = text[cl.span.end : cl.span.end + 3]
+    return "﴿" in before or "﴾" in after
+
+
+def _in_citation(text: str, cl: Claim) -> bool:
+    """هل الموضع داخل إحالة بين قوسين مربعين [المصدر، الطبعة، الصفحة]؟"""
+    left = text[max(0, cl.span.start - 120) : cl.span.start]
+    right = text[cl.span.end : cl.span.end + 200]
+    return left.rfind("[") > left.rfind("]") and "]" in right
+
+
+def _drop_noise(text: str, claims: list[Claim]) -> list[Claim]:
+    """ما ليس ادعاءً يُفحص (v2.6، خطبة «السنة النبوية»):
+    - كلمة أو كلمتان من آية سبق نقلها كاملة («تأملوا: ﴿فَخُذُوهُ﴾»): إحالة إلى الآية لا اقتباس جديد.
+    - عبارة قرآنية قصيرة بلا أقواس داخل قول منسوب إلى عالم: من كلامه، لا اقتباس من الكاتب.
+    - «حديث» قصير داخل إحالة بين قوسين مربعين (اسم كتاب: «[ابن أبي يعلى، «طبقات الحنابلة»…]»).
+    """
+    quran_norm = [normalize(c.text) for c in claims if c.type is ClaimType.QURAN_QUOTE]
+    sayings = [c.span for c in claims if c.type is ClaimType.ATTRIBUTED_SAYING]
+    out: list[Claim] = []
+    for cl in claims:
+        n = len(normalize(cl.text).split())
+        if cl.type is ClaimType.QURAN_QUOTE:
+            if n <= 2:
+                me = normalize(cl.text)
+                if any(me in q and q != me for q in quran_norm) or n == 1:
+                    continue
+            if (
+                n <= 6
+                and not _bracketed(text, cl)
+                and not cl.hints.cited_ref
+                and any(cl.span.overlaps(s) for s in sayings)
+            ):
+                continue
+        if cl.type is ClaimType.HADITH_QUOTE and n <= 3 and _in_citation(text, cl):
+            continue
+        out.append(cl)
+    return out
+
+
+def _drop_echoes(claims: list[Claim], outcomes: dict[str, Outcome]) -> list[Claim]:
+    """الآية التي جاءت جزءًا من آية نُقلت قبلها في المسودة نفسها، وطابقت الموضع نفسه بلا إحالة:
+    صدى للأولى («﴿وَمَا آتَاكُمُ الرَّسُولُ فَخُذُوهُ﴾» بعد نقل الآية كاملة)، فلا تُعرض ملاحظةً ثانية."""
+    seen: list[tuple[set[str], str]] = []
+    out: list[Claim] = []
+    for cl in claims:
+        o = outcomes.get(cl.id)
+        if cl.type is ClaimType.QURAN_QUOTE and o is not None and o.signal is Signal.QURAN_MATCH:
+            ids = {e.ref.item_id for e in o.evidence}
+            me = normalize(cl.text)
+            if not cl.hints.cited_ref and any(ids & s and me in t for s, t in seen):
+                continue
+            seen.append((ids, me))
+        out.append(cl)
     return out
 
 

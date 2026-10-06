@@ -369,3 +369,6 @@ ul.plain { margin: 8px 0; padding-inline-start: 20px; }
 @media (min-width: 1151px) {
   html { zoom: 0.8; }
 }
+
+/* حكم الحديث المنقول بنسبته (v2.6) */
+.note .ruling { margin-top: .35rem; font-size: .9em; color: var(--ink, #1f2a44); background: rgba(46, 107, 74, .08); border-right: 3px solid #2e6b4a; padding: .25rem .5rem; border-radius: 4px; }
