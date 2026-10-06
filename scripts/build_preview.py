@@ -14,7 +14,7 @@ WEB = ROOT / "web"
 def main() -> None:
     html = (WEB / "index.html").read_text(encoding="utf-8")
     body = re.search(r"<body>(.*)</body>", html, re.S).group(1)
-    body = re.sub(r'<script src="assets/app.js"></script>', "", body)
+    body = re.sub(r'<script src="assets/app.js(?:\?v=[^"]*)?"></script>', "", body)
     body = body.replace(' · <a href="v1/docs">الواجهة البرمجية</a>', "")
     fonts = re.search(r'<link rel="stylesheet" href="https://fonts[^>]+>', html).group(0)
     index = json.loads((WEB / "examples" / "index.json").read_text(encoding="utf-8"))

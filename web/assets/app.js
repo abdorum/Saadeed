@@ -321,7 +321,7 @@
     el.innerHTML =
       '<div class="summary"><span class="total">خريطة الثغور: ' + claimsAr(rep.summary.total_claims) + " <small>في " + rep.draft.word_count + " كلمة</small></span>" +
       '<span class="tally">' + chips + "</span>" +
-      (provisional ? '<span class="provisional">نتائج أولية من المسار الحتمي: الآيات والأحاديث. والتقرير الكامل في الطريق…</span>' : "") + "</div>" 
+      (provisional ? '<span class="provisional">نتائج أولية من المسار الحتمي: الآيات والأحاديث. والتقرير الكامل في الطريق…</span>' : "") + "</div>" +
       (rep.meta.degraded ? '<div class="degraded" role="alert"><strong>المراجعة ناقصة:</strong> تعذّر نموذج الذكاء الاصطناعي' +
         ((rep.meta.warnings || []).length ? " (" + esc(rep.meta.warnings[0].replace(/^[^:]*:\s*/, "")) + ")" : "") +
         '. فُحصت الآيات والأحاديث المعلَّمة وحدها، ولم تُستخرج الأقوال والأرقام والإجماع والتعميم. أعد المحاولة بعد قليل.</div>' : "") +
