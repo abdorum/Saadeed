@@ -406,7 +406,7 @@ class HadithVerifier:
             "draft_note": "" if kw.verified else " (تنبيه: هذا البند في القائمة لم يُعتمد بعد)",
         }
         if kw.verified and kw.reviewed_by:
-            notes = [f"راجع هذا البند على مصدره: {kw.reviewed_by}، في {kw.reviewed_on or '—'}"]
+            notes = [f"اعتمد هذا البند: {kw.reviewed_by}، في {kw.reviewed_on or '—'}"]
         else:
             notes = ["بند قائمة المشتهر بانتظار الاعتماد البشري"]
         evidence = [ev]
