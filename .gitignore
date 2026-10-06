@@ -22,19 +22,15 @@ build/
 # ذاكرة التسجيل والإعادة الكبيرة تُضاف يدويًا عند الحاجة
 *.log
 
-# ── النشر المحدود (قرار محمد، 4 أكتوبر 2026) ──
-# من الوثائق لا يُرفع إلا الأربع أدناه + README. والبقية محلية فقط.
+# ── النشر المحدود ──
 /docs/*
-!/docs/EXTENDING.md
-!/docs/التحقق-العلمي.md
-!/docs/أسئلة-المحكمين.md
-!/docs/الرؤية.md
-!/docs/المصادر-والوظائف.md
-!/docs/العرض-التقديمي.md
-!/docs/تجربة-المستفيد.md
+!/docs/01-VISION.md
+!/docs/02-FAQ.md
+!/docs/03-TECHNICAL.md
+!/docs/04-EVALUATION.md
+!/docs/05-UX.md
 !/docs/planning/
 /docs/planning/*
-!/docs/planning/01-vision.md
 !/docs/planning/03-requirements.md
 !/docs/planning/04-architecture.md
 !/docs/planning/05-evaluation-protocol.md

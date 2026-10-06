@@ -7,7 +7,7 @@
 المخرجات:
 - eval/reports/field_alukah_v2.json       المخرجات الخام للنظامين لكل خطبة.
 - eval/field/review_alukah_v2.json        ملف المراجعة البشرية: كل تنبيه من النظامين، وخانة حكم المراجع.
-- docs/التحقق-العلمي.md                   جدول النتائج يُكتب بين علامتي «نتائج-ميدانية».
+- docs/04-EVALUATION.md                   جدول النتائج يُكتب بين علامتي «نتائج-ميدانية».
 
 المقاييس هنا لا تحتاج إجابات معدّة مسبقًا، لأنها تُتحقق آليًا من المصادر نفسها:
 - **المراجع المختلقة:** مرجع ذكره النظام (سورة وآية، أو كتاب حديث) ونص الخطبة ليس فيه.
@@ -35,7 +35,7 @@ from saadeed.text.markers import scan  # noqa: E402
 BANK = ROOT / "eval" / "field" / "bank_alukah_v2.json"
 RAW = ROOT / "eval" / "reports" / "field_alukah_v2.json"
 REVIEW = ROOT / "eval" / "field" / "review_alukah_v2.json"
-DOC = ROOT / "docs" / "التحقق-العلمي.md"
+DOC = ROOT / "docs" / "04-EVALUATION.md"
 RECORDINGS = ROOT / "eval" / "recordings"
 START, END = "<!-- نتائج-ميدانية:بداية -->", "<!-- نتائج-ميدانية:نهاية -->"
 
