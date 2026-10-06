@@ -13,7 +13,7 @@
 
 مشاركة في «تحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي 2026»، المسار الرابع: أدوات المعرفة والتحقق لتمكين المعرّفين بالإسلام.
 
-**الرابط الحي:** https://abdorum-saadeed.static.hf.space (Hugging Face) · احتياطي: https://ibnadam.duckdns.org/saadeed/ · **الإصدار:** 0.4.0 ([سجل الإصدارات](CHANGELOG.md))
+**الرابط الحي:** https://abdorum-saadeed.static.hf.space (Hugging Face) · احتياطي: https://ibnadam.duckdns.org/saadeed/ · **الإصدار:** 0.4.1 ([سجل الإصدارات](CHANGELOG.md))
 
 ---
 
@@ -40,6 +40,8 @@ uv run saadeed eval run --split dev --systems saadeed,B0 --replay
 # وبتسجيلات النموذج الآخر:
 SAADEED_LLM_PROVIDER=groq SAADEED_LLM_MODEL=openai/gpt-oss-120b uv run saadeed eval run --split dev --systems saadeed,B0 --replay
 ```
+
+**التحقق العلمي كاملًا** (المصادر ومطابقتها للحزمة، والبنك، والخطب الحقيقية، وطريقة إعادة القياس): [docs/التحقق-العلمي.md](docs/التحقق-العلمي.md)
 
 ## ما يكشفه سديد
 
@@ -68,7 +70,7 @@ uv run saadeed review samples/alukah_hifz_allisan.txt   # خطبة منشورة 
 uv run saadeed review samples/demo_khutbah.txt --provider none   # بلا نموذج: المسار الحتمي وحده
 ```
 
-- **مفتاح النموذج** في `.env`: `GEMINI_API_KEY=…` (الافتراضي `gemini-3.5-flash-lite`)، أو `SAADEED_LLM_PROVIDER=groq` مع `GROQ_API_KEY`.
+- **مفتاح النموذج** في `.env`: `GEMINI_API_KEY=…` (الافتراضي `gemini-3.5-flash-lite`)، أو `SAADEED_LLM_PROVIDER=groq` مع `GROQ_API_KEY`. **و`OPENROUTER_API_KEY` احتياطي** يجيب إن تعذّر Gemini.
 - **وبلا مفتاح** تعمل المطابقة الحتمية للآيات والأحاديث المعلَّمة، ويقول التقرير بصراحة ما لم يُفحص.
 - **الواجهة البرمجية:** `POST /v1/reviews`، وتوثيقها التفاعلي على `/v1/docs`.
 

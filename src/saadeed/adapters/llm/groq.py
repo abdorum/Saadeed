@@ -61,6 +61,7 @@ class GroqLLM:
         self._model = model
         self._client = httpx.Client(timeout=timeout)
         self._retries = max_retries
+        self._url = GROQ_URL
 
     @property
     def model_id(self) -> str:
@@ -88,7 +89,7 @@ class GroqLLM:
         for attempt in range(self._retries):
             try:
                 r = self._client.post(
-                    GROQ_URL, json=body, headers={"Authorization": f"Bearer {self._key}"}
+                    self._url, json=body, headers={"Authorization": f"Bearer {self._key}"}
                 )
             except httpx.HTTPError as e:
                 last_err = f"شبكة: {e}"

@@ -52,7 +52,7 @@ def test_empty_draft_is_rejected(client):
 
 def test_health_lists_providers_without_keys(client):
     h = client.get("/v1/health").json()
-    assert set(h["providers"]) == {"gemini", "groq"}
+    assert set(h["providers"]) == {"gemini", "groq", "openrouter"}
     assert all(set(v) == {"default_model", "server_key"} for v in h["providers"].values())
 
 

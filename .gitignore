@@ -26,6 +26,7 @@ build/
 # من الوثائق لا يُرفع إلا الأربع أدناه + README. والبقية محلية فقط.
 /docs/*
 !/docs/EXTENDING.md
+!/docs/التحقق-العلمي.md
 !/docs/planning/
 /docs/planning/*
 !/docs/planning/01-vision.md

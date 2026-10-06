@@ -23,7 +23,11 @@ from saadeed.domain.ports import LLMError, LLMPort
 from saadeed.verifiers.hadith import HadithIndex, HadithVerifier
 from saadeed.verifiers.quran import QuranIndex, QuranVerifier
 
-DEFAULT_MODELS = {"groq": "openai/gpt-oss-120b", "gemini": "gemini-3.5-flash-lite"}
+DEFAULT_MODELS = {
+    "groq": "openai/gpt-oss-120b",
+    "gemini": "gemini-3.5-flash-lite",
+    "openrouter": "nvidia/nemotron-3-super-120b-a12b:free",
+}
 
 
 def build_llm(
@@ -35,7 +39,9 @@ def build_llm(
     """
     load_env()
     provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "gemini")).lower()
-    model = model or os.environ.get("SAADEED_LLM_MODEL") or DEFAULT_MODELS.get(provider)
+    env_provider = os.environ.get("SAADEED_LLM_PROVIDER", "gemini").lower()
+    env_model = os.environ.get("SAADEED_LLM_MODEL") if provider == env_provider else None
+    model = model or env_model or DEFAULT_MODELS.get(provider)
     if provider == "none":
         return None
     if provider == "groq":
@@ -44,12 +50,27 @@ def build_llm(
         return GroqLLM(
             api_key or os.environ.get("GROQ_API_KEY", ""), model or DEFAULT_MODELS["groq"]
         )
+    if provider == "openrouter":
+        from saadeed.adapters.llm.openrouter import OpenRouterLLM
+
+        return OpenRouterLLM(
+            api_key or os.environ.get("OPENROUTER_API_KEY", ""),
+            model or DEFAULT_MODELS["openrouter"],
+        )
     if provider == "gemini":
         from saadeed.adapters.llm.gemini import GeminiLLM
 
-        return GeminiLLM(
+        gem = GeminiLLM(
             api_key or os.environ.get("GEMINI_API_KEY", ""), model or DEFAULT_MODELS["gemini"]
         )
+        backup_key = os.environ.get("OPENROUTER_API_KEY", "")
+        if backup_key and not api_key:
+            # مفتاح الخادم: إن تعذّر Gemini أجاب نموذج OpenRouter المجاني، فلا يرى الزائر عطلًا.
+            from saadeed.adapters.llm.fallback import FallbackLLM
+            from saadeed.adapters.llm.openrouter import OpenRouterLLM
+
+            return FallbackLLM(gem, OpenRouterLLM(backup_key))
+        return gem
     raise LLMError(f"مزود غير معروف: {provider}")
 
 

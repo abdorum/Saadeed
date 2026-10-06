@@ -1,0 +1,89 @@
+{
+  "about": "بنك الخطب الميداني (الإصدار 2): خطب حقيقية منشورة في منصة الألوكة، يُقارن عليها سديد بالنموذج العام وحده (B0). املأ كل خطبة: العنوان والرابط والكاتب وتاريخ النشر، والنص كما هو في الصفحة دون تعديل. ثم شغّل: uv run python scripts/field_compare.py",
+  "source": "منصة الألوكة (alukah.net)، قسم الخطب المنبرية",
+  "selection": "صف هنا كيف اخترت الخطب (مثلًا: أحدث عشر خطب في القسم يوم كذا، أو عشر خطب في موضوعات مختلفة)، حتى لا يُظن أنها انتُقيت لتناسب سديد",
+  "collected_by": "محمد عبدالرحمن",
+  "collected_at": "2026-10-06",
+  "khutab": [
+    {
+      "id": "k01",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k02",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k03",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k04",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k05",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k06",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k07",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k08",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k09",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    },
+    {
+      "id": "k10",
+      "title": "",
+      "url": "",
+      "author": "",
+      "published": "",
+      "text": ""
+    }
+  ]
+}

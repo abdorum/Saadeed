@@ -47,11 +47,19 @@ class SystemRun(BaseModel):
 
 
 def run_saadeed(
-    engine: Engine, llm: LLMPort, text: str, overreach: bool, quran_mode: str = "deterministic"
+    engine: Engine,
+    llm: LLMPort,
+    text: str,
+    overreach: bool,
+    quran_mode: str = "deterministic",
+    live: bool = False,
 ) -> SystemRun:
     judge = _b1_quran_judge(engine, llm) if quran_mode == "llm" else None
     rev = engine.reviewer(
-        llm, ReviewConfig(enable_overreach=overreach, quran_mode=quran_mode), quran_llm_judge=judge
+        llm,
+        ReviewConfig(enable_overreach=overreach, quran_mode=quran_mode),
+        quran_llm_judge=judge,
+        live=live,
     )
     t0 = time.monotonic()
     rep = rev.review(text)
