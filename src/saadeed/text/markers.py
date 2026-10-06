@@ -144,7 +144,8 @@ def has_prophetic_context(text: str, start: int, end: int) -> bool:
     والنافذة قبله لا تتجاوز جملته: «ﷺ» في آخر الفقرة السابقة لا تجعل ما بعدها حديثًا.
     """
     before, _ = _skeleton(text[max(0, start - 400) : start])
-    before = re.split(r"[.!؟?\n]", before[-120:])[-1]
+    # ولا تتجاوز اقتباسًا سابقًا: «وفي رواية: «…»؛ وذلك «…»» — «رواية» للأول لا للثاني.
+    before = re.split(r"[.!؟?\n»”]", before[-120:])[-1]
     after, _ = _skeleton(text[end : end + 200])
     head, _ = _skeleton(text[start : min(end, start + 200)])
     if _PROPHET_RX.search(head[:80]):

@@ -47,6 +47,9 @@ def test_quote_attribution_stays_in_its_sentence():
     text2 = "وعند الترمذي عن النبي صلى الله عليه وسلم قال: «في آخر الزمان لا تكاد رؤيا المؤمن تكذب»"
     j = text2.index("في آخر")
     assert has_prophetic_context(text2, j, j + 10)
+    t3 = "وفي رواية: «فليبصق عن يساره ثلاثا»؛ وذلك «طردا للشيطان الذي حضر الرؤيا المكروهة»."
+    q = t3.index("طردا")
+    assert not has_prophetic_context(t3, q, q + 10)  # «رواية» للاقتباس السابق
     k = "وكان النبي صلى الله عليه وسلم إذا حزبه أمر صلى."
     assert has_prophetic_context(k, 0, len(k))
 
@@ -86,8 +89,7 @@ def test_field_sermon_deterministic(engine):
     assert _find(r, "لَقَدْ كُنْتُ أَرَى الرُّؤْيَا فَتُمْرِضُنِي").rule_id == "BR-06"  # أثر في البخاري
     verse = _find(r, "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ", ClaimType.QURAN_QUOTE)
     assert verse.claim.type is ClaimType.QURAN_QUOTE and verse.rule_id == "BR-01"
-    # اقتباس بلا قائل بعد «وفي رواية» في جملته: بلا نموذج يُعلن «لم يُفحص» ولا يُترك صامتًا.
-    assert _find(r, "طَرْدًا لِلشَّيْطَانِ").rule_id in ("BR-12", "BR-20")
+    assert _find(r, "طَرْدًا لِلشَّيْطَانِ").rule_id == "BR-12"  # اقتباس بلا قائل
     khalid = _find(r, "كَانَ خَالِدُ بْنُ الْوَلِيدِ")
     assert canonical_books(khalid.claim.hints.cited_book) == {"other"}
 
