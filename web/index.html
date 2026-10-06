@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/app.css?v=0.4.1">
+<link rel="stylesheet" href="assets/app.css?v=0.4.2">
 </head>
 <body>
 <header class="top">
@@ -60,13 +60,18 @@
     <p class="status" id="status" role="status" aria-live="polite"></p>
     <div class="banner" id="banner" role="alert" hidden></div>
     <div class="folio" id="folio">
-      <aside class="margin m-attn" id="m-attn" aria-label="ملاحظات تحتاج انتباهك"></aside>
-      <article class="sheet" aria-label="مسودتك">
-        <div class="sheet-head"><span id="doc-t">مسودتك</span><span id="doc-w"></span></div>
-        <div class="matn" id="matn"></div>
-        <p class="example-note" id="example-note" hidden></p>
-      </article>
-      <aside class="margin m-ok" id="m-ok" aria-label="مواضع تؤيدها المصادر"></aside>
+      <div class="col-matn">
+        <p class="col-label"><b>المتن</b><span>مسودتك كما كتبتها، دون تغيير</span></p>
+        <article class="sheet" aria-label="المتن: مسودتك">
+          <div class="sheet-head"><span id="doc-t">مسودتك</span><span id="doc-w"></span></div>
+          <div class="matn" id="matn"></div>
+          <p class="example-note" id="example-note" hidden></p>
+        </article>
+      </div>
+      <div class="col-notes">
+        <p class="col-label"><b>الحاشية</b><span>ملاحظات سديد، كلٌّ بجانب موضعه</span></p>
+        <aside class="margin" id="m-notes" aria-label="الحاشية: ملاحظات سديد"></aside>
+      </div>
     </div>
     <details class="audit" id="audit">
       <summary>سجل المراجعة: بماذا فُحصت هذه المسودة؟</summary>
@@ -181,6 +186,6 @@ uv run saadeed eval run --split dev --systems saadeed,B0 --replay</pre>
   <p class="fine">سديد أداة مراجعة، وليس فتوى. وعدم التنبيه على موضع لا يعني صحته.</p>
 </footer>
 
-<script src="assets/app.js?v=0.4.1"></script>
+<script src="assets/app.js?v=0.4.2"></script>
 </body>
 </html>

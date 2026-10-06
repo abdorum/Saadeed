@@ -187,8 +187,7 @@
     $("#audit").hidden = true;
     $("#sum-h").textContent = "يقرأ سديد مسودتك…";
     $("#counts").innerHTML = "";
-    $("#m-attn").innerHTML = "";
-    $("#m-ok").innerHTML = "";
+    $("#m-notes").innerHTML = "";
     $("#doc-t").textContent = title ? "مثال: " + title : "مسودتك";
     $("#doc-w").textContent = words(text) + " كلمة";
     var matn = $("#matn");
@@ -308,12 +307,8 @@
     $("#folio").classList.toggle("reading", !!opts.reading);
     if (!opts.reading) $$("#matn .seg").forEach(kindOn);
 
-    var attn = F.filter(function (f) { return f._st !== "ok"; });
-    var ok = F.filter(function (f) { return f._st === "ok"; });
-    $("#m-attn").innerHTML = '<h2 class="margin-h">تحتاج انتباهك</h2>' +
-      (attn.length ? attn.map(noteHTML).join("") : '<p class="margin-empty">' + (opts.provisional ? "…" : "لا ملاحظات تحتاج انتباهك.") + "</p>");
-    $("#m-ok").innerHTML = '<h2 class="margin-h">تؤيده المصادر</h2>' +
-      (ok.length ? ok.map(noteHTML).join("") : '<p class="margin-empty">' + (opts.provisional ? "…" : "لا مواضع مؤيَّدة في هذه المسودة.") + "</p>");
+    $("#m-notes").innerHTML = F.length ? F.map(noteHTML).join("") :
+      '<p class="margin-empty">' + (opts.provisional ? "…" : "لا ملاحظات على هذه المسودة.") + "</p>";
 
     renderSummary(rep, opts.provisional || opts.reading);
 
@@ -490,7 +485,7 @@
   /* ═════════════ الحاشية بمحاذاة موضعها (الشاشات الواسعة) ═════════════ */
   function wide() { return window.matchMedia("(min-width: 1151px)").matches; }
   function place() {
-    ["#m-attn", "#m-ok"].forEach(function (sel) {
+    ["#m-notes"].forEach(function (sel) {
       var col = $(sel);
       if (!col) return;
       var notes = $$(".note", col);
@@ -501,8 +496,7 @@
       }
       col.classList.add("placed");
       var base = col.getBoundingClientRect().top;
-      var head = $(".margin-h", col);
-      var y = head ? head.offsetHeight + 10 : 0;
+      var y = 0;
       notes.forEach(function (n) {
         var m = $('.c[data-ids~="' + n.dataset.id + '"]') || $('.n[data-id="' + n.dataset.id + '"]');
         var want = m ? m.getBoundingClientRect().top - base - 4 : y;
