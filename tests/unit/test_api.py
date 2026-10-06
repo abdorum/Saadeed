@@ -48,3 +48,33 @@ def test_too_long_draft_is_rejected_clearly(client):
 
 def test_empty_draft_is_rejected(client):
     assert client.post("/v1/reviews", json={"text": "", "mode": "quick"}).status_code == 422
+
+
+def test_health_lists_providers_without_keys(client):
+    h = client.get("/v1/health").json()
+    assert set(h["providers"]) == {"gemini", "groq"}
+    assert all(set(v) == {"default_model", "server_key"} for v in h["providers"].values())
+
+
+def test_user_key_choice_none_runs_deterministic(client):
+    body = {"text": "قال رسول الله ﷺ: «إن الله مع الصابرين».", "llm": {"provider": "none"}}
+    r = client.post("/v1/reviews", json=body)
+    assert r.status_code == 200 and r.json()["findings"]
+
+
+def test_llm_check_never_echoes_the_key(client, monkeypatch):
+    from saadeed.adapters.api import app as api
+    from saadeed.domain.ports import LLMError
+
+    secret = "AIza-test-not-a-real-key-123"
+
+    class Boom:
+        model_id = "gemini:x"
+
+        def generate_json(self, **_):
+            raise LLMError(f"401 API key not valid: {secret}")  # مزود يردّد المفتاح في خطئه
+
+    monkeypatch.setattr(api, "build_llm", lambda *a, **k: Boom())  # بلا شبكة
+    r = client.post("/v1/llm/check", json={"provider": "gemini", "api_key": secret})
+    assert r.status_code == 200 and secret not in r.text
+    assert r.json() == {"ok": False, "reason": "مفتاح مزود النموذج غير صالح أو غير مضبوط"}

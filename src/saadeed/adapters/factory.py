@@ -26,8 +26,13 @@ from saadeed.verifiers.quran import QuranIndex, QuranVerifier
 DEFAULT_MODELS = {"groq": "openai/gpt-oss-120b", "gemini": "gemini-3.5-flash-lite"}
 
 
-def build_llm(provider: str | None = None, model: str | None = None) -> LLMPort | None:
-    """يختار محوّل النموذج من الإعداد. تبديل المزود = تغيير متغير بيئة."""
+def build_llm(
+    provider: str | None = None, model: str | None = None, api_key: str | None = None
+) -> LLMPort | None:
+    """يختار محوّل النموذج من الإعداد. تبديل المزود = تغيير متغير بيئة.
+
+    `api_key` مفتاح يمرّره المستخدم مع طلبه (صفحة الإعدادات)، فيُقدَّم على مفتاح الخادم ولا يُحفظ.
+    """
     load_env()
     provider = (provider or os.environ.get("SAADEED_LLM_PROVIDER", "gemini")).lower()
     model = model or os.environ.get("SAADEED_LLM_MODEL") or DEFAULT_MODELS.get(provider)
@@ -36,11 +41,15 @@ def build_llm(provider: str | None = None, model: str | None = None) -> LLMPort 
     if provider == "groq":
         from saadeed.adapters.llm.groq import GroqLLM
 
-        return GroqLLM(os.environ.get("GROQ_API_KEY", ""), model or DEFAULT_MODELS["groq"])
+        return GroqLLM(
+            api_key or os.environ.get("GROQ_API_KEY", ""), model or DEFAULT_MODELS["groq"]
+        )
     if provider == "gemini":
         from saadeed.adapters.llm.gemini import GeminiLLM
 
-        return GeminiLLM(os.environ.get("GEMINI_API_KEY", ""), model or DEFAULT_MODELS["gemini"])
+        return GeminiLLM(
+            api_key or os.environ.get("GEMINI_API_KEY", ""), model or DEFAULT_MODELS["gemini"]
+        )
     raise LLMError(f"مزود غير معروف: {provider}")
 
 

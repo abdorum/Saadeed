@@ -26,7 +26,8 @@ from pydantic import BaseModel, Field
 
 from saadeed import __version__
 from saadeed.adapters.bootstrap import ROOT
-from saadeed.adapters.factory import Engine, build_engine, build_llm
+from saadeed.adapters.factory import DEFAULT_MODELS, Engine, build_engine, build_llm
+from saadeed.application.extraction import llm_error_ar
 from saadeed.application.review_draft import MAX_WORDS, DraftError, ReviewConfig
 from saadeed.domain.policy import POLICY_VERSION
 from saadeed.domain.ports import LLMError, LLMPort, LLMResponse
@@ -98,12 +99,34 @@ class RateLimiter:
             return True
 
 
+class LLMChoice(BaseModel):
+    """اختيار المستخدم من صفحة الإعدادات. المفتاح يُستعمل لهذا الطلب وحده: لا يُخزَّن ولا يُسجَّل."""
+
+    provider: Literal["gemini", "groq", "none"] = "gemini"
+    model: str | None = Field(None, max_length=120)
+    api_key: str | None = Field(None, max_length=400, repr=False)
+
+
+def _choice_llm(choice: LLMChoice | None) -> LLMPort | None:
+    """النموذج لهذا الطلب: نموذج الخادم، أو ما اختاره المستخدم بمفتاحه."""
+    if choice is None:
+        return state.llm
+    if choice.provider == "none":
+        return None
+    key = (choice.api_key or "").strip() or None
+    try:
+        return build_llm(choice.provider, (choice.model or "").strip() or None, api_key=key)
+    except LLMError as e:
+        raise HTTPException(400, llm_error_ar(e)) from None
+
+
 class ReviewRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=MAX_CHARS, description="نص المسودة")
     mode: Literal["full", "quick"] = Field(
         "full", description="full: التقرير الكامل · quick: المسار الحتمي وحده (فوري، بلا نموذج)"
     )
     overreach: bool = Field(False, description="فحص التجاوز (تجريبي، FR-36)")
+    llm: LLMChoice | None = Field(None, description="اختيار النموذج ومفتاحه لهذا الطلب وحده")
 
 
 class _State:
@@ -162,6 +185,10 @@ def health() -> dict[str, Any]:
         "llm": state.llm.model_id if state.llm else "none",
         "llm_error": state.llm_error,
         "max_words": MAX_WORDS,
+        "providers": {
+            p: {"default_model": m, "server_key": bool(os.environ.get(f"{p.upper()}_API_KEY"))}
+            for p, m in DEFAULT_MODELS.items()
+        },
     }
 
 
@@ -229,7 +256,7 @@ def review(req: ReviewRequest, request: Request) -> JSONResponse:
     if req.mode == "full" and not state.limiter.allow(client):
         raise HTTPException(429, "طلبات كثيرة في دقيقة واحدة. انتظر قليلًا ثم أعد المحاولة.")
     eng = _engine()
-    llm = state.llm if req.mode == "full" else None
+    llm = _choice_llm(req.llm) if req.mode == "full" else None
     reviewer = eng.reviewer(llm, ReviewConfig(enable_overreach=req.overreach))
     try:
         report = reviewer.review(req.text)
@@ -238,6 +265,24 @@ def review(req: ReviewRequest, request: Request) -> JSONResponse:
     payload = report.model_dump(mode="json")
     payload["mode"] = req.mode
     return JSONResponse(payload)
+
+
+@app.post("/v1/llm/check", summary="اختبار الاتصال بالنموذج (صفحة الإعدادات)")
+def llm_check(choice: LLMChoice, request: Request) -> dict[str, Any]:
+    client = request.headers.get("x-forwarded-for", request.client.host if request.client else "-")
+    if not state.limiter.allow(client.split(",")[0].strip()):
+        raise HTTPException(429, "طلبات كثيرة في دقيقة واحدة. انتظر قليلًا ثم أعد المحاولة.")
+    if choice.provider == "none":
+        return {"ok": True, "model": "none"}
+    try:
+        llm = _choice_llm(choice)
+        assert llm is not None
+        llm.generate_json(system='أجب بكائن JSON: {"ok": true}', user="اختبار", max_tokens=200)
+    except HTTPException as e:
+        return {"ok": False, "reason": e.detail}
+    except Exception as e:  # أي خطأ من المزود يُعرض بعبارة للمستخدم، دون نص الاستجابة ولا المفتاح
+        return {"ok": False, "reason": llm_error_ar(e)}
+    return {"ok": True, "model": llm.model_id}
 
 
 if WEB_DIR.exists():

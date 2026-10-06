@@ -5,54 +5,182 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <title>سديد</title>
-<meta name="description" content="سديد: مراجِع ما قبل النشر للمسودات الدعوية العربية. يريك ما قد لا تراه في خطبتك أو مقالتك، بالدليل من المصدر.">
+<meta name="description" content="سديد: يراجع مسودة الخطبة أو المحاضرة قبل نشرها، فيقابل الآيات والأحاديث بمصادرها المعتمدة، ويضع ملاحظاته على هامش النص.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Reem+Kufi:wght@500&display=swap">
-<link rel="stylesheet" href="assets/app.css?v=0.3.3">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/app.css?v=0.4.0">
 </head>
 <body>
 <header class="top">
-  <div class="wrap">
-    <h1 class="brand"><span class="name">سديد</span><span class="line">سديد لا يكتب عنك؛ سديد يريك ما قد لا تراه</span></h1>
-    <p class="lede">ضع خطبتك أو مقالتك كاملة. يستخرج سديد كل ادعاء فيها، ويطابقه بالمصحف وكتب السنة الستة، ويرتّب ما وجد بثمن الخطأ. والحكم لك، والدليل أمامك.</p>
+  <div class="top-in">
+    <a class="brand" href="#review" aria-label="سديد: الصفحة الرئيسية">سديد</a>
+    <span class="tagline">مراجعة المسودة الدعوية قبل نشرها</span>
+    <nav aria-label="الصفحات">
+      <a href="#review" data-page="review">المراجعة</a>
+      <a href="#settings" data-page="settings">الإعدادات</a>
+      <a href="#faq" data-page="faq">س و ج</a>
+    </nav>
   </div>
 </header>
 
-<main class="wrap">
-  <section class="intake" aria-label="المسودة">
-    <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة">
-      <span class="lbl">أمثلة جاهزة:</span>
+<main id="main">
+  <!-- ═════════ المراجعة: الإدخال ═════════ -->
+  <section class="view" id="v-compose" aria-labelledby="compose-h">
+    <div class="compose">
+      <h1 id="compose-h">ألصق مسودتك، ويراجعها سديد قبل أن تنشرها</h1>
+      <p class="lead">يقابل سديد الآيات والأحاديث بمصادرها المعتمدة، وينبّه على الأقوال والأرقام ودعاوى الإجماع التي تحتاج توثيقًا. ويضع ملاحظاته على هامش نصك دون أن يغيّر منه شيئًا.</p>
+      <div class="paper">
+        <label for="draft" class="sr">نص المسودة</label>
+        <textarea id="draft" placeholder="ألصق هنا نص الخطبة أو المحاضرة أو المقالة…" spellcheck="false"></textarea>
+        <div class="paper-foot">
+          <span class="wc" id="wc">0 كلمة</span>
+          <button class="btn quiet" id="clear" type="button">امسح</button>
+          <button class="btn primary" id="go" type="button">راجِع المسودة</button>
+        </div>
+      </div>
+      <p class="msg" id="compose-msg" role="alert" hidden></p>
+      <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة"><span>أو جرّب مثالًا:</span></div>
+      <p class="fine">حتى 3000 كلمة. ولا تُخزَّن المسودات ولا تُسجَّل.</p>
     </div>
-    <p class="example-note" id="example-note" hidden></p>
-    <label for="draft" class="lbl">نص المسودة (حتى 3000 كلمة)</label>
-    <textarea id="draft" placeholder="الصق هنا خطبتك أو مقالتك…"></textarea>
-    <div class="actions">
-      <button class="primary" id="run" type="button">راجِع المسودة</button>
-      <button id="clear" type="button">امسح</button>
-      <span class="counter" id="counter">0 كلمة</span>
-    </div>
-    <div class="status" id="status" role="status" aria-live="polite"></div>
   </section>
 
-  <section id="report" class="report" aria-label="تقرير المراجعة" hidden></section>
+  <!-- ═════════ المراجعة: النتيجة ═════════ -->
+  <section class="view" id="v-result" aria-labelledby="sum-h" hidden>
+    <div class="sumbar">
+      <div class="sum-text">
+        <h1 id="sum-h">يقرأ سديد مسودتك…</h1>
+        <div class="counts" id="counts"></div>
+      </div>
+      <div class="sum-actions">
+        <button class="btn" id="edit" type="button">عدّل المسودة</button>
+        <button class="btn" id="new" type="button">مراجعة جديدة</button>
+      </div>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div class="banner" id="banner" role="alert" hidden></div>
+    <div class="folio" id="folio">
+      <aside class="margin m-attn" id="m-attn" aria-label="ملاحظات تحتاج انتباهك"></aside>
+      <article class="sheet" aria-label="مسودتك">
+        <div class="sheet-head"><span id="doc-t">مسودتك</span><span id="doc-w"></span></div>
+        <div class="matn" id="matn"></div>
+        <p class="example-note" id="example-note" hidden></p>
+      </article>
+      <aside class="margin m-ok" id="m-ok" aria-label="مواضع تؤيدها المصادر"></aside>
+    </div>
+    <details class="audit" id="audit">
+      <summary>سجل المراجعة: بماذا فُحصت هذه المسودة؟</summary>
+      <div id="audit-body"></div>
+    </details>
+  </section>
 
-  <section class="about" aria-label="عن سديد">
-    <details id="about-results">
-      <summary>كيف نعرف أن سديد يعمل؟</summary>
-      <div id="results-body"><p class="status">جارٍ التحميل…</p></div>
-    </details>
-    <details id="about-coverage">
-      <summary>ما يغطيه سديد، وما لا يفعله</summary>
-      <div id="coverage-body"><p class="status">جارٍ التحميل…</p></div>
-    </details>
+  <!-- ═════════ الإعدادات ═════════ -->
+  <section class="view" id="v-settings" aria-labelledby="set-h" hidden>
+    <div class="page">
+      <h1 id="set-h">الإعدادات</h1>
+      <p class="lead">يعمل سديد بمفتاح الخادم دون أن تضبط شيئًا. وهذه الصفحة لمن أراد تشغيله بمفتاحه أو بنموذج آخر.</p>
+      <p class="now" id="set-now"></p>
+      <form id="set-form" autocomplete="off">
+        <div class="field">
+          <label for="set-provider">مزوّد النموذج</label>
+          <select id="set-provider">
+            <option value="server">نموذج الخادم (الافتراضي)</option>
+            <option value="gemini">Gemini من Google</option>
+            <option value="groq">Groq</option>
+            <option value="none">بلا نموذج: الآيات والأحاديث المعلَّمة وحدها</option>
+          </select>
+          <small id="set-provider-help">الآيات تُطابَق بلا نموذج في كل الأحوال. والنموذج يستخرج الأقوال والأرقام ودعاوى الإجماع، ويعين على الأحاديث.</small>
+        </div>
+        <div class="field" id="f-model">
+          <label for="set-model">النموذج</label>
+          <input id="set-model" type="text" dir="ltr" spellcheck="false">
+          <small>اتركه كما هو إن لم تكن متأكدًا.</small>
+        </div>
+        <div class="field" id="f-key">
+          <label for="set-key">مفتاح الاستخدام (API Key)</label>
+          <div class="key-row">
+            <input id="set-key" type="password" dir="ltr" spellcheck="false" placeholder="اختياري: اتركه فارغًا لاستعمال مفتاح الخادم">
+            <button class="btn quiet" type="button" id="set-show" aria-pressed="false">إظهار</button>
+          </div>
+          <small>تجده في حسابك لدى المزوّد. يُرسل مع كل مراجعة ولا يُحفظ على الخادم ولا يُسجَّل، ويبقى في هذه النافذة حتى تغلقها.</small>
+        </div>
+        <div class="set-actions">
+          <button class="btn primary" type="submit">احفظ</button>
+          <button class="btn" type="button" id="set-test">اختبر الاتصال</button>
+          <button class="btn quiet" type="button" id="set-reset">ارجع إلى الافتراضي</button>
+        </div>
+        <p class="msg" id="set-msg" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═════════ س و ج ═════════ -->
+  <section class="view" id="v-faq" aria-labelledby="faq-h" hidden>
+    <div class="page">
+      <h1 id="faq-h">س و ج</h1>
+      <p class="lead">مرجع سريع لمن يريد أن يفهم سديد في دقائق.</p>
+
+      <h2 class="faq-group">سديد في دقيقة</h2>
+      <details open>
+        <summary>ما الذي يفعله سديد؟</summary>
+        <div class="ans">
+          <p>يقرأ سديد مسودة الخطبة أو المحاضرة، ويستخرج منها ما يُنسب إلى مصدر: الآيات، والأحاديث، والأقوال المنسوبة، والأرقام، ودعاوى الإجماع. ثم يقابل كل واحدة بالمصادر المعتمدة، ويضع لكل موضع ملاحظة على هامش النص في ثلاثة أصناف: <b>تؤيده المصادر</b>، أو <b>يتطلب تحققًا</b>، أو <b>إحالة إلى مختص</b>.</p>
+          <p>والقرار للكاتب دائمًا. سديد يراجع النص، ولا يكتبه بدلًا منه.</p>
+        </div>
+      </details>
+      <details>
+        <summary>لماذا «المتن والحاشية»؟</summary>
+        <div class="ans"><p>هكذا كان العلماء يراجعون الكتب: يبقى المتن كما كتبه صاحبه، وتُكتب التعليقات على هامشه. وكذلك سديد: مسودتك في الوسط كما هي، وعلى يمينها ما يحتاج انتباهك، وعلى يسارها ما تؤيده المصادر.</p></div>
+      </details>
+      <details>
+        <summary>ما الفرق بين سديد وسؤال نموذج ذكاء اصطناعي مباشرة؟</summary>
+        <div class="ans"><p>النموذج العام قد يختلق مصدرًا، أو يحكم على حديث صحيح بالضعف، أو يكتب لك نص الآية من حفظه. وسديد لا يعرض نص آية أو حديث إلا مجلوبًا من المخزن بمعرّفه، ويطابق الآيات حرفًا بحرف بلا نموذج لغوي، ويستمد الحالة والإجراء من جدول قواعد ثابت لا من النموذج. والأرقام في الفقرة التالية.</p></div>
+      </details>
+
+      <h2 class="faq-group">الثقة والحدود</h2>
+      <details id="faq-results">
+        <summary>كيف نعرف أن سديد يعمل؟</summary>
+        <div class="ans" id="results-body"><p class="muted">جارٍ التحميل…</p></div>
+      </details>
+      <details>
+        <summary>هل يحكم سديد على الأحاديث؟</summary>
+        <div class="ans"><p>لا. «لم أعثر عليه» لا تعني «لا يصح»، و«وُجد» لا تعني «صحّ». لا يصف سديد حديثًا بأنه مؤيَّد إلا إذا وجده في الصحيحين، ولا ينبّه على ضعف إلا من قائمة موثقة يُنقل فيها الحكم بلفظه ونسبته. وما سوى ذلك يقول فيه: يتطلب تحققًا، ويعطيك رابط البحث.</p></div>
+      </details>
+      <details id="faq-coverage">
+        <summary>ما المصادر التي يرجع إليها سديد؟</summary>
+        <div class="ans" id="coverage-body"><p class="muted">جارٍ التحميل…</p></div>
+      </details>
+      <details>
+        <summary>ماذا تعني «المراجعة ناقصة»؟</summary>
+        <div class="ans"><p>إذا تعذّر الوصول إلى نموذج الذكاء الاصطناعي، يكمل سديد ما لا يحتاج نموذجًا: يطابق الآيات، ويفحص الأحاديث المعلَّمة بعلامات التنصيص. ويقول لك صراحة ما الذي لم يُفحص، ولا يوهمك بأن النص سليم.</p></div>
+      </details>
+      <details>
+        <summary>هل تُحفظ مسودتي؟</summary>
+        <div class="ans"><p>لا. لا تُخزَّن المسودات ولا تُسجَّل نصوصها. وإن أدخلت مفتاحك في الإعدادات فهو يُرسل مع طلبك وحده، ولا يُحفظ على الخادم.</p></div>
+      </details>
+
+      <h2 class="faq-group">للمحكّمين والمطوّرين</h2>
+      <!-- أسئلة المحكّمين يضيفها محمد هنا، كل سؤال في <details> مثل ما سبق -->
+      <details>
+        <summary>كيف أشغّل سديد وأعيد التقييم بنفسي؟</summary>
+        <div class="ans">
+          <p>الكود والتقييم في المستودع، ومعه أمر واحد لإعادة التقييم من التسجيلات دون مفتاح:</p>
+          <pre dir="ltr">uv sync
+uv run saadeed data build
+uv run saadeed serve
+uv run saadeed eval run --split dev --systems saadeed,B0 --replay</pre>
+          <p><a href="https://github.com/abdorum/Saadeed" target="_blank" rel="noopener">المستودع على GitHub</a> · <a href="v1/docs" target="_blank" rel="noopener">توثيق الواجهة البرمجية</a></p>
+        </div>
+      </details>
+    </div>
   </section>
 </main>
 
-<footer class="disclosure">
-  <div class="wrap">سديد أداة مراجعة مدعومة بالذكاء الاصطناعي، وليست فتوى. وعدم التنبيه على شيء لا يعني صحته. ولا تُخزَّن المسودات.</div>
+<footer class="foot">
+  <p>مشاركة في «تحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي 2026»</p>
+  <p class="fine">سديد أداة مراجعة، وليس فتوى. وعدم التنبيه على موضع لا يعني صحته.</p>
 </footer>
 
-<script src="assets/app.js?v=0.3.3"></script>
+<script src="assets/app.js?v=0.4.0"></script>
 </body>
 </html>
