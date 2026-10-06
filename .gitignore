@@ -27,6 +27,10 @@ build/
 /docs/*
 !/docs/EXTENDING.md
 !/docs/التحقق-العلمي.md
+!/docs/أسئلة-المحكمين.md
+!/docs/الرؤية.md
+!/docs/المصادر-والوظائف.md
+!/docs/العرض-التقديمي.md
 !/docs/planning/
 /docs/planning/*
 !/docs/planning/01-vision.md
