@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -36,6 +37,10 @@ WEB_DIR = Path(os.environ.get("SAADEED_WEB_DIR", ROOT / "web"))
 RESULTS_FILE = Path(
     os.environ.get("SAADEED_RESULTS", ROOT / "eval" / "reports" / "dev_v4c_saadeed-B0.json")
 )
+CORS_ORIGIN_REGEX = os.environ.get(
+    "SAADEED_CORS_ORIGIN_REGEX", r"https://([a-z0-9-]+\.)*hf\.space|https://huggingface\.co"
+)
+"""الواجهة المنفصلة (HF Space ثابتة) تنادي الـ API من نطاقها. لا كعكات ولا اعتماد، فلا credentials."""
 RATE_LIMIT = int(os.environ.get("SAADEED_RATE_LIMIT", "12"))
 """عدد المراجعات الكاملة لكل عنوان في الدقيقة."""
 MAX_CHARS = 40_000
@@ -164,6 +169,13 @@ app = FastAPI(
     openapi_url="/v1/openapi.json",
     redoc_url=None,
     lifespan=lifespan,
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=CORS_ORIGIN_REGEX,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "Accept"],
+    max_age=600,
 )
 
 

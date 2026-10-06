@@ -15,6 +15,8 @@
     });
   };
   var EMBED = window.SAADEED_DATA || null; // المعاينة الثابتة: البيانات مضمّنة في الصفحة
+  /* عنوان الـ API: من <meta name="saadeed-api"> حين تُستضاف الواجهة منفصلة (HF)، وإلا فالرابط نفسه. */
+  var API = (function () { var m = document.querySelector('meta[name="saadeed-api"]'); return m && m.content ? m.content.replace(/\/?$/, "/") : ""; })();
   var LIVE = false;
   var HEALTH = null;
   var MAX_WORDS = 3000, MIN_WORDS = 8;
@@ -211,14 +213,14 @@
     var run = ++RUN;
     var choice = llmChoice();
     startResult(text, null);
-    var quickDone = postJSON("v1/reviews", { text: text, mode: "quick" }).then(function (q) {
+    var quickDone = postJSON(API + "v1/reviews", { text: text, mode: "quick" }).then(function (q) {
       if (run !== RUN) return;
       render(text, q, { reading: true, provisional: true });
       return sweep(run);
     }).catch(function () { /* الفحص السريع تمهيد؛ التقرير الكامل هو المرجع */ });
     var body = { text: text, mode: "full" };
     if (choice) body.llm = choice;
-    var full = postJSON("v1/reviews", body);
+    var full = postJSON(API + "v1/reviews", body);
     quickDone.then(function () {
       if (run !== RUN) return;
       if (CURRENT && CURRENT.provisional) {
@@ -640,7 +642,7 @@
       var btn = this;
       btn.disabled = true;
       setMsg("", "جارٍ الاختبار…");
-      postJSON("v1/llm/check", choice).then(function (r) {
+      postJSON(API + "v1/llm/check", choice).then(function (r) {
         if (r.ok) setMsg("ok", r.model === "none" ? "لا يحتاج هذا الخيار اتصالًا: تعمل المراجعة بالمسار الحتمي." :
           "الاتصال يعمل: <span dir=\"ltr\">" + esc(r.model) + "</span>. لا تنسَ الحفظ.");
         else setMsg("err", "لم ينجح الاتصال: " + esc(r.reason) + ".");
@@ -701,7 +703,7 @@
   function detectLive() {
     var ctl = "AbortController" in window ? new AbortController() : null;
     var t = setTimeout(function () { if (ctl) ctl.abort(); }, 3000);
-    return fetch("v1/health", ctl ? { signal: ctl.signal } : {})
+    return fetch(API + "v1/health", ctl ? { signal: ctl.signal } : {})
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) { clearTimeout(t); HEALTH = j && j.ok ? j : null; if (HEALTH && HEALTH.max_words) MAX_WORDS = HEALTH.max_words; return !!HEALTH; })
       .catch(function () { clearTimeout(t); return false; });
@@ -729,8 +731,8 @@
       $("#draft").focus();
     });
     initSettings();
-    lazy("faq-results", "v1/results", "results", "data/results.json", renderResults, "results-body");
-    lazy("faq-coverage", "v1/coverage", "coverage", "data/coverage.json", renderCoverage, "coverage-body");
+    lazy("faq-results", API + "v1/results", "results", "data/results.json", renderResults, "results-body");
+    lazy("faq-coverage", API + "v1/coverage", "coverage", "data/coverage.json", renderCoverage, "coverage-body");
     route();
     detectLive().then(function (live) {
       LIVE = live;
