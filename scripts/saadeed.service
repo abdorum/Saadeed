@@ -1,0 +1,21 @@
+# خدمة سديد: تعمل عند الإقلاع وتعود إن توقفت.
+# التثبيت (مرة واحدة):
+#   sudo cp scripts/saadeed.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now saadeed
+# الحالة والسجل:
+#   systemctl status saadeed     ·     journalctl -u saadeed -f
+# وبعد تعديل .env أو الكود:
+#   sudo systemctl restart saadeed
+[Unit]
+Description=Saadeed (pre-publication reviewer)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/Projects/Saadeed
+ExecStart=/home/ubuntu/Projects/Saadeed/.venv/bin/saadeed serve --host 127.0.0.1 --port 9090 --root-path /saadeed
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
