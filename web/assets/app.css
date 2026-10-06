@@ -24,9 +24,9 @@
   --idle: #776F61;  --idle-bg: #ECE5D6;
   --ok: #3E6A4B;    --ok-bg: #E1EBDC;
   /* أنواع المتن: شريط على حافة الورقة */
-  --k-quran: #B06A5C;
-  --k-hadith: #C29A45;
-  --k-said: #9AA2B2;
+  --k-quran: rgba(176, 106, 92, .10);
+  --k-hadith: rgba(194, 154, 69, .14);
+  --k-said: rgba(154, 162, 178, .12);
   --k-athar: var(--k-said);
   --k-scholar: var(--k-said);
   --k-ruling: var(--k-said);
@@ -201,12 +201,8 @@ main { max-width: 1300px; margin: 0 auto; padding: 32px 28px 56px; }
 .example-note { margin: 28px 0 0; padding-top: 14px; border-top: 1px solid var(--line-2); color: var(--ink-3); font-size: 14.5px; }
 
 /* أنواع الفقرات: شريط رفيع على حافة الورقة، وومضة هادئة أثناء القراءة */
-.seg { position: relative; border-radius: 3px; transition: background-color .45s ease, color .3s ease; }
-.seg::before {
-  content: ""; position: absolute; inset-inline-start: -28px; top: .4em; bottom: .4em;
-  width: 3px; border-radius: 2px; background: transparent; transition: background-color .4s ease;
-}
-.seg.kinded::before { background: var(--stripe, transparent); }
+.seg { border-radius: 3px; transition: background-color .45s ease, color .3s ease; }
+.seg.kinded { background-color: var(--stripe, transparent); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .seg.k-OTHER, .seg.k-EXHORTATION, .seg.k-DUA, .seg.k-STORY { color: #3F382D; }
 .seg.scan { background: #EFE6CF; }
 .seg.k-QURAN.scan { background: #F3DED6; }
@@ -344,7 +340,6 @@ ul.plain { margin: 8px 0; padding-inline-start: 20px; }
   .col-notes .margin { border-inline-start: 0; padding-inline-start: 0; }
   .margin.placed .note { position: static; }
   .sheet { padding: 30px 32px 36px; }
-  .seg::before { inset-inline-start: -18px; }
 }
 @media (max-width: 640px) {
   body { font-size: 16.5px; }
@@ -359,7 +354,6 @@ ul.plain { margin: 8px 0; padding-inline-start: 20px; }
   .sumbar h1 { font-size: 22px; }
   .sum-actions { margin-inline-start: 0; }
   .sheet { padding: 24px 22px 28px; outline-offset: -5px; }
-  .seg::before { inset-inline-start: -13px; }
   .matn { font-size: 18.5px; }
   form { padding: 18px 16px; }
   .page h1 { font-size: 26px; }

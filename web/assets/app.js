@@ -370,7 +370,8 @@
         if (seg) out += '<span class="seg" data-k="' + esc(seg.kind) + '" data-label="' + esc(seg.kind_ar || "") + '">';
         openSeg = seg;
       }
-      var piece = esc(text.slice(a, b));
+      // الأسطر الفارغة المتتالية تُعرض سطرًا فارغًا واحدًا (العرض وحده؛ مواضع النص لا تتغير)
+      var piece = esc(text.slice(a, b).replace(/\n[ \t]*(?:\n[ \t]*){2,}/g, "\n\n"));
       var cov = F.filter(function (f) { return f.claim.span.start <= a && f.claim.span.end >= b; });
       if (cov.length) {
         var p = cov.slice().sort(function (x, y) {
