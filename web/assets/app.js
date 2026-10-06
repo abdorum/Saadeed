@@ -498,10 +498,12 @@
       }
       col.classList.add("placed");
       var base = col.getBoundingClientRect().top;
+      // المسافات من getBoundingClientRect بعد المقياس، وstyle.top قبله: نقسم على المقياس
+      var z = parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
       var y = 0;
       notes.forEach(function (n) {
         var m = $('.c[data-ids~="' + n.dataset.id + '"]') || $('.n[data-id="' + n.dataset.id + '"]');
-        var want = m ? m.getBoundingClientRect().top - base - 4 : y;
+        var want = m ? (m.getBoundingClientRect().top - base) / z - 4 : y;
         var top = Math.max(want, y);
         n.style.top = top + "px";
         y = top + n.offsetHeight + 10;

@@ -369,3 +369,9 @@ ul.plain { margin: 8px 0; padding-inline-start: 20px; }
 }
 .col-notes .margin.placed .note { inset-inline-start: 14px; }
 .tagline small { font-family: var(--text); font-size: 13px; color: #C9D2E0; }
+
+/* على الحاسوب تُعرض الصفحة بمقياس 80%: أريح للعين وأوسع للمتن والحاشية (بطلب محمد بعد التجربة).
+   والهاتف والشاشات الأصغر بمقاسها الطبيعي. وapp.js يراعي هذا المقياس في محاذاة الحواشي. */
+@media (min-width: 1151px) {
+  html { zoom: 0.8; }
+}
