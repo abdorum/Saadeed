@@ -17,6 +17,8 @@ set -a; [ -f .env ] && . ./.env; set +a
 : "${HF_SPACE:?ضع HF_SPACE في .env (مثل user/saadeed)}"
 API_URL="${SAADEED_API_URL:-https://ibnadam.duckdns.org/saadeed/}"
 API=https://huggingface.co/api
+GH_RAW=https://raw.githubusercontent.com/abdorum/Saadeed/main
+GH_BLOB=https://github.com/abdorum/Saadeed/blob/main
 AUTH="Authorization: Bearer ${HF_TOKEN}"
 NAME="${HF_SPACE#*/}"; OWNER="${HF_SPACE%%/*}"
 
@@ -28,7 +30,6 @@ echo "   الحالة: $code (409 = موجودة مسبقًا)"
 echo "٢) تجهيز الواجهة من آخر commit، والـ API: ${API_URL}"
 TMP=$(mktemp -d)
 git archive HEAD:web | tar -x -C "$TMP"
-git archive HEAD docs/assets | tar -x -C "$TMP"   # صور الـ README في بطاقة المساحة
 git show HEAD:LICENSE > "$TMP/LICENSE"
 python3 - "$TMP/index.html" "$API_URL" <<'EOF'
 import sys
@@ -40,7 +41,11 @@ open(p, "w", encoding="utf-8").write(s.replace('<meta charset="utf-8">\n', '<met
 EOF
 {
   printf -- '---\ntitle: سديد\nemoji: 📖\ncolorFrom: green\ncolorTo: red\nsdk: static\napp_file: index.html\npinned: false\nlicense: mit\nshort_description: مراجِع ما قبل النشر للمسودات الدعوية العربية\n---\n\n'
-  git show HEAD:README.md
+  # الروابط النسبية تُحال إلى GitHub: HF لا تقبل الصور الثنائية دون LFS، فتُعرض صور البطاقة من المستودع.
+  git show HEAD:README.md | sed -E \
+    -e "s#src=\"(docs/[^\"]+)\"#src=\"${GH_RAW}/\1\"#g" \
+    -e "s#\]\((docs/assets/[^)]+)\)#](${GH_RAW}/\1)#g" \
+    -e "s#\]\(([^)h\#][^)]*)\)#](${GH_BLOB}/\1)#g"
 } > "$TMP/README.md"
 
 echo "٣) الدفع إلى المساحة…"
