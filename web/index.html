@@ -52,6 +52,7 @@
           <button class="btn quiet" id="clear" type="button">امسح</button>
           <span class="wc" id="wc">0 كلمة</span>
         </div>
+        <p class="paper-note">بلا مفتاح تُفحص الآيات والأحاديث المعلَّمة. وللتحليل الكامل أدخل مفتاح نموذجك في <a href="#settings">الإعدادات</a>.</p>
         <p class="msg" id="compose-msg" role="alert" hidden></p>
         <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة"><span>أو اطّلع على تقرير جاهز:</span></div>
       </div>
@@ -111,10 +112,9 @@
         <div class="field">
           <label for="set-provider">مزوّد النموذج</label>
           <select id="set-provider">
-            <option value="server">نموذج الخادم (الافتراضي)</option>
+            <option value="server">بلا مفتاح (الافتراضي)</option>
             <option value="gemini">Gemini من Google</option>
             <option value="groq">Groq</option>
-            <option value="none">بلا نموذج: الآيات والأحاديث المعلَّمة وحدها</option>
           </select>
           <small id="set-provider-help">الآيات تُطابَق بلا نموذج في كل الأحوال. والنموذج يستخرج الأقوال والأرقام ودعاوى الإجماع، ويعين على الأحاديث.</small>
         </div>

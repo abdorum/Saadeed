@@ -134,6 +134,7 @@ main { max-width: 1240px; margin: 0 auto; padding: 56px 40px 72px; }
 .paper-foot { display: flex; align-items: center; gap: 12px; padding: 18px 24px 22px; }
 .paper-foot .wc { margin-inline-start: auto; color: var(--ink-3); font-size: 14px; font-variant-numeric: tabular-nums; }
 .paper .msg { margin: 0 24px 18px; }
+.paper-note { margin: -6px 24px 18px; font-size: 13.5px; color: var(--ink-3); }
 .examples { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; padding: 16px 24px 22px; border-top: 1px solid var(--line-2); color: var(--ink-3); font-size: 14px; }
 .examples > span { flex-basis: 100%; }
 .examples button { background: var(--parchment); border: 1px solid var(--line); padding: 8px 16px; color: var(--lapis); font-size: 14.5px; min-height: 40px; }

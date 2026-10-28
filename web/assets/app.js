@@ -322,8 +322,8 @@
     var msgs = [];
     if (!opts.provisional) {
       var nc = rep.summary.not_checked || [];
-      var mineNone = SETTINGS.provider === "none";
-      if (mineNone && nc.length) msgs.push(["info", "اخترت في الإعدادات العمل بلا نموذج، ففُحصت الآيات والأحاديث المعلَّمة وحدها. <a href=\"#settings\">غيّر الإعدادات</a>"]);
+      var mineNone = SETTINGS.provider === "none" || (SETTINGS.provider === "server" && LIVE && !serverModel());
+      if (mineNone && nc.length) msgs.push(["info", "فُحصت الآيات والأحاديث المعلَّمة وحدها. ولتحليل الأقوال والأرقام ودعاوى الإجماع أدخل مفتاح نموذجك في <a href=\"#settings\">الإعدادات</a>: مفتاح Gemini مجاني، ويبقى في متصفحك."]);
       else if (rep.meta.degraded || nc.length) {
         var keyBad = (rep.meta.warnings || []).some(function (w) { return /مفتاح/.test(w); });
         msgs.push(["", "<strong>المراجعة ناقصة:</strong> " + esc(degradedWhat(rep)) +
@@ -681,9 +681,9 @@
     var s = SETTINGS, t;
     if (s.provider === "none") t = "تعمل الآن <b>بلا نموذج</b>: تُطابَق الآيات وتُفحص الأحاديث المعلَّمة، ولا تُستخرج الأقوال والأرقام ودعاوى الإجماع.";
     else if (s.provider === "gemini" || s.provider === "groq") t = "تعمل الآن بـ<b dir=\"ltr\"> " + esc(s.provider + " · " + (s.model || defaultModel(s.provider))) + " </b>" +
-      (s.api_key ? "وبمفتاحك المنتهي بـ <b dir=\"ltr\">…" + esc(s.api_key.slice(-4)) + "</b>." : "وبمفتاح الخادم.");
+      (s.api_key ? "وبمفتاحك المنتهي بـ <b dir=\"ltr\">…" + esc(s.api_key.slice(-4)) + "</b>." : "، لكن بلا مفتاح بعد: أدخل مفتاحك أدناه.");
     else t = serverModel() ? "تعمل الآن بنموذج الخادم: <b dir=\"ltr\">" + esc(serverModel()) + "</b>." :
-      LIVE ? "نموذج الخادم غير متاح الآن، فتعمل المراجعة بالآيات والأحاديث المعلَّمة وحدها. ويمكنك إدخال مفتاحك أدناه." :
+      LIVE ? "تعمل الآن <b>بلا مفتاح</b>: تُطابَق الآيات وتُفحص الأحاديث المعلَّمة. ولتحليل الأقوال والأرقام ودعاوى الإجماع اختر مزودك وأدخل مفتاحك أدناه." :
       "هذه معاينة دون خادم. والإعدادات تعمل على الرابط المنشور.";
     $("#set-now").innerHTML = t;
   }
