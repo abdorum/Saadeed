@@ -75,8 +75,6 @@ Reproduce without any API key: `uv run saadeed eval run --split dev --systems sa
 
 ### Architecture
 
-![Saadeed's core architecture: four layers inside an isolated boundary, adapters around it through ports, and the eight-step review process](docs/assets/core-architecture.png)
-
 - **The core has four layers:** `domain` ← `text` ← `verifiers` ← `application`. Each layer imports only the ones below it, and the core never imports an adapter, a provider SDK or FastAPI. Both contracts live in `pyproject.toml` and are enforced by `lint-imports`.
 - **Ports** are `Protocol`s in `src/saadeed/domain/ports.py`: `LLMPort`, `QuranRepo`, `TextSourcePort`, `KnownWeakRepo`, `LibraryPort`, `ReferenceLinker`.
 - **Adapters** live in `src/saadeed/adapters/`. `api`, `cli` and `eval` drive the core; `llm` and `sources` are driven through the ports. `factory.py` wires them together.
@@ -203,6 +201,6 @@ The project documents are in Arabic: [vision](docs/01-VISION.md), [FAQ](docs/02-
 
 ## About
 
-- **Author:** Mohammed Abdulrahman.
+- **Author:** Abdo.
 - **Version:** 0.6.0 ([changelog](CHANGELOG.md)).
 - **License:** code under MIT ([LICENSE](LICENSE)); data under the licenses of its sources ([`data/SOURCES.md`](data/SOURCES.md)). If you use or build on Saadeed, please cite it ([CITATION.cff](CITATION.cff)).

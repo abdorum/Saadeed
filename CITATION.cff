@@ -2,8 +2,7 @@ cff-version: 1.2.0
 message: "إن استعملت سديد أو بنيت عليه فاذكر مصدره."
 title: "سديد: مراجِع ما قبل النشر للمحتوى الدعوي"
 authors:
-  - given-names: "Mohammed"
-    family-names: "Abdulrahman"
+  - name: "Abdo"
 version: 0.6.0
 date-released: 2026-10-28
 license: MIT

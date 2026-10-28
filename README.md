@@ -140,8 +140,6 @@
 
 ### البنية
 
-![بنية سديد: النواة بطبقاتها الأربع داخل حدود معزولة، والمحوّلات حولها عبر المنافذ، ومسار المراجعة بمحطاته الثماني](docs/assets/core-architecture.png)
-
 - **النواة أربع طبقات:** `domain` ← `text` ← `verifiers` ← `application`. كل طبقة لا تستورد إلا ما تحتها، والنواة كلها لا تستورد محوّلًا ولا مكتبة مزود ولا FastAPI. والعقدان مكتوبان في `pyproject.toml`، و`lint-imports` يُفشل البناء إن خولفا.
 - **المنافذ** عقود `Protocol` في `src/saadeed/domain/ports.py`: `LLMPort`، و`QuranRepo`، و`TextSourcePort`، و`KnownWeakRepo`، و`LibraryPort`، و`ReferenceLinker`.
 - **المحوّلات** في `src/saadeed/adapters/`: `api` و`cli` و`eval` تستدعي النواة، و`llm` و`sources` تستدعيها النواة عبر المنافذ. و`factory.py` يركّبها.
@@ -359,7 +357,7 @@ docs/            الوثائق، والصور ومصادرها في docs/assets
 
 ## عن المشروع
 
-- **المؤلف:** محمد عبدالرحمن.
+- **المؤلف:** عبدو.
 - **الإصدار:** 0.6.0 ([سجل الإصدارات](CHANGELOG.md)).
 - **الترخيص:** الكود MIT ([LICENSE](LICENSE))، والبيانات بتراخيص مصادرها ([`data/SOURCES.md`](data/SOURCES.md)). ومن استعمله فليذكر مصدره ([CITATION.cff](CITATION.cff)).
 - **الخطوط:** Amiri للعناوين، وIBM Plex Sans Arabic للنص، وAmiri Quran لنص المصحف، وكلها بترخيص SIL OFL.

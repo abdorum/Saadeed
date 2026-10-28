@@ -266,7 +266,7 @@ adapter = "open_hadith"
 file = "data/processed/bukhari.json"
 sha256 = "…"
 license = "ODbL-1.0 (Open-Hadith-Data)"
-reviewed_by = "محمد عبدالرحمن"
+reviewed_by = "عبدو"
 
 [[source]]
 id = "abudawud"
@@ -300,7 +300,7 @@ flowchart LR
 flowchart LR
     R1["Tanzil: إملائي بسيط + عثماني<br/>(CC BY 3.0، دون تعديل)"] --> B["data/build/*.py<br/>تنزيل · تحقق من البصمة · فهرسة"]
     R2["Open-Hadith-Data: الكتب الستة<br/>(ODbL)"] --> B
-    R3["قائمة المشتهر<br/>(يعتمدها محمد + روابط الدرر)"] --> B
+    R3["قائمة المشتهر<br/>(يعتمدها عبدو + روابط الدرر)"] --> B
     B --> P[("data/processed/*.json")]
     B --> MF["data/manifest.toml<br/>الأدوار · الإصدارات · البصمات"]
     B --> SRC["data/SOURCES.md<br/>المصدر · الرخصة · النسبة"]
