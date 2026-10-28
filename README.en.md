@@ -21,11 +21,6 @@ It checks every claim in a sermon, lesson or article against vetted sources, and
   <img alt="144 tests" src="https://img.shields.io/badge/tests-144%20passing-3E6A4B">
 </p>
 
-<p align="center">
-  <img src="docs/assets/screenshot-report.png" alt="A Saadeed report on a 1,063-word article: 35 claims checked, a publication-readiness estimate, the draft with highlighted spans and margin notes; the open note shows a verse with one altered letter next to the Mushaf text" width="100%">
-  <br><sub>A 1,063-word article: Saadeed checked 35 claims, estimated its readiness for publication, and placed each note beside its span. The open note shows a verse with one altered letter, next to the Mushaf text fetched from the store.</sub>
-</p>
-
 ## Why
 
 Preachers and content creators increasingly draft with general-purpose AI. A draft can read well and still carry a verse with a changed word, a famous hadith that is not authentic, a saying attributed to the wrong scholar, or an unsupported "all scholars agree". Saadeed sits between the draft and the pulpit. It does not write for you. It shows you what you might miss, with the evidence, and leaves the judgement to you.
@@ -74,6 +69,8 @@ Reproduce without any API key: `uv run saadeed eval run --split dev --systems sa
 ## For developers
 
 ### Architecture
+
+![Saadeed's core architecture: four layers inside an isolated boundary, adapters around it through ports, and the eight-step review process](docs/assets/core-architecture.png)
 
 - **The core has four layers:** `domain` ← `text` ← `verifiers` ← `application`. Each layer imports only the ones below it, and the core never imports an adapter, a provider SDK or FastAPI. Both contracts live in `pyproject.toml` and are enforced by `lint-imports`.
 - **Ports** are `Protocol`s in `src/saadeed/domain/ports.py`: `LLMPort`, `QuranRepo`, `TextSourcePort`, `KnownWeakRepo`, `LibraryPort`, `ReferenceLinker`.
