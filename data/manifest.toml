@@ -6,8 +6,8 @@
 #          LOCATE (مصدر موضع، دون حكم) · LINK (رابط فقط)
 
 [manifest]
-id = "saadeed-2026.10-v3"
-description = "المرجعية الواحدة للتحدي: ما سمّته الحزمة العلمية، بأدوار معلنة"
+id = "saadeed-2026.10-v4"
+description = "المرجعية الواحدة لسديد: المصادر المعتمدة بأدوار معلنة"
 reviewed_by = "محمد عبدالرحمن"
 reviewed_on = "2026-10-05"
 
@@ -19,7 +19,7 @@ name_ar = "المصحف (الموسوعة القرآنية، رواية حفص،
 files = ["vendor/quranpedia/mushafs-1.json.gz", "vendor/quranpedia/mushafs-2.json.gz"]
 version = "quranpedia.net dump 2026-10-02 (mushafs-1 للبحث، mushafs-2 للعرض) — مثبّتة في data/vendor"
 license = "quranpedia.net — استعمال حر داخل التطبيقات، مع ذكر المصدر"
-# المصدر المسمّى في الحزمة العلمية للمسابقة («…أو الواردة في quranpedia.net»). (ADR-0015)
+# مصدر نص المصحف (ADR-0015).
 # والوصلة البديلة Tanzil في data/manifest.tanzil.toml، وطابقناها بهذه آيةً آية:
 # 6228 من 6236 متطابقة بعد التطبيع، والفروق معلنة في docs/research/quran-text-check.md.
 # وعلى dev أعطت الوصلتان الأرقام نفسها حرفيًا (eval/reports/dev_v4e_quranpedia.md).

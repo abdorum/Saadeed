@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>سديد: صورة المعاينة</title>
+<!-- مصدر docs/assets/social-preview.png (1280×640، بمقياس 1): صورة المعاينة في إعدادات GitHub. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #172C4C; }
+  #canvas { width: 1280px; height: 640px; position: relative; overflow: hidden;
+            background: radial-gradient(120% 120% at 85% 0%, #24457A 0%, #1F3A63 45%, #172C4C 100%);
+            font-family: "IBM Plex Sans Arabic", sans-serif; color: #FBF7EC; }
+  .frame { position: absolute; inset: 26px; border: 1.5px solid rgba(184, 145, 63, .75); border-radius: 26px; }
+  .frame::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 145, 63, .3); border-radius: 20px; }
+  .wrap { position: absolute; inset: 0; padding: 92px 110px 0; }
+  .mark { font-family: "Aref Ruqaa", serif; font-weight: 700; font-size: 170px; line-height: 1; color: #DCC386; }
+  .tag { margin-top: 26px; font-size: 44px; font-weight: 600; }
+  .lead { margin-top: 14px; font-size: 25px; color: #DCC386; font-weight: 400; }
+  .en { position: absolute; left: 110px; right: 110px; bottom: 74px; display: flex; justify-content: space-between; align-items: center;
+        direction: ltr; font-family: "IBM Plex Mono", monospace; font-size: 17px; color: rgba(251, 247, 236, .78); }
+  .en b { color: #FBF7EC; font-weight: 500; }
+  .dots { position: absolute; left: 110px; top: 118px; display: flex; flex-direction: column; gap: 14px; direction: rtl; }
+  .chip { font-size: 21px; font-weight: 500; padding: 8px 18px; border-radius: 999px; border: 1px solid rgba(220, 195, 134, .55); color: #FBF7EC; background: rgba(251, 247, 236, .06); text-align: center; }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="frame"></div>
+  <div class="wrap">
+    <div class="mark">سديد</div>
+    <div class="tag">مُراجِع ما قبل النشر للمحتوى الدعوي</div>
+    <div class="lead">يقابل الآيات والأحاديث بمصادرها، ويضع الدليل بجانب كل موضع</div>
+  </div>
+  <div class="dots">
+    <span class="chip">الآيات حرفًا بحرف</span>
+    <span class="chip">صفر مصادر مختلقة</span>
+    <span class="chip">الدليل قبل الحكم</span>
+  </div>
+  <div class="en"><span><b>Saadeed</b> · pre-publication reviewer for Arabic Islamic content</span><span>github.com/abdorum/Saadeed</span></div>
+</div>
+</body>
+</html>

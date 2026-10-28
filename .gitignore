@@ -29,6 +29,8 @@ build/
 !/docs/03-TECHNICAL.md
 !/docs/04-EVALUATION.md
 !/docs/05-UX.md
+!/docs/assets/
+!/docs/openapi.json
 !/docs/planning/
 /docs/planning/*
 !/docs/planning/03-requirements.md

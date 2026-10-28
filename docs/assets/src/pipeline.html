@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>مسار المراجعة</title>
+<!-- مصدر docs/assets/pipeline.png. يُرسم بـ Chromium عرضه 1240 وبمقياس 2 (انظر docs/assets/README.md). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --lapis: #1F3A63; --gold: #B8913F; --vellum: #FBF7EC; --parchment: #F0E8D6;
+    --ink: #221E18; --ink-2: #5B5244; --ink-3: #887D69; --line: #DCCDAB;
+    --llm: #485E86; --llm-bg: #E1E6F0; --det: #3E6A4B; --det-bg: #E1EBDC;
+    --rule: #95600F; --rule-bg: #F5E5C6; --crit: #9A3A2B; --crit-bg: #F4DFD6;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: transparent; font-family: "IBM Plex Sans Arabic", sans-serif; color: var(--ink); }
+  code { font-family: "IBM Plex Mono", monospace; font-size: .86em; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+  bdi { unicode-bidi: isolate; }
+  #canvas { width: 1240px; padding: 34px 34px 28px; background: var(--parchment); border-radius: 22px; }
+  h1 { font-size: 30px; font-weight: 700; color: var(--lapis); }
+  .sub { margin-top: 4px; font-size: 16px; color: var(--ink-2); }
+  .roles { display: flex; gap: 10px; margin-top: 18px; }
+  .role { flex: 1; border-radius: 12px; padding: 10px 14px; border: 1px solid; }
+  .role b { font-size: 16px; font-weight: 700; }
+  .role span { display: block; font-size: 13px; margin-top: 1px; }
+  .r-llm { background: var(--llm-bg); border-color: #C3CDE0; color: #2F3F5E; }
+  .r-det { background: var(--det-bg); border-color: #C2D6BA; color: #2C4A35; }
+  .r-rule { background: var(--rule-bg); border-color: #E8CF9E; color: #6B4510; }
+  .r-human { background: var(--lapis); border-color: var(--lapis); color: var(--vellum); }
+  .main { display: grid; grid-template-columns: 1fr 330px; gap: 22px; margin-top: 22px; }
+  .steps { position: relative; display: flex; flex-direction: column; gap: 9px; }
+  .steps::before { content: ""; position: absolute; right: 21px; top: 22px; bottom: 22px; width: 2px; background: var(--line); }
+  .step { position: relative; display: grid; grid-template-columns: 44px 1fr 196px; gap: 14px; align-items: center;
+          background: var(--vellum); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 10px 14px; }
+  .n { width: 30px; height: 30px; border-radius: 50%; background: var(--lapis); color: var(--vellum); font-weight: 700; font-size: 15px;
+       display: flex; align-items: center; justify-content: center; margin-right: 0; z-index: 1; }
+  .step b { font-size: 16.5px; font-weight: 700; color: var(--lapis); }
+  .step p { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; margin-top: 1px; }
+  .who { justify-self: start; font-size: 12.5px; font-weight: 600; border-radius: 999px; padding: 3px 11px; text-align: center; border: 1px solid; }
+  .w-llm { background: var(--llm-bg); color: #2F3F5E; border-color: #C3CDE0; }
+  .w-det { background: var(--det-bg); color: #2C4A35; border-color: #C2D6BA; }
+  .w-rule { background: var(--rule-bg); color: #6B4510; border-color: #E8CF9E; }
+  .ex { background: var(--vellum); border: 1.5px solid var(--gold); border-radius: 14px; padding: 16px 16px 14px; align-self: start; }
+  .ex h2 { font-size: 15px; font-weight: 700; color: var(--gold); }
+  .ex .draft { margin-top: 8px; font-size: 17px; font-weight: 600; line-height: 1.7; background: var(--crit-bg); border-radius: 8px; padding: 6px 10px; color: var(--ink); }
+  .trace { margin-top: 12px; display: flex; flex-direction: column; gap: 9px; }
+  .t { font-size: 13.5px; line-height: 1.6; color: var(--ink-2); padding-right: 10px; border-right: 2px solid var(--line); }
+  .t i { font-style: normal; font-weight: 700; color: var(--lapis); }
+  .verdict { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 12.5px; font-weight: 600; border-radius: 999px; padding: 2px 10px; }
+  .p-ev { background: var(--rule-bg); color: #6B4510; } .p-sev { background: var(--crit-bg); color: var(--crit); } .p-act { background: var(--lapis); color: var(--vellum); }
+  .quote { margin-top: 12px; background: #F3ECDB; border-radius: 8px; padding: 8px 10px; font-size: 13.5px; line-height: 1.65; color: var(--ink); }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <h1>كيف يراجع سديد مسودة؟</h1>
+  <p class="sub">ثماني محطات، والذكاء الاصطناعي فيها يجد ويقارن: لا يكتب نصًا شرعيًا، ولا يحكم على حديث، ولا يقرر الإجراء</p>
+
+  <div class="roles">
+    <div class="role r-llm"><b>النموذج يجد ويقارن</b><span>أين الادعاء؟ وأي المرشحين يطابق؟</span></div>
+    <div class="role r-det"><b>المخزن يشهد</b><span>كل نص شرعي يُجلب منه بمعرّفه</span></div>
+    <div class="role r-rule"><b>القواعد تزن</b><span>جدول مكتوب يقرر الحالة والأثر والإجراء</span></div>
+    <div class="role r-human"><b>الإنسان يحكم</b><span>والدليل أمامه</span></div>
+  </div>
+
+  <div class="main">
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><b>التقطيع</b><p>جملًا، دون أن تنقسم آية بين ﴿﴾ أو حديث بين «». وتُلتقط العلامات: «قال ﷺ»، و«رواه البخاري»، و[البقرة: 153]</p></div><span class="who w-det">حتمي</span></div>
+      <div class="step"><div class="n">2</div><div><b>استخراج الادعاءات</b><p>آية، حديث، قول عالم، إجماع، رقم، تعميم، فتوى. والمسودة الطويلة أجزاء تُرسل بالتوازي</p></div><span class="who w-llm">النموذج + شبكة أمان حتمية</span></div>
+      <div class="step"><div class="n">3</div><div><b>العرض على المصحف</b><p>كل ادعاء، أيًّا كان تصنيفه، يُعرض على فهرس المصحف أولًا، فلا تفلت آية ظنها النموذج حديثًا</p></div><span class="who w-det">حتمي</span></div>
+      <div class="step"><div class="n">4</div><div><b>المطابقة</b><p>الآية حرفًا بحرف. والحديث: المشتهر، ثم البحث في الكتب الستة، ثم يختار النموذج من خمسة مرشحين. والقول المنسوب في كتب قائله</p></div><span class="who w-llm">حتمي للآيات، والنموذج يختار</span></div>
+      <div class="step"><div class="n">5</div><div><b>جدول القواعد</b><p>ما وجده المتحقق «إشارة»، والجدول يحوّلها إلى الأبعاد الثلاثة: حالة الدليل، وأثر الخطأ، والإجراء</p></div><span class="who w-rule">27 قاعدة مكتوبة</span></div>
+      <div class="step"><div class="n">6</div><div><b>الشرح والخطوة التالية</b><p>من قوالب مكتوبة، لا من النموذج. والاستثناء الوحيد اقتراح صياغة موسوم «مولَّد» للتعميم والإجماع، بعد حارس</p></div><span class="who w-rule">قوالب</span></div>
+      <div class="step"><div class="n">7</div><div><b>حارس الإسناد</b><p>كل نص شرعي معروض يُجلب من المخزن بمعرّفه. فإن أعاد النموذج معرّفًا لا وجود له أُسقط قبل العرض</p></div><span class="who w-det">حتمي</span></div>
+      <div class="step"><div class="n">8</div><div><b>الترتيب</b><p>الأخطر أولًا: حرج، ثم مرتفع، ثم متوسط، ثم منخفض، ثم بموضعه في المسودة</p></div><span class="who w-det">حتمي</span></div>
+    </div>
+
+    <div class="ex">
+      <h2>مثال يمر بالمحطات</h2>
+      <div class="draft">قال رسول الله ﷺ: «إن الله مع الصابرين»</div>
+      <div class="trace">
+        <div class="t"><i>٢</i> حديث منسوب إلى النبي ﷺ</div>
+        <div class="t"><i>٣</i> لكنه نص آية: البقرة 153</div>
+        <div class="t"><i>٥</i> القاعدة <code>BR-22</code>: آية نُسبت إلى النبي ﷺ</div>
+      </div>
+      <div class="verdict">
+        <span class="pill p-ev">مطابق جزئيًا</span><span class="pill p-sev">أثر مرتفع</span><span class="pill p-act">صحّح من المصدر</span>
+      </div>
+      <div class="quote"><b>٦</b> «هذا النص آية من القرآن الكريم (البقرة: 153)، والمسودة تنسبه إلى النبي ﷺ». ونص الآية بجانبه من المصحف <b>(٧)</b>.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,21 +1,28 @@
-# خدمة سديد: تعمل عند الإقلاع وتعود إن توقفت.
+# خدمة سديد: الواجهة البرمجية وحدها (الصفحة على HF)، تعمل عند الإقلاع وتعود إن توقفت.
 # التثبيت (مرة واحدة):
 #   sudo cp deploy/saadeed.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now saadeed
 # الحالة والسجل:
 #   systemctl status saadeed     ·     journalctl -u saadeed -f
 # وبعد تعديل .env أو الكود:
 #   sudo systemctl restart saadeed
+# والإيقاف التام (لا يستهلك شيئًا بعده):
+#   sudo systemctl disable --now saadeed
 [Unit]
-Description=Saadeed (pre-publication reviewer)
+Description=Saadeed API (pre-publication reviewer)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 User=ubuntu
 WorkingDirectory=/home/ubuntu/Projects/Saadeed
+Environment=SAADEED_WEB=off
 ExecStart=/home/ubuntu/Projects/Saadeed/.venv/bin/saadeed serve --host 127.0.0.1 --port 9090 --root-path /saadeed
 Restart=always
 RestartSec=3
+# حدود تمنعه من مزاحمة غيره على الخادم: نحو 650 م.ب. في العمل، ولا يتجاوز 1 غ.ب.
+MemoryMax=1G
+CPUQuota=60%
+Nice=10
 
 [Install]
 WantedBy=multi-user.target

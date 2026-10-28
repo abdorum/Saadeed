@@ -123,7 +123,7 @@ class SegmentKind(_Labeled):
 
 
 class ContentLevel(StrEnum):
-    """مستويات المحتوى في الحزمة العلمية: أ/ب/ج/د."""
+    """مستويات المحتوى: أ/ب/ج/د."""
 
     A = "A"
     B = "B"
@@ -180,12 +180,12 @@ class SourceRole(_Labeled):
 
 # قائمة أزواج لا قاموس: مفاتيح StrEnum المتساوية القيمة (NONE، REFER) تتصادم في القاموس.
 _LABEL_PAIRS: list[tuple[StrEnum, str]] = [
-    (EvidenceStatus.SUPPORTED, "مؤيَّد بالمصدر"),
-    (EvidenceStatus.PARTIALLY_SUPPORTED, "مؤيَّد جزئيًا"),
+    (EvidenceStatus.SUPPORTED, "مطابق للمصدر"),
+    (EvidenceStatus.PARTIALLY_SUPPORTED, "مطابق جزئيًا"),
     (EvidenceStatus.EXCEEDS_SOURCE, "يتجاوز المصدر"),
     (EvidenceStatus.CONTRADICTED, "يخالف المصدر"),
     (EvidenceStatus.FOUND_NO_RULING, "وُجد دون حكم"),
-    (EvidenceStatus.NOT_FOUND, "لم يُعثر عليه في النطاق"),
+    (EvidenceStatus.NOT_FOUND, "لم يُعثر عليه"),
     (EvidenceStatus.OUT_OF_SCOPE, "خارج نطاق الفحص"),
     (EvidenceStatus.NOT_CHECKED, "لم يُفحص"),
     (Severity.CRITICAL, "حرج"),
@@ -197,7 +197,7 @@ _LABEL_PAIRS: list[tuple[StrEnum, str]] = [
     (Action.VERIFY, "تحقّق ووثّق"),
     (Action.CORRECT_FROM_SOURCE, "صحّح من المصدر"),
     (Action.RECONSIDER, "أعِد النظر في الاستشهاد"),
-    (Action.REPHRASE, "أعِد الصياغة"),
+    (Action.REPHRASE, "أعِد الصياغة وطوّرها"),
     (Action.REFER, "أحِل إلى مختص"),
     (TrackBucket.SUPPORTED_BY_SOURCES, "تؤيده المصادر"),
     (TrackBucket.NEEDS_VERIFICATION, "يتطلب تحققًا"),

@@ -1,0 +1,292 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "سديد — واجهة برمجية",
+    "description": "مراجِع ما قبل النشر للمسودات الدعوية العربية. التقرير بمخطط Report 1.1.",
+    "version": "0.5.0"
+  },
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "summary": "حالة الخدمة",
+        "operationId": "health_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health V1 Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/coverage": {
+      "get": {
+        "summary": "ما يغطيه سديد (من ملف المرجعية)",
+        "operationId": "coverage_v1_coverage_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Coverage V1 Coverage Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/results": {
+      "get": {
+        "summary": "كيف نعرف أن سديد يعمل؟ (أحدث تقرير تقييم)",
+        "operationId": "results_v1_results_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Results V1 Results Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews": {
+      "post": {
+        "summary": "راجِع مسودة",
+        "operationId": "review_v1_reviews_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/llm/check": {
+      "post": {
+        "summary": "اختبار الاتصال بالنموذج (صفحة الإعدادات)",
+        "operationId": "llm_check_v1_llm_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LLMChoice"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Llm Check V1 Llm Check Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LLMChoice": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "enum": [
+              "gemini",
+              "groq",
+              "none"
+            ],
+            "title": "Provider",
+            "default": "gemini"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "api_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 400
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Api Key"
+          }
+        },
+        "type": "object",
+        "title": "LLMChoice",
+        "description": "اختيار المستخدم من صفحة الإعدادات. المفتاح يُستعمل لهذا الطلب وحده: لا يُخزَّن ولا يُسجَّل."
+      },
+      "ReviewRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 40000,
+            "minLength": 1,
+            "title": "Text",
+            "description": "نص المسودة"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "quick"
+            ],
+            "title": "Mode",
+            "description": "full: التقرير الكامل · quick: المسار الحتمي وحده (فوري، بلا نموذج)",
+            "default": "full"
+          },
+          "overreach": {
+            "type": "boolean",
+            "title": "Overreach",
+            "description": "فحص التجاوز (تجريبي، FR-36)",
+            "default": false
+          },
+          "llm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LLMChoice"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "اختيار النموذج ومفتاحه لهذا الطلب وحده"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "ReviewRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/saadeed"
+    }
+  ]
+}

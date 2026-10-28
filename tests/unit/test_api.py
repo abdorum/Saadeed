@@ -83,3 +83,23 @@ def test_llm_check_never_echoes_the_key(client, monkeypatch):
 def test_page_is_never_served_stale(client):
     r = client.get("/")
     assert r.status_code == 200 and r.headers.get("cache-control") == "no-cache"
+
+
+def test_web_off_serves_api_only_and_redirects_home(monkeypatch):
+    """على الخادم المنشور الواجهة على HF وحدها: `/` يحيل إليها، ولا تُخدم الصفحات."""
+    import importlib
+
+    from fastapi.testclient import TestClient
+
+    from saadeed.adapters.api import app as api
+
+    monkeypatch.setenv("SAADEED_WEB", "off")
+    try:
+        off = importlib.reload(api)
+        c = TestClient(off.app)  # بلا `with`: لا تحميل للبيانات، فالإحالة لا تحتاجها
+        r = c.get("/", follow_redirects=False)
+        assert r.status_code == 307 and r.headers["location"] == off.WEB_URL
+        assert c.get("/index.html").status_code == 404
+    finally:
+        monkeypatch.delenv("SAADEED_WEB")
+        importlib.reload(api)

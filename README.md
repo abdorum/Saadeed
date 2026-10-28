@@ -1,8 +1,31 @@
+<p align="right">
+  <img src="docs/assets/logo.svg" width="96" alt="شعار سديد">
+</p>
+
 # سَدِيد
 ## مُراجِعُ ما قبلَ النَّشرِ للمحتوى الدعوي
 
 > [﴿يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَقُولُوا قَوْلًا سَدِيدًا﴾](https://youtu.be/4AoV5EYGGNw)  
 > **[الأحزاب: ٧٠]**
+
+**[جرّب سديد](https://abdorum-saadeed.static.hf.space)** · [البدء السريع](#البدء-السريع) · [الواجهة البرمجية](#الواجهة-البرمجية) · [البنية](#البنية) · [English](README.en.md)
+
+<p align="right">
+  <img alt="version 0.5.0" src="https://img.shields.io/badge/version-0.5.0-1F3A63">
+  <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
+  <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-B8913F">
+  <img alt="144 tests" src="https://img.shields.io/badge/tests-144%20passing-3E6A4B">
+  <img alt="status frozen" src="https://img.shields.io/badge/status-frozen-887D69">
+</p>
+
+> **حالة المشروع: مجمَّد منذ 28 أكتوبر 2026** على الإصدار 0.5.0. الصفحة والأمثلة تعمل، والفحص الحي يعمل ما بقي الخادم ومزود النموذج. ولا تطوير جديد حتى يُستأنف العمل.
+
+<p align="center">
+  <img src="docs/assets/screenshot-report.png" alt="تقرير سديد على خطبة قصيرة: المسودة في الوسط بمواضعها المظللة، والحواشي بجانبها، وأولها آية تبدّلت فيها كلمة ونص المصحف بجانبها" width="100%">
+  <br><sub>المسودة كما كتبها صاحبها، وملاحظات سديد حواشٍ بجانبها. وفي الحاشية المفتوحة آية تبدّلت فيها كلمة، ونص المصحف بجانبها من المخزن.</sub>
+</p>
+
+---
 
 ## قبل أن يبلغ القولُ الناس
 
@@ -13,7 +36,6 @@
 وفي الأفق البعيد: كثير من الخصومة والتعصب يبدأ من نقل لم يُتثبت منه: قصة لا تصح يُبنى عليها موقف من عالم، أو قول يُنسب إلى عالم فيُحاكَم عليه أتباعه. ونرجو أن يُسهم سديد، مع غيره، في أن يقلل هذا التفرق والانقسامات، حين يصير التثبت قبل النشر عادة، وهذا رجاءٌ نعلنه سيتحقق في عصر الذكاء الخارق بإذن الله.
 
 ---
-
 
 ## ما هو سديد؟
 
@@ -40,7 +62,7 @@
 |---|---|
 | آية تبدّلت فيها كلمة | **يخالف المصدر**، والفرق كلمة بكلمة بجانب نص المصحف |
 | آية نُسبت إلى النبي ﷺ | «هذا النص آية من القرآن الكريم (البقرة: 153)، والمسودة تنسبه إلى النبي ﷺ» |
-| حديث في الصحيحين | **مؤيَّد بالمصدر**، والنص من المخزن |
+| حديث في الصحيحين | **مطابق للمصدر**، والنص من المخزن |
 | حديث في السنن الأربع | **وُجد دون حكم**، ومعه حكم المحدّث منقولًا بنسبته إن وُجد، ورابط الدرر |
 | حديث مشتهر لا يصح | الحكم منقول بنسبته، **ومعه ما ثبت في معناه** |
 | حديث لم يُعثر عليه | **لم يُعثر عليه في مصادر سديد**، وهذا لا يعني أنه لا يصح |
@@ -54,11 +76,7 @@
 
 ## كيف يعمل؟
 
-```text
-المسودة ← التقطيع ← استخراج الادعاءات ← عرض كل ادعاء على المصحف
-        ← المطابقة في المخزن (الآيات · الكتب الستة · كتب العلماء)
-        ← جدول القواعد ← حارس الإسناد ← التقرير
-```
+![كيف يراجع سديد مسودة: ثماني محطات من التقطيع إلى التقرير](docs/assets/pipeline.png)
 
 | الطرف | دوره |
 |---|---|
@@ -90,7 +108,7 @@
 - **الفرق دال إحصائيًا** (McNemar الدقيق، p = 0.0075)، على 91 حالة، ببروتوكول سُجّل قبل القياس.
 - **وبنموذج آخر** (`gpt-oss-120b`) جاء سديد بالأرقام نفسها. فالضمانات دقيقة من المعمارية، لا من النموذج.
 - **وعلى عشر خطب منشورة حقيقية** (13,303 كلمة): صفر إنذار حرج كاذب. والتنبيه الحرج الوحيد كان خطأً حقيقيًا في آية بخطبة منشورة: «وَلولوْ ردوه» [النساء: 83].
-- **وما لم نثبته بعد:** مجموعة الاختبار المحجوزة لم تُجمَّد، وتُعلن بعد اعتماد حالاتها.
+- **وما لم نثبته بعد:** مجموعة الاختبار المحجوزة جُمّدت ببصمتها ولم تُشغَّل، وتُعلن أرقامها بعد اعتماد حالاتها.
 
 **أعد القياس بنفسك دون مفتاح:** `uv run saadeed eval run --split dev --systems saadeed,B0 --replay`. والتفصيل في [التحقق العلمي](docs/04-EVALUATION.md).
 
@@ -103,7 +121,7 @@
 | المصدر | دوره | ما يقوله سديد بناءً عليه |
 |---|---|---|
 | **المصحف:** [الموسوعة القرآنية](https://quranpedia.net)، وTanzil وصلة بديلة | نص معتمد | مطابق، أو يخالف المصدر |
-| **صحيح البخاري ومسلم:** [Open-Hadith-Data](https://github.com/mhashim6/Open-Hadith-Data) | احتجاج | مؤيَّد |
+| **صحيح البخاري ومسلم:** [Open-Hadith-Data](https://github.com/mhashim6/Open-Hadith-Data) | احتجاج | مطابق للمصدر |
 | **السنن الأربع** | موضع | وُجد دون حكم |
 | **قائمة «المشتهر الذي لا يصح»** | حكم منقول | الحكم بنسبته واسم مراجعه |
 | **كتب العلماء:** [مكتبة تراث](https://app.turath.io) | موضع | أين ورد القول، دون حكم |
@@ -119,49 +137,211 @@
 - **لا يولّد نص آية أو حديث.**
 - **لا يحوّل «لم أعثر» إلى «لا يصح»**، ولا «وُجد» إلى «صحّ». فحدوده حدود مصادره.
 
-
 ---
 
-## التشغيل والإعداد
+## للمطورين
+
+### البنية
+
+![بنية سديد: نواة معزولة، ومحوّلات حولها عبر المنافذ](docs/assets/architecture.png)
+
+- **النواة أربع طبقات:** `domain` ← `text` ← `verifiers` ← `application`. كل طبقة لا تستورد إلا ما تحتها، والنواة كلها لا تستورد محوّلًا ولا مكتبة مزود ولا FastAPI. والعقدان مكتوبان في `pyproject.toml`، و`lint-imports` يُفشل البناء إن خولفا.
+- **المنافذ** عقود `Protocol` في `src/saadeed/domain/ports.py`: `LLMPort`، و`QuranRepo`، و`TextSourcePort`، و`KnownWeakRepo`، و`LibraryPort`، و`ReferenceLinker`.
+- **المحوّلات** في `src/saadeed/adapters/`: `api` و`cli` و`eval` تستدعي النواة، و`llm` و`sources` تستدعيها النواة عبر المنافذ. و`factory.py` يركّبها.
+- **ولهذا** فتبديل النموذج متغير في `.env`، وتبديل مصدر سطر في `data/manifest.toml`، ولا تُمس النواة في الحالين.
+
+### البدء السريع
 
 **المتطلبات:** Python 3.12، و[uv](https://docs.astral.sh/uv/).
 
 ```bash
 git clone https://github.com/abdorum/Saadeed && cd Saadeed
 uv sync                       # البيئة والمكتبات
-uv run saadeed data build     # تنزيل المصادر وبناء الفهارس (مرة واحدة)
-cp .env.example .env          # ثم ضع مفتاحك فيه
-uv run saadeed serve          # الواجهة والواجهة البرمجية: http://127.0.0.1:8000
+uv run saadeed data build     # تنزيل المصادر وبناء الفهارس (مرة واحدة، نحو 230 م.ب.)
+cp .env.example .env          # ضع مفتاحك، أو اتركه فارغًا للمسار الحتمي وحده
+uv run saadeed serve          # الصفحة والواجهة البرمجية: http://127.0.0.1:8000
 ```
 
-**ومن سطر الأوامر:**
+**ويكفي مفتاح واحد،** وبلا مفتاح يعمل المسار الحتمي: الآيات، والأحاديث المعلَّمة، وقائمة المشتهر.
+
+### سطر الأوامر
+
 ```bash
 uv run saadeed review samples/alukah_hifz_allisan.txt            # خطبة منشورة حقيقية
 uv run saadeed review samples/demo_khutbah.txt --provider none   # بلا نموذج: المسار الحتمي وحده
+uv run saadeed review draft.txt --json -o report.json            # التقرير JSON كاملًا في ملف
+cat draft.txt | uv run saadeed review -                          # من المدخل القياسي
+uv run saadeed coverage                                          # المصادر المفعّلة وأدوارها
 ```
 
-### المفاتيح
-المفاتيح في `.env` وحده، ولا يُرفع إلى المستودع. **ويكفي مفتاح واحد**، وبلا مفتاح يعمل المسار الحتمي.
+| الخيار | وظيفته |
+|---|---|
+| `--provider` | `gemini` أو `groq` أو `openrouter`، أو `none` للمسار الحتمي وحده |
+| `--model` | اسم النموذج لدى المزود |
+| `--json`، `-o FILE` | التقرير JSON بدل الملخص، أو حفظه في ملف |
+| `--cache` | `use` أو `replay` أو `off`: ذاكرة نداءات النموذج، للتسجيل والإعادة |
+| `--overreach` | فحص التجاوز (تجريبي) |
 
-| المتغير | ما هو | من أين |
+### الواجهة البرمجية
+
+`uv run saadeed serve` يشغّلها، وتوثيقها التفاعلي على `/v1/docs`، ومخططها في [`docs/openapi.json`](docs/openapi.json) لتوليد عميل بأي لغة.
+
+| الطلب | وظيفته |
+|---|---|
+| `POST /v1/reviews` | راجِع مسودة، ويعيد التقرير |
+| `GET /v1/health` | الإصدار، والنموذج، وبصمة ملف المرجعية |
+| `GET /v1/coverage` | المصادر المفعّلة وأدوارها، والسياسات |
+| `GET /v1/results` | أحدث تقرير تقييم: سديد مقابل النموذج وحده |
+| `POST /v1/llm/check` | يختبر مفتاح نموذج دون أن يحفظه |
+
+```bash
+curl -s http://127.0.0.1:8000/v1/reviews \
+  -H "Content-Type: application/json" \
+  -d '{"text": "قال رسول الله ﷺ: «إن الله مع الصابرين».", "mode": "quick"}'
+```
+
+| الحقل | القيم | معناه |
 |---|---|---|
-| `GEMINI_API_KEY` | النموذج الافتراضي (`gemini-3.5-flash-lite`) | [Google AI Studio](https://aistudio.google.com/apikey) |
-| `OPENROUTER_API_KEY` | احتياطي يجيب إن تعذّر Gemini | [OpenRouter](https://openrouter.ai/keys) |
-| `GROQ_API_KEY` | بديل كامل، مع `SAADEED_LLM_PROVIDER=groq` | [Groq](https://console.groq.com/keys) |
+| `text` | حتى 3000 كلمة | المسودة |
+| `mode` | `full` (الافتراضي) أو `quick` | `quick` المسار الحتمي وحده: فوري، وبلا نموذج |
+| `llm` | `{"provider", "model", "api_key"}` | نموذج ومفتاح لهذا الطلب وحده، لا يُحفظ ولا يُسجَّل. و`"provider": "none"` للمسار الحتمي |
+| `overreach` | `false` أو `true` | فحص التجاوز (تجريبي) |
 
-وفي الموقع يستطيع المستخدم أن يضع مفتاحه من «الإعدادات»: يُرسل مع طلبه وحده، ولا يُحفظ.
+<details>
+<summary><b>الرد (مختصرًا)</b></summary>
 
-### إعدادات اختيارية
+```json
+{
+  "schema_version": "1.1",
+  "mode": "quick",
+  "summary": { "total_claims": 1, "by_bucket": { "SUPPORTED_BY_SOURCES": 0, "NEEDS_VERIFICATION": 1, "REFER": 0, "NOT_CHECKED": 0 } },
+  "findings": [
+    {
+      "rule_id": "BR-22",
+      "claim": { "text": "إن الله مع الصابرين", "type": "QURAN_QUOTE", "span": { "start": 18, "end": 37 } },
+      "evidence_status": "PARTIALLY_SUPPORTED",
+      "severity": "HIGH",
+      "action": "CORRECT_FROM_SOURCE",
+      "bucket": "NEEDS_VERIFICATION",
+      "explanation": "هذا النص آية من القرآن الكريم (البقرة: 153)، والمسودة تنسبه إلى النبي ﷺ.",
+      "next_step": "انسبه إلى القرآن («قال تعالى») واذكر موضعه: البقرة: 153.",
+      "evidence": [
+        {
+          "ref": { "source_id": "quran", "item_id": "2:153", "citation": "البقرة: 153", "url": "https://quranpedia.net/ayahs/2/153" },
+          "role": "REFERENCE_TEXT",
+          "text": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱسۡتَعِينُواْ بِٱلصَّبۡرِ وَٱلصَّلَوٰةِۚ إِنَّ ٱللَّهَ مَعَ ٱلصَّٰبِرِينَ (153)"
+        }
+      ],
+      "labels_ar": { "evidence_status": "مطابق جزئيًا", "severity": "مرتفع", "action": "صحّح من المصدر", "bucket": "يتطلب تحققًا", "claim_type": "آية قرآنية" }
+    }
+  ],
+  "meta": { "saadeed_version": "0.5.0", "llm": "none", "policy_version": "BR-2026.10.06-v2.6",
+            "manifest": { "id": "saadeed-2026.10-v4", "sha256": "ce27c52a9966…" }, "llm_calls": 0, "degraded": false }
+}
+```
+
+وفي الرد الكامل أيضًا: `top_risks` (أخطر المواضع)، و`draft_map` (تصنيف كل جملة)، و`coverage`، وعدد النداءات والتوكنز في `meta`.
+</details>
+
+**الأبعاد الثلاثة لكل ملاحظة** رموز ثابتة، ومعها تسميتها العربية في `labels_ar`:
+
+| البعد | القيم |
+|---|---|
+| `evidence_status` حالة الدليل | `SUPPORTED` مطابق للمصدر · `PARTIALLY_SUPPORTED` مطابق جزئيًا · `EXCEEDS_SOURCE` يتجاوز المصدر · `CONTRADICTED` يخالف المصدر · `FOUND_NO_RULING` وُجد دون حكم · `NOT_FOUND` لم يُعثر عليه · `OUT_OF_SCOPE` خارج نطاق الفحص · `NOT_CHECKED` لم يُفحص |
+| `severity` أثر الخطأ | `CRITICAL` حرج · `HIGH` مرتفع · `MEDIUM` متوسط · `LOW` منخفض · `NONE` |
+| `action` الإجراء | `NONE` لا إجراء · `VERIFY` تحقّق ووثّق · `CORRECT_FROM_SOURCE` صحّح من المصدر · `RECONSIDER` أعِد النظر في الاستشهاد · `REPHRASE` أعِد الصياغة وطوّرها · `REFER` أحِل إلى مختص |
+| `bucket` المسار | `SUPPORTED_BY_SOURCES` تؤيده المصادر · `NEEDS_VERIFICATION` يتطلب تحققًا · `REFER` إحالة إلى مختص · `NOT_CHECKED` لم يُفحص |
+
+- **الأخطاء:** `422` لمسودة فارغة أو أطول من الحد، و`429` إن تجاوز العنوان حد المراجعات الكاملة في الدقيقة، و`400` لمزود أو مفتاح غير صالح في `llm`. والسبب بالعربية في `detail`.
+- **المراجعة الناقصة لا تُخفى:** إن تعذّر النموذج بقي المسار الحتمي، وصار `meta.degraded` صحيحًا، وذُكر ما لم يُفحص في `summary.not_checked`.
+- **من المتصفح:** النطاقات المسموح لها في `SAADEED_CORS_ORIGIN_REGEX`.
+
+```python
+import httpx
+
+r = httpx.post("http://127.0.0.1:8000/v1/reviews", json={"text": draft}, timeout=180)
+r.raise_for_status()
+for f in r.json()["findings"]:
+    print(f["labels_ar"]["severity"], f["claim"]["text"], "←", f["explanation"])
+```
+
+### مكتبة Python
+
+النواة تعمل دون خادم أيضًا:
+
+```python
+from saadeed.adapters.factory import build_engine, build_llm
+
+engine = build_engine()                         # يبني الفهارس مرة واحدة، ثم يُعاد استعماله
+reviewer = engine.reviewer(build_llm("none"))   # build_llm() للنموذج المضبوط في .env
+report = reviewer.review("قال رسول الله ﷺ: «إن الله مع الصابرين».")
+
+for f in report.findings:
+    print(f.rule_id, f.labels_ar["evidence_status"], f.explanation)
+# BR-22 مطابق جزئيًا هذا النص آية من القرآن الكريم (البقرة: 153)، والمسودة تنسبه إلى النبي ﷺ.
+```
+
+`report` كائن pydantic بمخطط الرد نفسه، و`report.model_dump(mode="json")` يعطيه JSON.
+
+### الإعداد
+
+كل الإعداد متغيرات بيئة في `.env`، ولا يُرفع إلى المستودع.
+
 | المتغير | الافتراضي | وظيفته |
 |---|---|---|
-| `SAADEED_LLM_PROVIDER` / `SAADEED_LLM_MODEL` | `gemini` / `gemini-3.5-flash-lite` | تبديل المزود أو النموذج دون مس الكود |
+| `GEMINI_API_KEY` | — | النموذج الافتراضي `gemini-3.5-flash-lite` ([Google AI Studio](https://aistudio.google.com/apikey)) |
+| `OPENROUTER_API_KEY` | — | احتياطي يجيب إن تعذّر Gemini ([OpenRouter](https://openrouter.ai/keys)) |
+| `GROQ_API_KEY` | — | بديل كامل مع `SAADEED_LLM_PROVIDER=groq` ([Groq](https://console.groq.com/keys)) |
+| `SAADEED_LLM_PROVIDER` / `SAADEED_LLM_MODEL` | `gemini` / بحسب المزود | تبديل المزود أو النموذج دون مس الكود |
 | `SAADEED_LIBRARY` | `turath` | البحث الحي في كتب العلماء، و`off` يعطله |
 | `SAADEED_RATE_LIMIT` | `12` | المراجعات الكاملة لكل عنوان في الدقيقة |
-| `SAADEED_CACHE_DIR` | `.cache/llm` | ذاكرة نداءات النموذج، للتسجيل والإعادة |
+| `SAADEED_CORS_ORIGIN_REGEX` | نطاقات Hugging Face | من يُسمح له باستدعاء الواجهة البرمجية من المتصفح |
+| `SAADEED_WEB` / `SAADEED_WEB_URL` | `on` / صفحة HF | `off` يجعل الخادم للواجهة البرمجية وحدها، و`/` يحيل إلى `SAADEED_WEB_URL` |
+| `SAADEED_CACHE_DIR` | `.cache/llm` | ذاكرة نداءات النموذج في سطر الأوامر والتقييم |
+| `SAADEED_DATA_DIR`، `SAADEED_MANIFEST`، `SAADEED_PROMPTS_DIR` | مجلدات المستودع | تشغيل سديد ببيانات أو ملف مرجعية أو تعليمات أخرى |
 
-### النشر والواجهة البرمجية
-- **الواجهة** صفحة ثابتة على Hugging Face، **والمعالجة** على خادم بـ FastAPI، تعيدها خدمة systemd إن توقفت. والنشر بأمر واحد: `bash deploy/deploy_hf_static.sh`.
-- **الواجهة البرمجية** لمن أراد دمج سديد في منصته: `POST /v1/reviews`، وتوثيقها التفاعلي على `/v1/docs`.
+### النشر
+
+- **خادم:** `deploy/saadeed.service` خدمة systemd تشغّل `saadeed serve` خلف وكيل عكسي، وتعيده إن توقف، بحدود للذاكرة والمعالج. والمسار الفرعي بـ `--root-path`.
+- **الصفحة وحدها:** `bash deploy/deploy_hf_static.sh` ينشر `web/` على Hugging Face Space ثابتة، تستدعي الخادم على `SAADEED_API_URL`.
+- **Docker:** صورة واحدة فيها الصفحة والواجهة البرمجية، وتُبنى البيانات داخلها:
+  ```bash
+  docker build -t saadeed . && docker run -p 7860:7860 --env-file .env saadeed   # http://127.0.0.1:7860
+  ```
+
+### التوسيع
+
+- **كتاب حديث آخر** من مجموعة Open-Hadith-Data: سطر في `data/manifest.toml` بدوره (`AUTHENTIC` أو `LOCATE`)، بلا كود.
+- **نوع مصدر جديد:** محوّل في `src/saadeed/adapters/sources/` يحقق المنفذ المناسب، ثم فرع في `adapters/bootstrap.py`، ثم سطر في ملف المرجعية. والدور وحده (`REFERENCE_TEXT` · `AUTHENTIC` · `RULING` · `LOCATE` · `LINK`) يحدد أقصى ما يجوز للمصدر أن يقرره.
+- **مزود نموذج جديد:** صنف فيه `model_id` و`generate_json(system, user, max_tokens)` (عقد `LLMPort`)، ثم فرع في `build_llm` في `adapters/factory.py`.
+- **قاعدة أو نوع ادعاء جديد:** في `domain/enums.py` و`domain/policy.py` و`domain/templates.py`. و`tests/unit/test_extensibility.py` يفشل إن نُسيت خطوة. **وكل حكم شرعي في الجدول يراجعه مختص.**
+
+### الاختبارات وإعادة القياس
+
+```bash
+uv run pytest -q && uv run ruff check src tests && uv run lint-imports   # 144 اختبارًا، والأسلوب، وحدود المعمارية
+uv run saadeed eval run --split dev --systems saadeed,B0 --replay          # أرقام التقييم دون مفتاح، من التسجيلات
+```
+
+ومجموعة الاختبار المحجوزة (test) مجمّدة ببصمتها في [البروتوكول](docs/planning/05-evaluation-protocol.md) §١١، ولم تُشغَّل بعد.
+
+### هيكل المستودع
+
+```text
+src/saadeed/
+  domain/        النماذج، وجدول القواعد، والقوالب، والمنافذ
+  text/          التطبيع، والتقطيع، والعلامات، والمحاذاة
+  verifiers/     متحقق الآيات (حتمي) ومتحقق الأحاديث
+  application/   حالة الاستخدام ReviewDraft، وحارس الإسناد، والفحص المتقاطع
+  adapters/      api · cli · eval · llm · sources، و factory.py يركّبها
+web/             الصفحة: HTML وCSS وJS بلا خطوة بناء، والأمثلة بتقاريرها المحفوظة
+prompts/         تعليمات النموذج بإصداراتها، وفهرسها prompts.json
+data/            ملف المرجعية، وقائمة المشتهر، والمصادر المثبّتة
+eval/            بنك الحالات، والتقارير، والتسجيلات، وسجل الأخطاء ERRORS.md
+tests/           اختبارات الوحدة والعقود
+deploy/          خدمة systemd، ونشر الصفحة
+docs/            الوثائق، والصور ومصادرها في docs/assets، ومخطط OpenAPI
+```
 
 ---
 
@@ -175,26 +355,16 @@ uv run saadeed review samples/demo_khutbah.txt --provider none   # بلا نمو
 | [التحقق العلمي](docs/04-EVALUATION.md) | كيف قسنا، وكيف تعيد القياس |
 | [تجربة المستفيد](docs/05-UX.md) | كيف يُستعمل سديد وكيف ينبغي أن يُستعمل، ومثال كامل |
 | [المتطلبات وجدول القواعد](docs/planning/03-requirements.md) · [المعمارية](docs/planning/04-architecture.md) · [بروتوكول التقييم](docs/planning/05-evaluation-protocol.md) | الوثائق التأسيسية كما كُتبت قبل الكود |
-
-```text
-src/saadeed/   النواة (domain · text · verifiers · application) والمحوّلات (api · cli · llm · sources · eval)
-web/           الواجهة: صفحة واحدة بلا خطوة بناء
-prompts/       تعليمات النموذج بإصداراتها
-data/          ملف المرجعية، وقائمة المشتهر، والمصادر المثبّتة
-eval/          بنك الحالات، والتقارير، والتسجيلات، وسجل الأخطاء
-tests/         اختبارات الوحدة والعقود
-deploy/        النشر
-```
+| [مخطط الواجهة البرمجية](docs/openapi.json) | OpenAPI 3، لتوليد عميل بأي لغة |
+| [سجل الإصدارات](CHANGELOG.md) · [سجل الأخطاء](eval/ERRORS.md) | ما تغيّر في كل إصدار، وكل فشل وكيف أُصلح |
 
 ---
 
 ## عن المشروع
 
-- **مشاركة** في «تحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي 2026»، المسار الرابع: أدوات المعرفة والتحقق لتمكين المعرّفين بالإسلام.
-- **عرض المشروع وفيديو الشرح:** _يُضافان عند الرفع_.
-- **الإصدار:** 0.4.1 ([سجل الإصدارات](CHANGELOG.md)). وثائق التخطيط سابقة على الكود، والكود كله من 4 أكتوبر 2026 (الوسم `v0-start`).
-
-
-- **الترخيص:** الكود MIT ([LICENSE](LICENSE))، والبيانات بتراخيص مصادرها.
+- **المؤلف:** محمد عبدالرحمن.
+- **الحالة:** مجمَّد منذ 28 أكتوبر 2026 على الإصدار 0.5.0 ([سجل الإصدارات](CHANGELOG.md)).
+- **الترخيص:** الكود MIT ([LICENSE](LICENSE))، والبيانات بتراخيص مصادرها ([`data/SOURCES.md`](data/SOURCES.md)). ومن استعمله فليذكر مصدره ([CITATION.cff](CITATION.cff)).
+- **الخطوط:** IBM Plex Sans Arabic، وAref Ruqaa للشعار، وAmiri Quran لنص المصحف، وكلها بترخيص SIL OFL.
 
 > ﴿وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ﴾ [الإسراء: ٣٦]

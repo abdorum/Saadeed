@@ -84,7 +84,7 @@
    "notes": [],
    "bucket": "SUPPORTED_BY_SOURCES",
    "labels_ar": {
-    "evidence_status": "مؤيَّد بالمصدر",
+    "evidence_status": "مطابق للمصدر",
     "severity": "—",
     "action": "لا إجراء",
     "bucket": "تؤيده المصادر",
@@ -145,7 +145,7 @@
    "notes": [],
    "bucket": "SUPPORTED_BY_SOURCES",
    "labels_ar": {
-    "evidence_status": "مؤيَّد بالمصدر",
+    "evidence_status": "مطابق للمصدر",
     "severity": "—",
     "action": "لا إجراء",
     "bucket": "تؤيده المصادر",
@@ -206,7 +206,7 @@
    "notes": [],
    "bucket": "SUPPORTED_BY_SOURCES",
    "labels_ar": {
-    "evidence_status": "مؤيَّد بالمصدر",
+    "evidence_status": "مطابق للمصدر",
     "severity": "—",
     "action": "لا إجراء",
     "bucket": "تؤيده المصادر",
@@ -262,7 +262,7 @@
    "notes": [],
    "bucket": "NEEDS_VERIFICATION",
    "labels_ar": {
-    "evidence_status": "لم يُعثر عليه في النطاق",
+    "evidence_status": "لم يُعثر عليه",
     "severity": "مرتفع",
     "action": "تحقّق ووثّق",
     "bucket": "يتطلب تحققًا",
@@ -412,7 +412,7 @@
    "notes": [],
    "bucket": "SUPPORTED_BY_SOURCES",
    "labels_ar": {
-    "evidence_status": "مؤيَّد بالمصدر",
+    "evidence_status": "مطابق للمصدر",
     "severity": "—",
     "action": "لا إجراء",
     "bucket": "تؤيده المصادر",
@@ -468,7 +468,7 @@
    "notes": [],
    "bucket": "SUPPORTED_BY_SOURCES",
    "labels_ar": {
-    "evidence_status": "مؤيَّد بالمصدر",
+    "evidence_status": "مطابق للمصدر",
     "severity": "—",
     "action": "لا إجراء",
     "bucket": "تؤيده المصادر",

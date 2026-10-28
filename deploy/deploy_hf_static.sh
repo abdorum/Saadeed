@@ -28,6 +28,7 @@ echo "   الحالة: $code (409 = موجودة مسبقًا)"
 echo "٢) تجهيز الواجهة من آخر commit، والـ API: ${API_URL}"
 TMP=$(mktemp -d)
 git archive HEAD:web | tar -x -C "$TMP"
+git archive HEAD docs/assets | tar -x -C "$TMP"   # صور الـ README في بطاقة المساحة
 git show HEAD:LICENSE > "$TMP/LICENSE"
 python3 - "$TMP/index.html" "$API_URL" <<'EOF'
 import sys

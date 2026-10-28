@@ -1,5 +1,7 @@
 """محوّل HTTP (FR-71، ADR-0012): FastAPI على `/v1`، ويخدم الواجهة الثابتة `web/` على `/`.
 
+- **`SAADEED_WEB=off`** (على الخادم المنشور): الواجهة على HF وحدها، والخادم للـ API فقط، و`/` يحيل إليها.
+
 - **لا تُخزَّن المسودات ولا تُسجَّل نصوصها** (NFR-08): ذاكرة النداءات هنا في الذاكرة فقط، ومحدودة الحجم.
 - **حد معدل لكل عنوان** (NFR-09).
 - **«الفحص السريع»** (`mode=quick`): المسار الحتمي وحده، بلا نموذج، فوري. تعرضه الواجهة أولًا
@@ -21,7 +23,7 @@ from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -34,6 +36,9 @@ from saadeed.domain.policy import POLICY_VERSION
 from saadeed.domain.ports import LLMError, LLMPort, LLMResponse
 
 WEB_DIR = Path(os.environ.get("SAADEED_WEB_DIR", ROOT / "web"))
+SERVE_WEB = os.environ.get("SAADEED_WEB", "on") != "off"
+WEB_URL = os.environ.get("SAADEED_WEB_URL", "https://abdorum-saadeed.static.hf.space")
+"""حيث تُحال `/` إن لم يخدم الخادم الواجهة."""
 RESULTS_FILE = Path(
     os.environ.get("SAADEED_RESULTS", ROOT / "eval" / "reports" / "dev_v5_gemini.json")
 )
@@ -310,5 +315,10 @@ async def no_stale_pages(request: Request, call_next):
     return response
 
 
-if WEB_DIR.exists():
+if SERVE_WEB and WEB_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="web")
+else:
+
+    @app.get("/", include_in_schema=False)
+    def home() -> RedirectResponse:
+        return RedirectResponse(WEB_URL)

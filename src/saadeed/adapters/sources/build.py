@@ -47,7 +47,7 @@ def fetch_raw(data_dir: Path, force: bool = False) -> list[str]:
         if force or not dest.exists():
             _download(TANZIL_URL.format(kind=kind), dest)
             done.append(str(dest))
-    # وصلة الموسوعة القرآنية (المسمّاة في الحزمة): ملفان صغيران، ليكون التبديل إليها سطرًا في ملف المرجعية.
+    # وصلة الموسوعة القرآنية: ملفان صغيران، ليكون التبديل إليها سطرًا في ملف المرجعية.
     from saadeed.adapters.sources.quranpedia import DUMPS_URL, FILES
 
     for name in FILES:
