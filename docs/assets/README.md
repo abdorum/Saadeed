@@ -3,9 +3,9 @@
 | الملف | ما هو | مصدره |
 |---|---|---|
 | `logo.svg` | الشعار: النجمة الهادية ذهبية على الكحلي | يُحرَّر مباشرة |
-| `architecture.png` | بنية سديد: النواة وطبقاتها، والمنافذ، والمحوّلات | `src/architecture.html` |
+| `core-architecture.png` | بنية النواة: الطبقات، والمنافذ، والمحوّلات، والمحطات الثماني | صورة جاهزة |
 | `pipeline.png` | مسار المراجعة: المحطات الثماني، ومثال يمر بها | `src/pipeline.html` |
-| `screenshot-report.png` | لقطة حقيقية من الصفحة المنشورة: مثال «خطبة قصيرة»، والحاشية الأولى مفتوحة | المتصفح |
+| `screenshot-report.png` | لقطة حقيقية من الصفحة المنشورة: مثال «مقال ديني»، وأول حاشية حرجة مفتوحة | المتصفح |
 | `social-preview.png` | صورة المعاينة (1280×640) في إعدادات المستودع على GitHub | `src/social-preview.html` |
 
 **الألوان والخطوط من هوية الصفحة نفسها** (`web/assets/app.css`):
@@ -16,7 +16,6 @@
 ```bash
 cd docs/assets/src
 uv run --with playwright playwright install chromium          # مرة واحدة
-uv run --with playwright python render.py architecture.html ../architecture.png 1300 1000 2 transparent
 uv run --with playwright python render.py pipeline.html ../pipeline.png 1300 1000 2 transparent
 uv run --with playwright python render.py social-preview.html ../social-preview.png 1280 640 1
 ```

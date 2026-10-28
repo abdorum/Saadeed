@@ -22,8 +22,8 @@ It checks every claim in a sermon, lesson or article against vetted sources, and
 </p>
 
 <p align="center">
-  <img src="docs/assets/screenshot-report.png" alt="A Saadeed report: the draft in the middle with highlighted spans, numbered margin notes beside it; the open note shows a Quran verse with one altered word next to the Mushaf text" width="100%">
-  <br><sub>The draft stays untouched in the middle; Saadeed's notes sit in the margin. The open note shows a verse with one altered word, next to the Mushaf text fetched from the store.</sub>
+  <img src="docs/assets/screenshot-report.png" alt="A Saadeed report on a 1,063-word article: 35 claims checked, a publication-readiness estimate, the draft with highlighted spans and margin notes; the open note shows a verse with one altered letter next to the Mushaf text" width="100%">
+  <br><sub>A 1,063-word article: Saadeed checked 35 claims, estimated its readiness for publication, and placed each note beside its span. The open note shows a verse with one altered letter, next to the Mushaf text fetched from the store.</sub>
 </p>
 
 ## Why
@@ -75,7 +75,7 @@ Reproduce without any API key: `uv run saadeed eval run --split dev --systems sa
 
 ### Architecture
 
-![Saadeed's hexagonal architecture: an isolated core and swappable adapters (diagram in Arabic, identifiers in English)](docs/assets/architecture.png)
+![Saadeed's core architecture: four layers inside an isolated boundary, adapters around it through ports, and the eight-step review process](docs/assets/core-architecture.png)
 
 - **The core has four layers:** `domain` ← `text` ← `verifiers` ← `application`. Each layer imports only the ones below it, and the core never imports an adapter, a provider SDK or FastAPI. Both contracts live in `pyproject.toml` and are enforced by `lint-imports`.
 - **Ports** are `Protocol`s in `src/saadeed/domain/ports.py`: `LLMPort`, `QuranRepo`, `TextSourcePort`, `KnownWeakRepo`, `LibraryPort`, `ReferenceLinker`.
