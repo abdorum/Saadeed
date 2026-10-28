@@ -8,14 +8,18 @@
 <meta name="description" content="سديد: يراجع مسودة الخطبة أو المحاضرة قبل نشرها، فيقابل الآيات والأحاديث بمصادرها المعتمدة، ويضع ملاحظاته على هامش النص.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/app.css?v=0.4.6">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0B2542">
+<link rel="stylesheet" href="assets/app.css?v=0.6.0">
 </head>
 <body>
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#review" aria-label="سديد: الصفحة الرئيسية">سديد</a>
-    <span class="tagline" lang="ar">﴿يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱتَّقُواْ ٱللَّهَ وَقُولُواْ قَوۡلٗا سَدِيدٗا﴾ <small>[الأحزاب: 70]</small></span>
+    <a class="brand" href="#review" aria-label="سديد: الصفحة الرئيسية">
+      <svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#C9A55A" stroke-width="2"/><path d="M50.0,14.0 L52.4,42.3 L62.0,36.0 L55.7,45.6 L84.0,48.0 L55.7,50.4 L62.0,60.0 L52.4,53.7 L50.0,88.0 L47.6,53.7 L38.0,60.0 L44.3,50.4 L16.0,48.0 L44.3,45.6 L38.0,36.0 L47.6,42.3 Z" fill="#E2B456"/></svg>
+      <span>سديد</span>
+    </a>
     <nav aria-label="الصفحات">
       <a href="#review" data-page="review">المراجعة</a>
       <a href="#settings" data-page="settings">الإعدادات</a>
@@ -28,20 +32,29 @@
   <!-- ═════════ المراجعة: الإدخال ═════════ -->
   <section class="view" id="v-compose" aria-labelledby="compose-h">
     <div class="compose">
-      <h1 id="compose-h">ألصق مسودتك، ويراجعها سديد قبل أن تنشرها</h1>
-      <p class="lead">يقابل سديد الآيات والأحاديث بمصادرها المعتمدة، وينبّه على الأقوال والأرقام ودعاوى الإجماع التي تحتاج توثيقًا. ويضع ملاحظاته على هامش نصك دون أن يغيّر منه شيئًا.</p>
-      <div class="paper">
-        <label for="draft" class="sr">نص المسودة</label>
-        <textarea id="draft" placeholder="ألصق هنا نص الخطبة أو المحاضرة أو المقالة…" spellcheck="false"></textarea>
-        <div class="paper-foot">
-          <span class="wc" id="wc">0 كلمة</span>
-          <button class="btn quiet" id="clear" type="button">امسح</button>
-          <button class="btn primary" id="go" type="button">راجِع المسودة</button>
-        </div>
+      <div class="intro">
+        <p class="verse" lang="ar">﴿يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱتَّقُواْ ٱللَّهَ وَقُولُواْ قَوۡلٗا سَدِيدٗا﴾</p>
+        <p class="verse-ref">الأحزاب: 70</p>
+        <h1 id="compose-h">مراجعة المسودة قبل أن تبلغ الناس</h1>
+        <p class="lead">يقابل سديد الآيات والأحاديث في الخطبة أو الدرس أو المقالة بمصادرها المعتمدة، وينبّه على الأقوال والأرقام ودعاوى الإجماع التي تحتاج توثيقًا، ويضع الدليل بجانب كل موضع. ولا يغيّر من النص حرفًا، ولا يفتي.</p>
+        <dl class="facts">
+          <div><dt>6236</dt><dd>آية، حرفًا بحرف</dd></div>
+          <div><dt>30,845</dt><dd>حديثًا في الكتب الستة</dd></div>
+          <div><dt>27</dt><dd>قاعدة مكتوبة للحكم</dd></div>
+        </dl>
       </div>
-      <p class="msg" id="compose-msg" role="alert" hidden></p>
-      <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة"><span>أو جرّب مثالًا:</span></div>
-      <p class="fine">حتى 3000 كلمة. ولا تُخزَّن المسودات ولا تُسجَّل.</p>
+      <div class="paper">
+        <div class="paper-head"><span>مسودة جديدة</span><small>حتى 3000 كلمة · لا تُخزَّن ولا تُسجَّل</small></div>
+        <label for="draft" class="sr">نص المسودة</label>
+        <textarea id="draft" placeholder="ألصق هنا نص الخطبة أو الدرس أو المقالة…" spellcheck="false"></textarea>
+        <div class="paper-foot">
+          <button class="btn primary" id="go" type="button">راجِع المسودة</button>
+          <button class="btn quiet" id="clear" type="button">امسح</button>
+          <span class="wc" id="wc">0 كلمة</span>
+        </div>
+        <p class="msg" id="compose-msg" role="alert" hidden></p>
+        <div class="examples" id="examples" role="group" aria-label="أمثلة جاهزة"><span>أو اطّلع على تقرير جاهز:</span></div>
+      </div>
     </div>
   </section>
 
@@ -49,14 +62,23 @@
   <section class="view" id="v-result" aria-labelledby="sum-h" hidden>
     <div class="sumbar">
       <div class="sum-text">
+        <p class="kicker" id="sum-k">تقرير المراجعة</p>
         <h1 id="sum-h">يقرأ سديد مسودتك…</h1>
-        <div class="counts" id="counts"></div>
       </div>
       <div class="sum-actions">
+        <button class="btn" id="copy" type="button" disabled>نسخ الملاحظات</button>
+        <button class="btn" id="print" type="button" disabled>تصدير PDF</button>
         <button class="btn" id="edit" type="button">عدّل المسودة</button>
-        <button class="btn" id="new" type="button">مراجعة جديدة</button>
+        <button class="btn primary" id="new" type="button">مراجعة جديدة</button>
       </div>
     </div>
+    <div class="tiles" id="tiles" hidden></div>
+    <div class="ready" id="ready" hidden>
+      <div class="ready-h"><span>جاهزية المسودة للنشر</span><b id="ready-pct"></b><span class="ready-say" id="ready-say"></span></div>
+      <div class="track" id="track"></div>
+      <p class="ready-fine">تقدير إرشادي من عدد الملاحظات وأثرها، لا حكم على المسودة. والشريط خريطتها: كل موضع في مكانه من النص.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="فرز الملاحظات" hidden></div>
     <p class="status" id="status" role="status" aria-live="polite"></p>
     <div class="banner" id="banner" role="alert" hidden></div>
     <div class="folio" id="folio">
@@ -388,10 +410,12 @@ uv run saadeed eval run --split dev --systems saadeed,B0 --replay</pre>
 </main>
 
 <footer class="foot">
-  <p>سديد · محمد عبدالرحمن · 2026 · <a href="https://github.com/abdorum/Saadeed" target="_blank" rel="noopener">الكود مفتوح المصدر</a></p>
-  <p class="fine">سديد أداة مراجعة، وليس فتوى. وعدم التنبيه على موضع لا يعني صحته.</p>
+  <div class="foot-in">
+    <div><b>سديد</b><p>أداة مراجعة، وليس فتوى. وعدم التنبيه على موضع لا يعني صحته.</p></div>
+    <p><a href="https://github.com/abdorum/Saadeed" target="_blank" rel="noopener">الكود مفتوح المصدر</a> · محمد عبدالرحمن · 2026</p>
+  </div>
 </footer>
 
-<script src="assets/app.js?v=0.4.6"></script>
+<script src="assets/app.js?v=0.6.0"></script>
 </body>
 </html>

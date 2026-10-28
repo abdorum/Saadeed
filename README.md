@@ -11,14 +11,11 @@
 **[جرّب سديد](https://abdorum-saadeed.static.hf.space)** · [البدء السريع](#البدء-السريع) · [الواجهة البرمجية](#الواجهة-البرمجية) · [البنية](#البنية) · [English](README.en.md)
 
 <p align="right">
-  <img alt="version 0.5.0" src="https://img.shields.io/badge/version-0.5.0-1F3A63">
+  <img alt="version 0.6.0" src="https://img.shields.io/badge/version-0.6.0-1F3A63">
   <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-B8913F">
   <img alt="144 tests" src="https://img.shields.io/badge/tests-144%20passing-3E6A4B">
-  <img alt="status frozen" src="https://img.shields.io/badge/status-frozen-887D69">
 </p>
-
-> **حالة المشروع: مجمَّد منذ 28 أكتوبر 2026** على الإصدار 0.5.0. الصفحة والأمثلة تعمل، والفحص الحي يعمل ما بقي الخادم ومزود النموذج. ولا تطوير جديد حتى يُستأنف العمل.
 
 <p align="center">
   <img src="docs/assets/screenshot-report.png" alt="تقرير سديد على خطبة قصيرة: المسودة في الوسط بمواضعها المظللة، والحواشي بجانبها، وأولها آية تبدّلت فيها كلمة ونص المصحف بجانبها" width="100%">
@@ -235,7 +232,7 @@ curl -s http://127.0.0.1:8000/v1/reviews \
       "labels_ar": { "evidence_status": "مطابق جزئيًا", "severity": "مرتفع", "action": "صحّح من المصدر", "bucket": "يتطلب تحققًا", "claim_type": "آية قرآنية" }
     }
   ],
-  "meta": { "saadeed_version": "0.5.0", "llm": "none", "policy_version": "BR-2026.10.06-v2.6",
+  "meta": { "saadeed_version": "0.6.0", "llm": "none", "policy_version": "BR-2026.10.06-v2.6",
             "manifest": { "id": "saadeed-2026.10-v4", "sha256": "ce27c52a9966…" }, "llm_calls": 0, "degraded": false }
 }
 ```
@@ -363,8 +360,8 @@ docs/            الوثائق، والصور ومصادرها في docs/assets
 ## عن المشروع
 
 - **المؤلف:** محمد عبدالرحمن.
-- **الحالة:** مجمَّد منذ 28 أكتوبر 2026 على الإصدار 0.5.0 ([سجل الإصدارات](CHANGELOG.md)).
+- **الإصدار:** 0.6.0 ([سجل الإصدارات](CHANGELOG.md)).
 - **الترخيص:** الكود MIT ([LICENSE](LICENSE))، والبيانات بتراخيص مصادرها ([`data/SOURCES.md`](data/SOURCES.md)). ومن استعمله فليذكر مصدره ([CITATION.cff](CITATION.cff)).
-- **الخطوط:** IBM Plex Sans Arabic، وAref Ruqaa للشعار، وAmiri Quran لنص المصحف، وكلها بترخيص SIL OFL.
+- **الخطوط:** Amiri للعناوين، وIBM Plex Sans Arabic للنص، وAmiri Quran لنص المصحف، وكلها بترخيص SIL OFL.
 
 > ﴿وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ﴾ [الإسراء: ٣٦]

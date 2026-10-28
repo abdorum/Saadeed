@@ -15,14 +15,11 @@ It checks every claim in a sermon, lesson or article against vetted sources, and
 </p>
 
 <p align="center">
-  <img alt="version 0.5.0" src="https://img.shields.io/badge/version-0.5.0-1F3A63">
+  <img alt="version 0.6.0" src="https://img.shields.io/badge/version-0.6.0-1F3A63">
   <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-B8913F">
   <img alt="144 tests" src="https://img.shields.io/badge/tests-144%20passing-3E6A4B">
-  <img alt="status frozen" src="https://img.shields.io/badge/status-frozen-887D69">
 </p>
-
-> **Status: frozen since 28 October 2026** at version 0.5.0. The demo page and its examples keep working, and live review works while the server and model provider are up. No new development until work resumes.
 
 <p align="center">
   <img src="docs/assets/screenshot-report.png" alt="A Saadeed report: the draft in the middle with highlighted spans, numbered margin notes beside it; the open note shows a Quran verse with one altered word next to the Mushaf text" width="100%">
@@ -207,5 +204,5 @@ The project documents are in Arabic: [vision](docs/01-VISION.md), [FAQ](docs/02-
 ## About
 
 - **Author:** Mohammed Abdulrahman.
-- **Status:** frozen since 28 October 2026 at version 0.5.0.
+- **Version:** 0.6.0 ([changelog](CHANGELOG.md)).
 - **License:** code under MIT ([LICENSE](LICENSE)); data under the licenses of its sources ([`data/SOURCES.md`](data/SOURCES.md)). If you use or build on Saadeed, please cite it ([CITATION.cff](CITATION.cff)).

@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <title>سديد: صورة المعاينة</title>
 <!-- مصدر docs/assets/social-preview.png (1280×640، بمقياس 1): صورة المعاينة في إعدادات GitHub. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
 <style>
   * { box-sizing: border-box; margin: 0; }
   body { background: #172C4C; }
   #canvas { width: 1280px; height: 640px; position: relative; overflow: hidden;
-            background: radial-gradient(120% 120% at 85% 0%, #24457A 0%, #1F3A63 45%, #172C4C 100%);
+            background: #0B2542;
             font-family: "IBM Plex Sans Arabic", sans-serif; color: #FBF7EC; }
   .frame { position: absolute; inset: 26px; border: 1.5px solid rgba(184, 145, 63, .75); border-radius: 26px; }
   .frame::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 145, 63, .3); border-radius: 20px; }
   .wrap { position: absolute; inset: 0; padding: 92px 110px 0; }
-  .mark { font-family: "Aref Ruqaa", serif; font-weight: 700; font-size: 170px; line-height: 1; color: #DCC386; }
+  .mark { display: flex; align-items: center; gap: 28px; font-family: "Amiri", serif; font-weight: 700; font-size: 120px; line-height: 1; color: #F5E7D0; }
   .tag { margin-top: 26px; font-size: 44px; font-weight: 600; }
-  .lead { margin-top: 14px; font-size: 25px; color: #DCC386; font-weight: 400; }
+  .lead { margin-top: 14px; font-size: 25px; color: #A9B6C4; font-weight: 400; }
   .en { position: absolute; left: 110px; right: 110px; bottom: 74px; display: flex; justify-content: space-between; align-items: center;
         direction: ltr; font-family: "IBM Plex Mono", monospace; font-size: 17px; color: rgba(251, 247, 236, .78); }
   .en b { color: #FBF7EC; font-weight: 500; }
@@ -28,7 +28,7 @@
 <div id="canvas">
   <div class="frame"></div>
   <div class="wrap">
-    <div class="mark">سديد</div>
+    <div class="mark"><svg width="128" height="128" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#C9A55A" stroke-width="1.6"></circle><path d="M50.0,14.0 L52.4,42.3 L62.0,36.0 L55.7,45.6 L84.0,48.0 L55.7,50.4 L62.0,60.0 L52.4,53.7 L50.0,88.0 L47.6,53.7 L38.0,60.0 L44.3,50.4 L16.0,48.0 L44.3,45.6 L38.0,36.0 L47.6,42.3 Z" fill="#E2B456"></path></svg>سديد</div>
     <div class="tag">مُراجِع ما قبل النشر للمحتوى الدعوي</div>
     <div class="lead">يقابل الآيات والأحاديث بمصادرها، ويضع الدليل بجانب كل موضع</div>
   </div>

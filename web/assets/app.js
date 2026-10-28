@@ -188,7 +188,10 @@
     $("#banner").hidden = true;
     $("#audit").hidden = true;
     $("#sum-h").textContent = "يقرأ سديد مسودتك…";
-    $("#counts").innerHTML = "";
+    $("#sum-k").textContent = "تقرير المراجعة · " + (title ? "مثال: " + title : "مسودتك") + " · " + words(text) + " كلمة";
+    ["#tiles", "#ready", "#filters"].forEach(function (s) { $(s).hidden = true; });
+    $("#copy").disabled = $("#print").disabled = true;
+    FILTER = "all";
     $("#m-notes").innerHTML = "";
     $("#doc-t").textContent = title ? "مثال: " + title : "مسودتك";
     $("#doc-w").textContent = words(text) + " كلمة";
@@ -340,17 +343,80 @@
     var F = rep.findings || [];
     var c = { crit: 0, attn: 0, refer: 0, idle: 0, ok: 0 };
     F.forEach(function (f) { c[f._st]++; });
-    var chips = [];
-    if (c.crit) chips.push(["crit", ar(c.crit, "موضع حرج", "موضعان حرجان", "مواضع حرجة", "موضعًا حرجًا")]);
-    if (c.attn) chips.push(["attn", ar(c.attn, "واحد يتطلب تحققًا", "اثنان يتطلبان تحققًا", "تتطلب تحققًا", "يتطلب تحققًا")]);
-    if (c.refer) chips.push(["refer", ar(c.refer, "إحالة إلى مختص", "إحالتان إلى مختص", "إحالات إلى مختص", "إحالة إلى مختص")]);
-    if (c.idle) chips.push(["idle", ar(c.idle, "موضع لم يُفحص", "موضعان لم يُفحصا", "مواضع لم تُفحص", "موضعًا لم يُفحص")]);
-    if (c.ok) chips.push(["ok", ar(c.ok, "موضع تؤيده المصادر", "موضعان تؤيدهما المصادر", "مواضع تؤيدها المصادر", "موضعًا تؤيده المصادر")]);
-    $("#counts").innerHTML = pending ? "" : chips.map(function (x) {
-      return '<span class="count ' + x[0] + '"><i aria-hidden="true"></i>' + x[1] + "</span>";
-    }).join("");
     $("#sum-h").textContent = pending ? "يقرأ سديد مسودتك…" : summaryTitle(rep);
+    var done = !pending && F.length > 0;
+    ["#tiles", "#ready", "#filters"].forEach(function (s) { $(s).hidden = !done; });
+    $("#copy").disabled = $("#print").disabled = pending || !F.length;
+    if (!done) return;
 
+    var check = c.attn + c.refer + c.idle;
+    var tiles = [
+      ["crit", c.crit, c.crit === 1 ? "موضع حرج" : (c.crit === 2 ? "موضعان حرجان" : "مواضع حرجة")],
+      ["attn", check, c.refer ? "تتطلب تحققًا أو إحالة" : "تتطلب تحققًا"],
+      ["ok", c.ok, c.ok === 2 ? "تؤيدهما المصادر" : (c.ok === 1 ? "تؤيده المصادر" : "تؤيدها المصادر")],
+      ["all", F.length, F.length === 1 ? "ادعاء فُحص" : "ادعاءات فُحصت"]
+    ];
+    $("#tiles").innerHTML = tiles.map(function (t) {
+      return '<div class="tile t-' + t[0] + '"><b>' + t[1] + "</b><span>" + esc(t[2]) + "</span></div>";
+    }).join("");
+
+    // الجاهزية: كل ملاحظة تنقص منها بقدر أثرها، والحرج يمنع النشر مهما كانت النسبة
+    var W = { crit: 1, refer: 0.5, idle: 0.3, ok: 0 };
+    var SEV = { CRITICAL: 1, HIGH: 0.6, MEDIUM: 0.3, LOW: 0.1, NONE: 0.1 };
+    var lost = F.reduce(function (sum, f) { return sum + (f._st === "attn" ? (SEV[f.severity] || 0.3) : W[f._st]); }, 0);
+    var pct = Math.max(0, Math.round(100 * (1 - lost / F.length)));
+    var partial = (rep.summary.not_checked || []).length > 0;
+    $("#ready-pct").textContent = pct + "%";
+    $("#ready-say").textContent = c.crit ? "لا تُنشر قبل تصحيح الحرج" :
+      (partial ? "المراجعة ناقصة، فالنسبة غير مكتملة" : (pct >= 85 ? "قريبة من الجاهزية" : "تحتاج مراجعة قبل النشر"));
+    $("#ready").className = "ready " + (c.crit ? "r-crit" : pct >= 85 ? "r-ok" : "r-attn");
+
+    var L = Math.max(1, (CURRENT && CURRENT.text.length) || 1);
+    $("#track").innerHTML = '<span class="fill" style="width:' + pct + '%"></span>' + F.map(function (f) {
+      var a = 100 * f.claim.span.start / L, w = Math.max(0.8, 100 * (f.claim.span.end - f.claim.span.start) / L);
+      return '<button type="button" class="pin s-' + f._st + '" data-id="' + f.id + '" style="right:' + a.toFixed(2) + "%;width:" + w.toFixed(2) +
+        '%" aria-label="الموضع ' + f._n + ": " + esc(stateLabel(f)) + '"></button>';
+    }).join("");
+
+    var G = { quran: ["QURAN_QUOTE"], hadith: ["HADITH_QUOTE", "TAKHRIJ", "HADITH_CONCLUSION"],
+      said: ["ATTRIBUTED_SAYING", "CONSENSUS_CLAIM", "GENERALIZATION", "GROUP_JUDGMENT", "HISTORICAL_EVENT"],
+      num: ["STATISTIC"], fatwa: ["RULING", "PERSONAL_CASE"] };
+    var tabs = [["all", "الكل", F.length], ["need", "تحتاج مراجعة", F.length - c.ok]];
+    [["quran", "الآيات"], ["hadith", "الأحاديث"], ["said", "الأقوال والإجماع"], ["num", "الأرقام"], ["fatwa", "الفتوى"]].forEach(function (g) {
+      var n = F.filter(function (f) { return G[g[0]].indexOf(f.claim.type) >= 0; }).length;
+      if (n) tabs.push([g[0], g[1], n]);
+    });
+    GROUPS = G;
+    $("#filters").innerHTML = tabs.map(function (t) {
+      return '<button type="button" data-f="' + t[0] + '" aria-pressed="' + (FILTER === t[0]) + '">' + esc(t[1]) + " · " + t[2] + "</button>";
+    }).join("");
+    applyFilter();
+  }
+
+  var FILTER = "all", GROUPS = {};
+  function applyFilter() {
+    (CURRENT ? CURRENT.report.findings : []).forEach(function (f) {
+      var on = FILTER === "all" || (FILTER === "need" ? f._st !== "ok" : (GROUPS[FILTER] || []).indexOf(f.claim.type) >= 0);
+      var n = $('.note[data-id="' + f.id + '"]');
+      if (n) n.hidden = !on;
+    });
+    $$("#filters button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.f === FILTER)); });
+    place();
+  }
+
+  function notesText() {
+    var rep = CURRENT.report, out = [$("#sum-k").textContent, $("#sum-h").textContent + " · جاهزية المسودة للنشر " + $("#ready-pct").textContent, ""];
+    rep.findings.forEach(function (f) {
+      var L = f.labels_ar || {}, ev = (f.evidence || [])[0];
+      out.push(f._n + ". " + (L.claim_type || "") + " · " + stateLabel(f));
+      out.push("«" + f.claim.text + "»");
+      out.push(f.explanation);
+      if (f._st !== "ok") out.push("الإجراء: " + (L.action || "") + ". " + f.next_step);
+      if (ev && ev.ref) out.push("المصدر: " + shortCite(ev.ref.citation) + (ev.ref.url ? " " + ev.ref.url : ""));
+      out.push("");
+    });
+    out.push("سديد أداة مراجعة، وليس فتوى. وعدم التنبيه على موضع لا يعني صحته.");
+    return out.join("\n");
   }
 
   /* المتن: الفقرات بأنواعها، ومواضع الملاحظات، ورقم كل ملاحظة بعد موضعها */
@@ -498,7 +564,7 @@
     ["#m-notes"].forEach(function (sel) {
       var col = $(sel);
       if (!col) return;
-      var notes = $$(".note", col);
+      var notes = $$(".note", col).filter(function (n) { return !n.hidden; });
       if (!wide() || $("#v-result").hidden) {
         col.classList.remove("placed"); col.style.minHeight = "";
         notes.forEach(function (n) { n.style.top = ""; });
@@ -740,6 +806,27 @@
       hasResult = false;
       show("compose");
       $("#draft").focus();
+    });
+    $("#filters").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-f]");
+      if (b) { FILTER = b.dataset.f; applyFilter(); }
+    });
+    $("#track").addEventListener("click", function (e) {
+      var b = e.target.closest(".pin");
+      if (!b) return;
+      if (FILTER !== "all") { FILTER = "all"; applyFilter(); }
+      openNote(b.dataset.id, "note");
+    });
+    $("#copy").addEventListener("click", function () {
+      if (!CURRENT) return;
+      var done = function () { setStatus("نُسخت الملاحظات. الصقها حيث شئت."); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(notesText()).then(done, function () { setStatus("تعذّر النسخ من هذا المتصفح."); });
+      else setStatus("تعذّر النسخ من هذا المتصفح.");
+    });
+    $("#print").addEventListener("click", function () {
+      $$(".note").forEach(function (n) { n.classList.add("printing"); });
+      window.print();
+      $$(".note").forEach(function (n) { n.classList.remove("printing"); });
     });
     $("#new").addEventListener("click", function () {
       RUN++;
